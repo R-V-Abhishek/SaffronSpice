@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saffron Spice Restaurant</title>
+    
+    <style>
+        /* Basic styling for the entire page */
+        html {
+            scroll-behavior: smooth;/* Enable smooth scrolling on the entire page */
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 5px;
+            background-color: #f5f5f5;
+            color: black;
+        }
+
+        .header {
+            text-align: center;
+            display: grid;
+            grid-template-rows: auto auto;
+            width: 100%
+        }
+        
+        .logo-container{
+            background-color: #a65b00;
+            max-height: auto;
+        }
+        .logo {
+            max-width: 15%;
+            height: auto; /* Auto height to maintain aspect ratio */
+            background: #a65b00;
+            display: block;
+            margin: 0 auto; /* Center the logo horizontally */
+            padding: 1%;
+        }
+
+
+        /* Grid-based name styling */
+        .name {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Split into two columns */
+            align-items: center; /* Vertically center the text */
+        }
+
+        .restaurant-fname {
+            font-size:calc(100% + 12vw); /* Large font size for "Saffron" */
+            color: orange;
+            font-family: 'Brush Script MT', cursive;
+            text-align: right; /* Align "Saffron" to the right */
+            background-color: rgb(216, 31, 31);
+            padding-right: 10px;
+            text-shadow: 
+            2px 2px 4px rgba(0, 0, 0, 0.7),  /* First shadow */
+            4px 4px 6px rgba(0, 0, 0, 0.7),  /* Second shadow */
+            6px 6px 8px rgba(0, 0, 0, 0.7);  /* Third shadow */
+        }
+
+        .restaurant-lname {
+            font-size:calc(100% + 12vw); /* Smaller font size for "Spice" */
+            color: rgb(216, 31, 31);
+            margin: 0;
+            font-family: 'Brush Script MT', cursive;
+            text-align: left; /* Align "Spice" to the left */
+            background-color: orange;
+            padding-left: 10px;
+            text-shadow: 
+            3px 3px 6px rgba(0, 0, 0, 0.2),  /* Darker shadow 1 */
+            5px 5px 8px rgba(0, 0, 0, 0.2),  /* Darker shadow 2 */
+            7px 7px 10px rgba(0, 0, 0, 0.2); /* Darker shadow 3 */
+        }
+
+        /* Navbar styling */
+        .navbar {
+            background-color: #a65b00; /* Darker color for the navigation bar */
+            overflow: hidden; /* Ensures the content fits within the navbar */
+        }
+
+        .navbar ul {
+            list-style-type: none; /* Remove default list styling */
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        .navbar ul li {
+            display: inline; /* Align menu items horizontally */
+            margin: 0 15px;
+        }
+
+        .navbar ul li a {
+            text-decoration: none; /* Remove underline from links */
+            color: #fff; /* White text color for links */
+            padding: 10px 15px;
+            display: inline-block;
+        }
+
+        .navbar ul li a:hover {
+            background-color: #d4a017; /* Change background color on hover */
+            border-radius: 5px; /* Rounded corners on hover */
+        }
+
+        /* Container to center the content */
+        .container {
+            max-width: 1000px; /* Limit the width of the content */
+            margin: 0 auto; /* Center the content */
+        }
+
+        /* Section styling for About, Speciality, and Contact */
+        section {
+            padding: 40px 0; /* Add space above and below sections */
+            background-color: #fff; /* White background for sections */
+            margin: 20px 0; /* Space between sections */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+        }
+
+        /* Styling for section headings */
+        .about h2, .speciality h2, .contact h2 {
+            color: #a65b00; /* Darker saffron color */
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        /* Paragraph styling for section content */
+        .about p, .speciality p, .contact p {
+            font-size: 1.1em; /* Slightly larger text */
+            line-height: 1.6; /* Spacing between lines for readability */
+            text-align: center;
+        }
+
+        /* Footer styling */
+        .footer {
+            background-color: #333; /* Dark background for footer */
+            color: #fff; /* White text in footer */
+            text-align: center;
+            padding: 10px 0; /* Padding inside the footer */
+        }
+    </style>
+</head>
+<body>
+    <!-- Header section with logo and restaurant name -->
+    <header class="header">
+        <div class="logo-container"><img src="Images/SaffronSpice.jpeg" alt="Saffron Spice Logo" class="logo"></div>    
+        <div class="name">
+            <div class="restaurant-fname">Saffron</div>
+            <div class="restaurant-lname">Spice</div>
+        </div>
+    </header>
+
+    <!-- Navigation bar with links to different sections of the page -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#speciality">Speciality</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- About Us section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About Us</h2>
+            <p>Welcome to Saffron Spice, where we bring the rich flavors of Indian cuisine to your plate. Our chefs use the finest spices and ingredients to create dishes that are bursting with flavor and tradition.</p>
+        </div>
+    </section>
+
+    <!-- Speciality section showcasing the unique dishes -->
+    <section id="speciality" class="speciality">
+        <div class="container">
+            <h2>Our Speciality</h2>
+            <p>Experience the taste of authentic Indian dishes like Chicken Tikka Masala, Biryani, Butter Naan, and our signature Saffron-infused desserts. We promise a culinary journey like no other!</p>
+        </div>
+    </section>
+
+    <!-- Contact Us section with address, phone, and email -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <p>📍 Address: 123 Spice Street, Flavor Town, India</p>
+            <p>📞 Phone: +91-123-456-7890</p>
+            <p>📧 Email: contact@saffronspice.com</p>
+        </div>
+    </section>
+
+    <!-- Footer with copyright information -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Saffron Spice. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
