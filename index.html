@@ -8,9 +8,9 @@
     <style>
         /* Basic styling for the entire page */
         html {
-            scroll-behavior: smooth; /* Enable smooth scrolling on the entire page */
+            scroll-behavior: smooth; /* Enable smooth scrolling */
         }
-        
+
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
@@ -28,13 +28,11 @@
 
         .logo-container {
             background-color: #a65b00;
-            max-height: auto;
         }
 
         .logo {
             max-width: 15%;
             height: auto;
-            background: #a65b00;
             display: block;
             margin: 0 auto;
             padding: 1%;
@@ -46,10 +44,9 @@
             filter: brightness(1.1); /* Increase brightness on hover */
         }
 
-        /* Grid-based name styling */
         .name {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* Split into two columns */
+            grid-template-columns: 1fr 1fr;
             align-items: center;
         }
 
@@ -130,71 +127,47 @@
             transform: scale(1.1);
         }
 
-        /* Menu section styling */
-        .menu {
-            padding: 40px 0;
-            background-color: #fff;
-            margin: 20px 0;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            opacity: 0;
-            animation: fadeIn 1s forwards;
-        }
-
-        .menu h2 {
-            color: #a65b00;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .menu-items {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            gap: 30px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .menu-item {
+        /* Section Styling */
+        .about, .speciality, .contact {
+            padding: 60px 20px;
             background-color: #f9f9f9;
-            padding: 20px;
+            margin: 20px auto;
             border-radius: 10px;
-            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 90%;
         }
 
-        .menu-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .menu-item img {
-            width: 100%;
-            max-height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 15px;
-        }
-
-        .menu-item h3 {
+        .about h2, .speciality h2, .contact h2 {
             color: #a65b00;
-            font-size: 1.5em;
-            margin-bottom: 10px;
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
         }
 
-        .menu-item p {
-            font-size: 1.1em;
-            line-height: 1.6;
+        .about p, .speciality p, .contact p {
+            font-size: 1.2em;
+            line-height: 1.8;
             color: #333;
+            text-align: center;
+            margin: 10px auto;
+            max-width: 800px;
         }
 
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
+        /* Image Styling */
+        .container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .container img:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
         }
 
         /* Footer styling */
@@ -204,19 +177,9 @@
             text-align: center;
             padding: 10px 0;
         }
-
-        /* Section headers styling */
-        .section-header {
-            font-size: 2em;
-            margin: 30px 0;
-            color: #a65b00;
-            text-align: center;
-            text-transform: uppercase;
-        }
     </style>
 </head>
 <body>
-    <!-- Header section with logo and restaurant name -->
     <header class="header">
         <div class="logo-container"><img src="Images/SaffronSpice.jpeg" alt="Saffron Spice Logo" class="logo"></div>    
         <div class="name">
@@ -225,221 +188,50 @@
         </div>
     </header>
 
-    <!-- Navigation bar with links to different sections of the page -->
     <nav class="navbar">
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="#about">About Us</a></li>
             <li><a href="#speciality">Speciality</a></li>
-            <li><a href="#menu">Menu</a></li>
+            <li><a href="menu.html">Menu</a></li>
             <li><a href="#contact">Contact Us</a></li>
         </ul>
     </nav>
 
-    <!-- Menu section -->
-    <section id="menu" class="menu">
-        <h2>Our Menu</h2>
-        
-        <!-- Vegetarian Section -->
-        <div class="section-header">Vegetarian Dishes</div>
-        <div class="menu-items">
-            <!-- Menu items go here -->
-            <div class="menu-item">
-                <img src="Images/veg-biryani.jpg" alt="Vegetable Biryani">
-                <h3>Vegetable Biryani</h3>
-                <p>A fragrant rice dish made with mixed vegetables, saffron, and a blend of aromatic spices.</p>
-                <p><strong>Price: ₹200</strong></p>
-            </div>
-            <div class="menu-item">
-                <img src="Images/palak-paneer.jpg" alt="Palak Paneer">
-                <h3>Palak Paneer</h3>
-                <p>A creamy spinach curry with paneer cubes, cooked in a mix of spices.</p>
-                <p><strong>Price: ₹220</strong></p>
-            </div>
-            <div class="menu-item">
-                <img src="Images/aloo-gobhi.jpg" alt="Aloo Gobi">
-                <h3>Aloo Gobi</h3>
-                <p>A hearty dish made with potatoes and cauliflower cooked in aromatic Indian spices.</p>
-                <p><strong>Price: ₹180</strong></p>
-            </div>
-            <div class="menu-item">
-                <img src="Images/baingan-bharta.jpg" alt="Baingan Bharta">
-                <h3>Baingan Bharta</h3>
-                <p>Smoky mashed eggplant cooked with tomatoes and spices.</p>
-                <p><strong>Price: ₹210</strong></p>
-            </div>
-            <div class="menu-item">
-                <img src="Images/vegetable-pulao.jpg" alt="Vegetable Pulao">
-                <h3>Vegetable Pulao</h3>
-                <p>A fragrant rice dish made with assorted vegetables and mild spices.</p>
-                <p><strong>Price: ₹150</strong></p>
-            </div>
-            <div class="menu-item">
-                <img src="Images/dal-tadka.jpg" alt="Dal Tadka">
-                <h3>Dal Tadka</h3>
-                <p>A traditional yellow lentil dish flavored with cumin, garlic, and ghee.</p>
-                <p><strong>Price: ₹130</strong></p>
-            </div>
-            <div class="menu-item">
-                <img src="Images/veg-kofta-curry.jpg" alt="Vegetable Kofta Curry">
-                <h3>Vegetable Kofta Curry</h3>
-                <p>Deep-fried vegetable dumplings in a rich, flavorful gravy.</p>
-                <p><strong>Price: ₹250</strong></p>
-            </div>
-            <div class="menu-item">
-                <img src="Images/jeera-rice.jpg" alt="Jeera Rice">
-                <h3>Jeera Rice</h3>
-                <p>A simple and aromatic rice dish flavored with cumin seeds.</p>
-                <p><strong>Price: ₹100</strong></p>
-            </div>
-            <div class="menu-item">
-                <img src="Images/veg-korma.jpg" alt="Vegetable Korma">
-                <h3>Vegetable Korma</h3>
-                <p>A rich, creamy curry made with mixed vegetables and cashew paste.</p>
-                <p><strong>Price: ₹240</strong></p>
-            </div>
-            <div class="menu-item">
-                <img src="Images/chana-masala.jpg" alt="Chana Masala">
-                <h3>Chana Masala</h3>
-                <p>A spicy chickpea curry cooked in tomato gravy with a variety of spices.</p>
-                <p><strong>Price: ₹170</strong></p>
-            </div>
-            <!-- More vegetarian items can be added here -->
-        </div>
-
-        <!-- Non-Vegetarian Section -->
-        <div class="section-header">Non-Vegetarian Dishes</div>
-        <div class="menu-items">
-            <!-- Non-Veg Menu Items -->
-            <div class="menu-item">
-                <img src="Images/chicken-tikka.jpg" alt="Chicken Tikka">
-                <h3>Chicken Tikka</h3>
-                <p>Marinated chicken pieces grilled to perfection, served with mint chutney.</p>
-                <p><strong>Price: ₹280</strong></p>
-            </div>
-            <div class="menu-item">
-                <img src="Images/mutton-korma.jpg" alt="Mutton Korma">
-                <h3>Mutton Korma</h3>
-                <p>Succulent pieces of mutton cooked in a rich and creamy sauce.</p>
-                <p><strong>Price: ₹350</strong></p>
-            </div>
-            <div class="menu-item">
-                <img src="Images/chicken-biryani.jpg" alt="Chicken Biryani">
-                <h3>Chicken Biryani</h3>
-                <p>Fragrant rice cooked with tender chicken pieces and aromatic spices.</p>
-                <p><strong>Price: ₹300</strong></p>
-            </div>
-            <div class="menu-item">
-                <img src="Images/fish-curry.jpg" alt="Fish Curry">
-                <h3>Fish Curry</h3>
-                <p>Deliciously spiced fish cooked in a tangy tomato-based curry.</p>
-                <p><strong>Price: ₹350</strong></p>
-            </div>
-            <div class="menu-item">
-                <img src="Images/keema-matar.jpg" alt="Keema Matar">
-                <h3>Keema Matar</h3>
-                <p>Minced meat cooked with peas in a flavorful curry sauce.</p>
-                <p><strong>Price: ₹290</strong></p>
-            </div>
-            <div class="menu-item">
-                <img src="Images/chicken-curry.jpg" alt="Chicken Curry">
-                <h3>Chicken Curry</h3>
-                <p>A hearty chicken curry made with a mix of aromatic spices and fresh tomatoes.</p>
-                <p><strong>Price: ₹270</strong></p>
-            </div>
-            <div class="menu-item">
-                <img src="Images/seekh-kebab.jpg" alt="Seekh Kebab">
-                <h3>Seekh Kebab</h3>
-                <p>Minced meat seasoned with spices and grilled on skewers.</p>
-                <p><strong>Price: ₹200</strong></p>
-            </div>
-            <div class="menu-item">
-                <img src="Images/chicken-masala.jpg" alt="Chicken Masala">
-                <h3>Chicken Masala</h3>
-                <p>Spicy chicken cooked in a thick, flavorful masala gravy.</p>
-                <p><strong>Price: ₹260</strong></p>
-            </div>
-            <div class="menu-item">
-                <img src="Images/lamb-shank.jpg" alt="Lamb Shank">
-                <h3>Lamb Shank</h3>
-                <p>Slow-cooked lamb shank in a rich gravy of spices and herbs.</p>
-                <p><strong>Price: ₹400</strong></p>
-            </div>
-            <!-- More non-veg items can be added here -->
-        </div>
-
-        <!-- Chinese Section -->
-        <div class="section-header">Chinese Dishes</div>
-        <div class="menu-items">
-            <!-- Chinese Menu Items -->
-            <div class="menu-item">
-                <img src="Images/chinese-fried-rice.jpg" alt="Chinese Fried Rice">
-                <h3>Chinese Fried Rice</h3>
-                <p>A stir-fried rice dish with vegetables, soy sauce, and aromatic herbs.</p>
-                <p><strong>Price: ₹150</strong></p>
-            </div>
-            <div class="menu-item">
-                <img src="Images/veg-chowmein.jpg" alt="Veg Chowmein">
-                <h3>Veg Chowmein</h3>
-                <p>Soft noodles stir-fried with vegetables and soy sauce.</p>
-                <p><strong>Price: ₹180</strong></p>
-            </div>
-            <div class="menu-item">
-                <img src="Images/veg-manchurian.jpg" alt="Veg Manchurian">
-                <h3>Veg Manchurian</h3>
-                <p>Fried vegetable balls in a tangy and spicy soy-based gravy.</p>
-                <p><strong>Price: ₹190</strong></p>
-            </div>
-            <div class="menu-item">
-                <img src="Images/chicken-chowmein.jpg" alt="Chicken Chowmein">
-                <h3>Chicken Chowmein</h3>
-                <p>Stir-fried noodles with tender chicken, vegetables, and a savory sauce.</p>
-                <p><strong>Price: ₹220</strong></p>
-            </div>
-            <!-- More Chinese items can be added here -->
-        </div>
-
-        <!-- Beverages Section -->
-        <div class="section-header">Beverages</div>
-        <div class="menu-items">
-            <!-- Beverage Menu Items -->
-            <div class="menu-item">
-                <img src="Images/masala-chai.jpg" alt="Masala Chai">
-                <h3>Masala Chai</h3>
-                <p>Traditional Indian spiced tea made with ginger, cardamom, and cinnamon.</p>
-                <p><strong>Price: ₹50</strong></p>
-            </div>
-            <div class="menu-item">
-                <img src="Images/lassi.jpg" alt="Lassi">
-                <h3>Lassi</h3>
-                <p>A refreshing yogurt-based drink available in sweet or salty flavors.</p>
-                <p><strong>Price: ₹80</strong></p>
-            </div>
-            <div class="menu-item">
-                <img src="Images/masala-soda.jpg" alt="Masala Soda">
-                <h3>Masala Soda</h3>
-                <p>Spiced soda with a hint of lemon, mint, and cumin.</p>
-                <p><strong>Price: ₹60</strong></p>
-            </div>
-            <div class="menu-item">
-                <img src="Images/fresh-mango-juice.jpg" alt="Fresh Mango Juice">
-                <h3>Fresh Mango Juice</h3>
-                <p>A sweet and refreshing juice made from ripe, fresh mangoes.</p>
-                <p><strong>Price: ₹100</strong></p>
-            </div>
-            <div class="menu-item">
-                <img src="Images/cold-coffee.jpg" alt="Cold Coffee">
-                <h3>Cold Coffee</h3>
-                <p>Chilled coffee blended with ice cream and topped with whipped cream.</p>
-                <p><strong>Price: ₹120</strong></p>
-            </div>
-            <!-- More beverage items can be added here -->
+    <!-- About Us Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <img src="Images/about-us.jpg" alt="About Saffron Spice">
+            <h2>About Us</h2>
+            <p>Welcome to Saffron Spice, where we bring the rich flavors of Indian cuisine to your plate. Our chefs use the finest spices and ingredients to create dishes that are bursting with flavor and tradition.</p>
         </div>
     </section>
 
-    <!-- Footer section with contact details -->
+    <!-- Speciality Section -->
+    <section id="speciality" class="speciality">
+        <div class="container">
+            <img src="Images/speciality.jpg" alt="Speciality Dishes">
+            <h2>Our Speciality</h2>
+            <p>Experience the taste of authentic Indian dishes like Chicken Tikka Masala, Biryani, Butter Naan, and our signature Saffron-infused desserts. We promise a culinary journey like no other!</p>
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <img src="Images/contact-us.jpg" alt="Contact Us">
+            <h2>Contact Us</h2>
+            <p>📍 Address: 123 Spice Street, Flavor Town, India</p>
+            <p>📞 Phone: +91-123-456-7890</p>
+            <p>📧 Email: contact@saffronspice.com</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer class="footer">
-        <p>&copy; 2024 Saffron Spice Restaurant. All Rights Reserved.</p>
+        <div class="container">
+            <p>&copy; 2024 Saffron Spice. All Rights Reserved.</p>
+        </div>
     </footer>
 </body>
 </html>
