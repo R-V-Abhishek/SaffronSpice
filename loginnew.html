@@ -23,7 +23,7 @@
 
         /* Light Mode Styles */
         body[data-bs-theme="light"] {
-            background-color:#e67e22;
+            background-color: #e67e22;
             color: #333;
         }
 
@@ -58,10 +58,11 @@
         .logo img {
             max-width: 30%;
             height: auto;
-            box-shadow:0px 1px 10px #231f1f;
+            box-shadow: 0px 1px 10px #231f1f;
         }
-        body[data-bs-theme="dark"] .logo img{
-            box-shadow:0px 1px 10px whitesmoke;
+
+        body[data-bs-theme="dark"] .logo img {
+            box-shadow: 0px 1px 10px whitesmoke;
         }
 
         .form-group {
@@ -104,20 +105,17 @@
 
         /* Toggle switch slider styles */
         .form-check {
-            position:absolute;
+            position: absolute;
             top: 10px;
             right: 0px;
-            left:0%;
+            left: 0%;
             display: flex;
             align-items: center;
         }
 
-       
-
         /* Custom toggle switch styles */
         .form-check-input {
             position: absolute;
-           
             appearance: none;
             background-color: #ccc;
             border-radius: 50px;
@@ -130,7 +128,6 @@
             position: absolute;
             top: 3px;
             left: 3px;
-            
             background-color: white;
             border-radius: 50%;
             transition: transform 0.3s;
@@ -154,17 +151,13 @@
         .theme-labels span {
             font-size: calc(0.8rem + 0.2vw);
         }
-
     </style>
 </head>
 
 <body data-bs-theme="dark">
     <div class="form-check form-switch mx-4">
-       
         <div class="theme-labels">
-            
             <input class="form-check-input p-2" type="checkbox" role="switch" id="themeToggle" checked onclick="myFunction()">
-            
         </div>
     </div>
 
@@ -184,22 +177,19 @@
             </div>
             <button type="submit">Login</button>
         </form>
+        <p class="text-center mt-4">
+            Don't have an account? 
+            <a href="signup.html" class="text-decoration-none" style="color: #d35400;">Sign Up</a>
+        </p>
     </div>
 
     <script>
         function myFunction() {
             var element = document.body;
-            var darkLabel = document.getElementById("darkLabel");
-            var lightLabel = document.getElementById("lightLabel");
-
             if (element.dataset.bsTheme === "dark") {
                 element.dataset.bsTheme = "light";
-                darkLabel.style.display = "none";
-                lightLabel.style.display = "block";
             } else {
                 element.dataset.bsTheme = "dark";
-                darkLabel.style.display = "block";
-                lightLabel.style.display = "none";
             }
         }
     </script>
