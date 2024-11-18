@@ -103,6 +103,7 @@
             background-color: #e67e22;
         }
 
+        /* Toggle switch slider styles */
         .form-check {
             position: absolute;
             top: 10px;
@@ -112,6 +113,7 @@
             align-items: center;
         }
 
+        /* Custom toggle switch styles */
         .form-check-input {
             position: absolute;
             appearance: none;
@@ -138,12 +140,25 @@
         .form-check-input:checked:before {
             transform: translateX(25px);
         }
+
+        /* Dark/Light labels */
+        .theme-labels {
+            display: flex;
+            justify-content: space-between;
+            width: 80px;
+        }
+
+        .theme-labels span {
+            font-size: calc(0.8rem + 0.2vw);
+        }
     </style>
 </head>
 
 <body data-bs-theme="dark">
     <div class="form-check form-switch mx-4">
-        <input class="form-check-input p-2" type="checkbox" role="switch" id="themeToggle" checked onclick="toggleTheme()">
+        <div class="theme-labels">
+            <input class="form-check-input p-2" type="checkbox" role="switch" id="themeToggle" checked onclick="myFunction()">
+        </div>
     </div>
 
     <div class="login-container">
@@ -151,7 +166,7 @@
             <img src="images/SaffronSpice.jpeg" alt="Saffron Spice Logo">
         </div>
         <h2>Login to Saffron Spice</h2>
-        <form id="loginForm">
+        <form action="#" method="post">
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" placeholder="Enter your username" required>
@@ -162,36 +177,21 @@
             </div>
             <button type="submit">Login</button>
         </form>
+        <p class="text-center mt-4">
+            Don't have an account? 
+            <a href="signup.html" class="text-decoration-none" style="color: #d35400;">Sign Up</a>
+        </p>
     </div>
 
     <script>
-        function toggleTheme() {
+        function myFunction() {
             var element = document.body;
-
             if (element.dataset.bsTheme === "dark") {
                 element.dataset.bsTheme = "light";
             } else {
                 element.dataset.bsTheme = "dark";
             }
         }
-
-        // Form validation and redirection logic
-        document.getElementById('loginForm').addEventListener('submit', function (e) {
-            e.preventDefault(); // Prevent default form submission
-
-            // Retrieve form field values
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value.trim();
-
-            // Basic validation
-            if (username === '' || password === '') {
-                alert('Please fill out all the fields.');
-                return;
-            }
-
-            // Redirect to index.html if validation passes
-            window.location.href = 'index.html';
-        });
     </script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -200,4 +200,3 @@
 </body>
 
 </html>
-
