@@ -43,15 +43,16 @@
 
         .logo-container {
             padding: 10px;
-            background-color: #a65b00;
+            background-color: orange;
             display: flex;
             justify-content: flex-start;
+            border-radius: 50%;
         }
 
         .logo {
             width: 100%;
             height: auto;
-            background: #a65b00;
+            background: orange;
             display: block;
             margin: 0;
             transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
@@ -65,12 +66,15 @@
 
         .name {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1.6fr 1.1fr;
             align-items: center;
             justify-content: center;
             text-align: center;
             transition: transform 0.3s ease;
             background: linear-gradient(120deg, brown, orange);
+            border-radius: 50%;
+            margin-left: 10px;
+            margin-right: 10px;
         }
 
         .restaurant-fname, .restaurant-lname {
@@ -78,7 +82,6 @@
             color: orange;
             font-family: 'Brush Script MT', cursive;
             text-align: center;
-            background-color: rgb(216, 31, 31);
             padding: 10px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
             opacity: 0;
@@ -86,7 +89,6 @@
         }
 
         .restaurant-lname {
-            background-color: orange;
             color: rgb(216, 31, 31);
             text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
         }
