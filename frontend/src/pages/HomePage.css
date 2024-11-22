@@ -1,0 +1,33 @@
+.about, .speciality, .contact {
+    padding: 60px 20px;
+    background-color: #f9f9f9;
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    opacity: 0;
+    animation: fadeInSection 1s forwards;
+}
+
+.about h2, .speciality h2, .contact h2 {
+    color: #a65b00;
+    font-size: 2.5em;
+    text-align: center;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes fadeInSection {
+    0% { opacity: 0; transform: translateY(50px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.about p, .speciality p, .contact p {
+    font-size: 1.2em;
+    line-height: 1.8;
+    color: #333;
+    text-align: center;
+    margin: 10px auto;
+    max-width: 800px;
+}
