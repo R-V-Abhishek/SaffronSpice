@@ -17,6 +17,7 @@
             box-sizing: border-box;
             transition: background-color 0.3s, color 0.3s;
             padding: 5px;
+            overflow-y:auto;
         }
 
         /* Light Mode Styles */
@@ -24,7 +25,7 @@
             background-color: #e67e22;
             color: #333;
         }
-        
+      
 
         /* Dark Mode Styles */
         body[data-bs-theme="dark"] {
@@ -38,11 +39,29 @@
             border-radius: 8px;
             box-shadow: 1px 20px 1000px black;
             width: 100%;
-            max-width: calc(500px + 10vw);
+            max-width: calc(30% + 10vw);
+            direction: rtl;
+            overflow-y:scroll;
+            height:100vh;
             box-sizing: border-box;
             transition: background-color 0.3s, color 0.3s;
-            margin-top: 34%;
-            
+            margin:15px;
+        }
+        .login-container * {
+            direction: ltr; /* Maintains normal text direction */
+           
+        }        
+        .login-container::-webkit-scrollbar {
+            width: 12px;
+            background-color: #f1f1f1;
+        }
+
+        .login-container::-webkit-scrollbar-thumb {
+            background: #d35400;
+        }
+
+        .login-container::-webkit-scrollbar-thumb:hover {
+            background: #555;
         }
 
         /* Dark mode for the login box */
@@ -101,6 +120,7 @@
             cursor: pointer;
             width: 100%;
             font-size: calc(1rem + 0.3vw);
+            text-align: center;
         }
 
         button:hover {
@@ -109,7 +129,7 @@
 
         /* Toggle switch slider styles */
         .form-check {
-            position: absolute;
+            position: fixed;
             top: 10px;
             right: 10px;
             display: flex;
