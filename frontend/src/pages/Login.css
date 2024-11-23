@@ -1,0 +1,153 @@
+/* General styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    font-size: calc(1rem + 0.5vw);
+    box-sizing: border-box;
+}
+
+/* Light Mode Styles */
+body[data-bs-theme="light"] {
+    background-color: #e67e22;
+    color: #333;
+}
+
+/* Dark Mode Styles */
+body[data-bs-theme="dark"] {
+    background-color: #121212;
+    color: white;
+}
+
+.login-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.login-container {
+    background-color: #fff;
+    padding: calc(1rem + 0.5vw);
+    border-radius: 8px;
+    box-shadow: 1px 20px 100px black;
+    width: 100%;
+    max-width: calc(300px + 10vw);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body[data-bs-theme="dark"] .login-container {
+    background-color: #231f1f;
+    box-shadow: 5px 10px 100px whitesmoke;
+}
+
+.logo {
+    margin-bottom: calc(1rem + 0.5vw);
+    text-align: center;
+}
+
+.logo img {
+    max-width: 30%;
+    height: auto;
+    box-shadow: 0px 1px 10px #231f1f;
+    border-radius: 50%;
+}
+
+body[data-bs-theme="dark"] .logo img {
+    box-shadow: 0px 1px 10px whitesmoke;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: calc(1rem + 0.5vw) 0;
+    box-sizing: border-box;
+}
+
+label {
+    margin-bottom: 0.5rem;
+    font-size: calc(1rem + 0.3vw);
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: calc(0.5rem + 0.3vw);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: calc(1rem + 0.3vw);
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #d35400;
+    color: white;
+    padding: calc(0.5rem + 0.3vw);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: calc(1rem + 0.3vw);
+}
+
+button:hover {
+    background-color: #e67e22;
+}
+
+/* Toggle switch slider styles */
+.form-check {
+    position: absolute;
+    top: 10px;
+    right: 0px;
+    display: flex;
+    align-items: center;
+}
+
+.form-check-input {
+    position: relative;
+    appearance: none;
+    width: 50px;
+    height: 25px;
+    background-color: #ccc;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.form-check-input:before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+.form-check-input:checked {
+    background-color: #4caf50;
+}
+
+.form-check-input:checked:before {
+    transform: translateX(25px);
+}
+
+/* Center and resize "Don't have an account?" text */
+.text-center {
+    font-size: 0.9rem; /* Smaller font size */
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #888; /* Optional: Make it visually distinct */
+}
+
+.text-center a {
+    color: #d35400; /* Link color */
+    text-decoration: none;
+}
+
+.text-center a:hover {
+    text-decoration: underline;
+}

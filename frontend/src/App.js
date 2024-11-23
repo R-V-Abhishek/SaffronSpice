@@ -1,28 +1,35 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Import Router and Routes
-import './App.css';
-import Header from './components/Header';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import HomePage from './pages/HomePage';
-import Menu from './pages/Menu';  // Make sure you have the Menu component
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
+import Login from "./pages/Login";
+import Signup from "./pages/SignUp"; // Uncomment when Signup is ready
+import Home from "./pages/HomePage";
 
-function App() {
+const App = () => {
   return (
-    <Router> {/* Wrap your app with Router */}
-      <div>
-        <Header />
-        <Navbar />
-        
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/menu" element={<Menu />} /> {/* Add route for Menu page */}
-        </Routes>
+    <Router>
+      <Routes>
+        {/* Standalone pages without header, navbar, or footer */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} /> 
 
-        <Footer />
-      </div>
+        {/* Pages with header, navbar, and footer */}
+        <Route
+          path="*"
+          element={
+            <>
+              <Header />
+              <Navbar />
+              <Home />
+              <Footer />
+            </>
+          }
+        />
+      </Routes>
     </Router>
   );
-}
+};
 
 export default App;
