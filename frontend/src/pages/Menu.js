@@ -291,20 +291,22 @@ const Menu = () => {
       {menuItems.map((category) => (
         <div key={category.id} className="category">
           <h2>{category.category}</h2>
-          {category.items.map((item, index) => (
-            <div key={index} className="menu-item">
-              <img src={item.image} alt={item.name} className="menu-item-image" />
-              <div className="menu-item-details">
-                <h3>{item.name}</h3>
-                <p>{item.description}</p>
-                <p>{item.price}</p>
+          <div className="menu-items"> {/* Add this wrapper */}
+            {category.items.map((item, index) => (
+              <div key={index} className="menu-item">
+                <img src={item.image} alt={item.name} className="menu-item-image" />
+                <div className="menu-item-details">
+                  <h3>{item.name}</h3>
+                  <p>{item.description}</p>
+                  <p>{item.price}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       ))}
     </div>
-  );
+  );  
 };
 
 export default Menu;
