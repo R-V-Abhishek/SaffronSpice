@@ -1,6 +1,6 @@
 import React from 'react';
 import './Header.css';
-import logo from '../assets/images/SaffronSpice.jpeg';
+import logo from '../assets/Images/SaffronSpice.jpeg';
 
 function Header() {
   const toggleProfileCard = () => {
