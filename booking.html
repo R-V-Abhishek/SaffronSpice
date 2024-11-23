@@ -47,9 +47,16 @@
       box-sizing: border-box;
     }
 
+    .guest-buttons {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 10px;
+    }
+
     .guest-buttons button {
+      flex: 0 0 auto;
       padding: 10px 15px;
-      margin: 5px;
       background-color: white;
       color: black;
       border: 1px solid #ccc;
@@ -110,14 +117,8 @@
 
     @media (max-width: 480px) {
       .guest-buttons {
-        display: flex;
         flex-wrap: wrap;
         justify-content: center;
-      }
-
-      .guest-buttons button {
-        flex: 1 1 30%;
-        margin: 5px;
       }
     }
   </style>
