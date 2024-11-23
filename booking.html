@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Table</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #ff6f00;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .guest-buttons button {
+      padding: 10px 15px;
+      margin: 5px;
+      background-color: white;
+      color: black;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s;
+    }
+
+    .guest-buttons button.selected {
+      background-color: #ff6f00;
+      color: white;
+      border: none;
+    }
+
+    .guest-buttons button:active {
+      transform: scale(0.95);
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    .radio-group label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .proceed-button {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background-color: #ff6f00;
+      color: #fff;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.3s ease, transform 0.2s;
+    }
+
+    .proceed-button:hover {
+      background-color: #e65b00;
+    }
+
+    .proceed-button:active {
+      transform: scale(0.98);
+    }
+
+    .error-message {
+      color: red;
+      font-size: 14px;
+      display: none;
+    }
+
+    @media (max-width: 480px) {
+      .guest-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .guest-buttons button {
+        flex: 1 1 30%;
+        margin: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Book Your Table</h2>
+    <form id="bookingForm">
+      
+      <div class="form-group">
+        <label for="guests">Number of Guests <span style="color: red;">*</span></label>
+        <div class="guest-buttons" id="guestButtons"></div>
+        <input type="hidden" id="guestSelection" name="guestSelection" required>
+        <span id="guestError" class="error-message" aria-live="polite">Please select the number of guests.</span>
+      </div>
+
+      
+      <div class="form-group">
+        <label for="visit-date">When are you visiting? () 
+          <span title="You can book a table up to 16 days in advance.">🛈</span>
+        </label>
+        <input type="date" id="visitDate" name="visitDate" required>
+      </div>
+
+      
+      <div class="form-group">
+        <label for="tableType">Select Table Type</label>
+        <select id="tableType" name="tableType" required>
+          <option value="" disabled selected>Choose a table type</option>
+          <option value="VIP">VIP (₹2000)</option>
+          <option value="Special">Special (₹1500)</option>
+          <option value="Regular">Regular (₹1000)</option>
+        </select>
+      </div>
+
+      
+      <div class="form-group">
+        <label>Would you like your food prepared in advance?</label>
+        <div class="radio-group">
+          <label>
+            <input type="radio" name="foodPrep" value="yes" required> Yes
+          </label>
+          <label>
+            <input type="radio" name="foodPrep" value="no" required> No
+          </label>
+        </div>
+      </div>
+
+      
+      <button type="submit" class="proceed-button" id="proceedButton">Proceed</button>
+    </form>
+  </div>
+
+  <script>
+    // Dynamically generate guest buttons
+    const guestButtonsContainer = document.getElementById("guestButtons");
+    const guestSelectionInput = document.getElementById("guestSelection");
+    const guestError = document.getElementById("guestError");
+
+    for (let i = 1; i <= 12; i++) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.innerText = i;
+      button.classList.add("guest-button");
+      button.addEventListener("click", () => {
+        document.querySelectorAll(".guest-buttons button").forEach(btn => btn.classList.remove("selected"));
+        button.classList.add("selected");
+        guestSelectionInput.value = i; // Set hidden input value
+        guestError.style.display = "none"; // Hide error if any
+      });
+      guestButtonsContainer.appendChild(button);
+    }
+
+    // Set date restrictions
+    const visitDate = document.getElementById("visitDate");
+    const today = new Date();
+    const maxDate = new Date();
+    maxDate.setDate(today.getDate() + 16);
+    visitDate.min = today.toISOString().split("T")[0];
+    visitDate.max = maxDate.toISOString().split("T")[0];
+
+    // Autofill today's date
+    visitDate.value = today.toISOString().split("T")[0];
+
+    // Handle form submission
+    const bookingForm = document.getElementById("bookingForm");
+    bookingForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const guests = guestSelectionInput.value;
+      if (!guests) {
+        guestError.style.display = "block";
+        return;
+      }
+
+      const tableType = document.getElementById("tableType").value;
+      const foodPrep = document.querySelector('input[name="foodPrep"]:checked');
+
+      if (!foodPrep) {
+        alert("Please select whether you want the food prepared in advance.");
+        return;
+      }
+
+      const confirmBooking = confirm(
+        `Confirm your booking:\n\nGuests: ${guests}\nDate: ${visitDate.value}\nTable Type: ${tableType}\nFood Preparation: ${foodPrep.value}`
+      );
+
+      if (confirmBooking) {
+        window.location.href = foodPrep.value === "yes" ? "menu.html" : "payment.html";
+      }
+    });
+  </script>
+</body>
+</html>
