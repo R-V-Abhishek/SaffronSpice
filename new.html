@@ -92,16 +92,22 @@
             color: orange;
             font-family: 'Brush Script MT', cursive;
             text-align: center;
-            padding: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
             opacity: 0;
             animation: fadeIn 1s forwards;
         }
-        
+        .restaurant-fname{
+            padding-left:10px;
+            padding-right: 5px;
+        }
         .restaurant-lname {
             color: rgb(216, 31, 31);
             text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
             text-align: left;
+            padding-right: 10px;
+            padding-left: 10px;
         }
 
         @keyframes fadeIn {
@@ -113,7 +119,7 @@
             padding:0;
         }
         .offcanvas-title .logo img {
-            max-width: calc(70% + 2vb);
+            max-width: calc(90% + 2vb);
             height: auto;
             box-shadow: 0px 1px 10px #231f1f;
             border-radius: 50%;
@@ -174,7 +180,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             <div class="offcanvas-title" id="offcanvasWithBothOptionsLabel">
                 <div class="restaurant-fname">Saffron</div>
-                <div class="logo"><img src="images/SaffronSpice.jpeg" alt="Saffron Spice Logo"></div>
+                <div class="logo"><img src="./frontend/public/SaffronSpice.jpeg" alt="Saffron Spice Logo"></div>
                 <div class="restaurant-lname">Spice</div>
             </div>
         </div>
