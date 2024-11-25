@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import './App.css';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -9,10 +9,28 @@ import Signup from "./pages/SignUp";
 import Home from "./pages/HomePage";
 import Menu from "./pages/Menu";
 
+// Component to handle scrolling to sections based on URL hash
+const ScrollToSection = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.substring(1); // Remove the '#' from the hash
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' }); // Smooth scrolling
+      }
+    }
+  }, [location]);
+
+  return null;
+};
+
 const App = () => {
   return (
     <Router>
       <div className="app-container">
+        <ScrollToSection /> {/* Add scroll handling */}
         <Routes>
           {/* Standalone pages without header, navbar, or footer */}
           <Route path="/login" element={<Login />} />

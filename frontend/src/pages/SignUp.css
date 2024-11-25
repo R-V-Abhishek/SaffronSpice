@@ -1,16 +1,16 @@
-/* General Styles */
+/* General Body Styling */
 .signup-body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Full viewport height */
+  height: 100vh;
   margin: 0;
-  padding: 10px;
   font-family: Arial, sans-serif;
   font-size: calc(1rem + 0.5vw);
   box-sizing: border-box;
   transition: background-color 0.3s, color 0.3s;
-  overflow-y: auto; /* Allow scrolling if content overflows */
+  padding: 5px;
+  overflow-y: auto;
 }
 
 /* Light Mode Styles */
@@ -25,77 +25,156 @@
   color: white;
 }
 
-/* Sign-Up Form Container */
+/* Container Styling */
 .signup-container {
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+  padding: calc(1rem + 0.5vw);
+  border-radius: 8px;
+  box-shadow: 1px 20px 1000px black;
   width: 100%;
-  max-width: 500px;
+  max-width: calc(30% + 10vw);
+  overflow-y: scroll;
+  height: 100vh;
+  box-sizing: border-box;
   transition: background-color 0.3s, color 0.3s;
-  margin-top: 20%;
+  margin: 15px;
 }
 
+/* Dark Mode Container Styling */
 .signup-body[data-bs-theme="dark"] .signup-container {
-  background-color: #1e1e1e;
-  color: white;
-  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+  background-color: #231f1f;
+  box-shadow: 5px 10px 1000px whitesmoke;
 }
 
-/* Logo */
+/* Scrollbar Styling */
+.signup-container::-webkit-scrollbar {
+  width: 12px;
+  background-color: #f1f1f1;
+}
+
+.signup-container::-webkit-scrollbar-thumb {
+  background: #d35400;
+}
+
+.signup-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Logo Styling */
 .logo {
-  margin-bottom: 20px;
+  margin-bottom: calc(1rem + 0.5vw);
   text-align: center;
 }
 
 .logo img {
-  max-width: 80px;
+  max-width: 25%;
+  height: auto;
+  box-shadow: 0px 1px 10px #231f1f;
   border-radius: 50%;
 }
 
-/* Form Inputs */
+/* Dark Mode Logo Styling */
+.signup-body[data-bs-theme="dark"] .logo img {
+  box-shadow: 0px 1px 10px whitesmoke;
+}
+
+/* Form Group Styling */
 .form-group {
-  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: calc(1rem + 0.5vw) 0;
+  box-sizing: border-box;
 }
 
 label {
-  display: block;
-  margin-bottom: 5px;
-  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: calc(1rem + 0.3vw);
 }
 
 input[type="text"],
 input[type="password"],
+input[type="tel"],
 input[type="email"],
-input[type="date"],
-input[type="tel"] {
-  width: 100%; /* Full width within parent container */
-  padding: 10px;
+input[type="date"] {
+  width: 100%;
+  padding: calc(0.5rem + 0.3vw);
   border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 1rem;
-  box-sizing: border-box; /* Ensures padding does not affect width */
+  border-radius: 4px;
+  font-size: calc(1rem + 0.3vw);
+  box-sizing: border-box;
 }
 
+/* Button Styling */
 button {
   background-color: #d35400;
   color: white;
+  padding: calc(0.5rem + 0.3vw);
   border: none;
-  padding: 10px;
-  font-size: 1rem;
+  border-radius: 4px;
   cursor: pointer;
-  border-radius: 5px;
   width: 100%;
+  font-size: calc(1rem + 0.3vw);
+  text-align: center;
+
 }
 
 button:hover {
   background-color: #e67e22;
 }
 
-/* Dark Mode Button */
+/* Toggle Switch Slider */
 .form-check {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.form-check-input {
+  appearance: none;
+  width: 50px;
+  height: 25px;
+  background-color: #ccc;
+  border-radius: 25px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.form-check-input::before {
+  content: "";
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 2px;
+  left: 2px;
+  width: 21px;
+  height: 21px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+.form-check-input:checked {
+  background-color: #4CAF50;
+}
+
+.form-check-input:checked::before {
+  transform: translateX(25px);
+}
+
+.form-check-label {
+  margin-right: 10px;
+  font-size: calc(0.8rem + 0.3vw);
+}
+
+/* Row Styling */
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.col-sm {
+  flex: 1;
 }

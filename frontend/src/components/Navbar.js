@@ -6,16 +6,15 @@ function Navbar() {
   return (
     <nav className="navbar">
       <ul>
-        <li><Link to="/">Home</Link></li>  {/* Changed to Link */}
+        <li><Link to="/">Home</Link></li>
         <li><Link to="/login">Login</Link></li>
-        <li><Link to="/Menu">Menu</Link></li>  {/* Changed to Link */}
-        <li><a href="#speciality">Speciality</a></li>
-        <li><a href="#about">About Us</a></li>
-        <li><a href="#contact">Contact Us</a></li>
+        <li><Link to="/menu">Menu</Link></li>
+        <li><Link to="/#speciality">Speciality</Link></li> {/* Updated */}
+        <li><Link to="/#about">About Us</Link></li>
+        <li><Link to="/#contact">Contact Us</Link></li>
       </ul>
     </nav>
   );
 }
 
 export default Navbar;
-
