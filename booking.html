@@ -158,91 +158,130 @@
       <div class="form-group">
         <label>Would you like your food prepared in advance?</label>
         <p class="d-inline-flex gap-1">
-           
-            <button class="btn btn-outline-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-              Yes
-            </button>
-            <button type="button" class="btn btn-outline-danger">No</button>
-          </p>
-          <div class="collapse" id="collapseExample">
-            <div class="card card-body"><!--Add the link to menue here-->
-               <a href="menue.html">Go to menue</a> 
-               <a href="card.html">View Your Cart</a>        
-            </div>
+          <button
+            class="btn btn-outline-success"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseExample"
+            aria-expanded="false"
+            aria-controls="collapseExample"
+            id="foodPrepYes"
+          >
+            Yes
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-danger"
+            id="foodPrepNo"
+          >
+            No
+          </button>
+        </p>
+        <div class="collapse" id="collapseExample">
+          <div class="card card-body">
+            <a href="./menu.html">Go to menu</a>
+            <a href="./cart.html">View Your Cart</a>
           </div>
+        </div>
       </div>
-
-      <button type="submit" class="proceed-button" id="proceedButton">Proceed</button>
-    </form>
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // Extract table type from URL query parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const tableType = urlParams.get('tableType');
-
-    // Set the default value of the table type select dropdown
-    if (tableType) {
-      document.getElementById('tableType').value = tableType;
-    }
-
-    // Dynamically generate guest buttons
-    const guestButtonsContainer = document.getElementById("guestButtons");
-    const guestSelectionInput = document.getElementById("guestSelection");
-    const guestError = document.getElementById("guestError");
-
-    for (let i = 1; i <= 12; i++) {
-      const button = document.createElement("button");
-      button.type = "button";
-      button.innerText = i;
-      button.classList.add("guest-button");
-      button.addEventListener("click", () => {
-        document.querySelectorAll(".guest-buttons button").forEach(btn => btn.classList.remove("selected"));
-        button.classList.add("selected");
-        guestSelectionInput.value = i; // Set hidden input value
-        guestError.style.display = "none"; // Hide error if any
-      });
-      guestButtonsContainer.appendChild(button);
-    }
-
-    // Set date restrictions
-    const visitDate = document.getElementById("visitDate");
-    const today = new Date();
-    const maxDate = new Date();
-    maxDate.setDate(today.getDate() + 16);
-    visitDate.min = today.toISOString().split("T")[0];
-    visitDate.max = maxDate.toISOString().split("T")[0];
-
-    // Autofill today's date
-    visitDate.value = today.toISOString().split("T")[0];
-
-    // Handle form submission
-    const bookingForm = document.getElementById("bookingForm");
-    bookingForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      const guests = guestSelectionInput.value;
-      if (!guests) {
-        guestError.style.display = "block";
-        return;
-      }
-
-      const tableType = document.getElementById("tableType").value;
-      const foodPrep = document.querySelector('input[name="foodPrep"]:checked');
-
-      if (!foodPrep) {
-        alert("Please select whether you want the food prepared in advance.");
-        return;
-      }
-
-      const confirmBooking = confirm(
-        `Confirm your booking:\n\nGuests: ${guests}\nDate: ${visitDate.value}\nTable Type: ${tableType}\nFood Preparation: ${foodPrep.value}`
-      );
-
-      if (confirmBooking) {
-        window.location.href = foodPrep.value === "yes" ? "menu.html" : "payment.html";
-      }
-    });
-  </script>
+      
+      <!-- Form -->
+      
+      
+        <button type="submit" class="proceed-button" id="proceedButton">Proceed</button>
+      
+      
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+      <script>
+        // Extract table type from URL query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const tableType = urlParams.get("tableType");
+      
+        // Set the default value of the table type select dropdown
+        if (tableType) {
+          document.getElementById("tableType").value = tableType;
+        }
+      
+        // Dynamically generate guest buttons
+        const guestButtonsContainer = document.getElementById("guestButtons");
+        const guestSelectionInput = document.getElementById("guestSelection");
+        const guestError = document.getElementById("guestError");
+      
+        for (let i = 1; i <= 12; i++) {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.innerText = i;
+          button.classList.add("guest-button");
+          button.addEventListener("click", () => {
+            document.querySelectorAll(".guest-buttons button").forEach((btn) => btn.classList.remove("selected"));
+            button.classList.add("selected");
+            guestSelectionInput.value = i; // Set hidden input value
+            guestError.style.display = "none"; // Hide error if any
+          });
+          guestButtonsContainer.appendChild(button);
+        }
+      
+        // Set date restrictions
+        const visitDate = document.getElementById("visitDate");
+        const today = new Date();
+        const maxDate = new Date();
+        maxDate.setDate(today.getDate() + 16);
+        visitDate.min = today.toISOString().split("T")[0];
+        visitDate.max = maxDate.toISOString().split("T")[0];
+      
+        // Autofill today's date
+        visitDate.value = today.toISOString().split("T")[0];
+      
+        // Handle food prep selection
+        let foodPrep = null;
+        const yesButton = document.getElementById("foodPrepYes");
+        const noButton = document.getElementById("foodPrepNo");
+      
+        yesButton.addEventListener("click", () => {
+          foodPrep = "yes";
+          document.getElementById("collapseExample").classList.add("show");
+          yesButton.style.backgroundColor = "green"; // Change to green
+          yesButton.style.color = "white"; // Make text visible
+          noButton.style.backgroundColor = ""; // Reset "No" button
+          noButton.style.color = ""; // Reset text color
+        });
+      
+        noButton.addEventListener("click", () => {
+          foodPrep = "no";
+          document.getElementById("collapseExample").classList.remove("show");
+          noButton.style.backgroundColor = "red"; // Change to red
+          noButton.style.color = "white"; // Make text visible
+          yesButton.style.backgroundColor = ""; // Reset "Yes" button
+          yesButton.style.color = ""; // Reset text color
+        });
+      
+        // Handle form submission
+        const bookingForm = document.getElementById("bookingForm");
+        bookingForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+      
+          const guests = guestSelectionInput.value;
+          if (!guests) {
+            guestError.style.display = "block";
+            return;
+          }
+      
+          const tableType = document.getElementById("tableType").value;
+          if (!foodPrep) {
+            alert("Please select whether you want the food prepared in advance.");
+            return;
+          }
+      
+          const confirmBooking = confirm(
+            `Confirm your booking:\n\nGuests: ${guests}\nDate: ${visitDate.value}\nTable Type: ${tableType}\nFood Preparation: ${foodPrep}`
+          );
+      
+          if (confirmBooking) {
+            window.location.href = foodPrep === "yes" ? "menu.html" : "payment.html";
+          }
+        });
+      </script>
+      
+      
 </body>
 </html>

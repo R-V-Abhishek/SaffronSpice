@@ -36,7 +36,7 @@
 
 .name {
     display: grid;
-    grid-template-columns: 1.6fr 1.1fr;
+    grid-template-columns: 1.85fr 1.3fr ;
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -51,7 +51,7 @@
     font-size: calc(100% + 12vw);
     color: orange;
     font-family: 'Brush Script MT', cursive;
-    text-align: center;
+    text-align: right;
     padding: 10px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
     opacity: 0;
