@@ -1,0 +1,58 @@
+.body {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero {
+  background-image: url("../assets/Images/Entrance.png");
+  background-size: cover;
+  background-position: center;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: calc(1.5rem + 2vw);
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+.heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #d87f2c;
+  color: white;
+  padding: 10px 20px;
+}
+
+.menu-link {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  color: black;
+  text-decoration: none;
+  gap: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.menu-link:hover {
+  background-color: #ffddc1;
+  color: black;
+}
+
+.cont {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  flex-wrap: wrap;
+}
+
+.card {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}

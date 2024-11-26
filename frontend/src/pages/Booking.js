@@ -1,27 +1,44 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import "./Booking.css";
+import React, { useEffect } from "react";
+import styles from "./Booking.module.css"; // Scoped CSS module
 
 const Booking = () => {
-  const navigate = useNavigate();
+  useEffect(() => {
+    // Dynamically load Bootstrap CSS and icons
+    const bootstrapCSS = document.createElement("link");
+    bootstrapCSS.rel = "stylesheet";
+    bootstrapCSS.href =
+      "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css";
+    bootstrapCSS.integrity =
+      "sha384-rbsA/9gl5HQmkU6PlNnXUQlmteTfvCSvW6EG3EdwNJlxT6n4e7Bj1oydK8V41Wjk";
+    bootstrapCSS.crossOrigin = "anonymous";
 
-  const handleBooking = (type) => {
-    navigate(`/reservation/${type}`); // Navigate to ReservationForm with tableType
-  };
+    const bootstrapIcons = document.createElement("link");
+    bootstrapIcons.rel = "stylesheet";
+    bootstrapIcons.href =
+      "https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css";
+
+    document.head.appendChild(bootstrapCSS);
+    document.head.appendChild(bootstrapIcons);
+
+    return () => {
+      document.head.removeChild(bootstrapCSS);
+      document.head.removeChild(bootstrapIcons);
+    };
+  }, []);
 
   return (
-    <div>
+    <div className={styles.body}>
       {/* Hero Section */}
-      <div className="hero">
+      <div className={styles.hero}>
         <h1>Welcome to Saffron Spice</h1>
       </div>
 
       {/* Heading Section */}
-      <div className="heading">
-        <div className="name">
-          <p className="h3">GET YOUR RESERVATION</p>
+      <div className={styles.heading}>
+        <div className={styles.name}>
+          <p className={styles.h3}>GET YOUR RESERVATION</p>
         </div>
-        <div className="content">
+        <div className={styles.content}>
           <button
             className="btn btn-primary"
             type="button"
@@ -34,7 +51,7 @@ const Booking = () => {
         </div>
       </div>
 
-      {/* Offcanvas Section */}
+      {/* Offcanvas Menu */}
       <div
         className="offcanvas offcanvas-end"
         data-bs-scroll="true"
@@ -50,98 +67,102 @@ const Booking = () => {
             aria-label="Close"
           ></button>
           <div className="offcanvas-title" id="offcanvasWithBothOptionsLabel">
-            <div className="restaurant-fname">Saffron</div>
-            <div className="logo">
+            <div className={styles["restaurant-fname"]}>Saffron</div>
+            <div className={styles.logo}>
               <img
-                src="/src/assets/images/SaffronSpice.jpeg"
+                src="../assets/Images/SaffronSpice.jpeg"
                 alt="Saffron Spice Logo"
               />
             </div>
-            <div className="restaurant-lname">Spice</div>
+            <div className={styles["restaurant-lname"]}>Spice</div>
           </div>
         </div>
         <div className="offcanvas-body">
-          <a href="./index.html" className="menu-link">
+          <a href="/" className={styles["menu-link"]}>
             <i className="bi bi-house-door"></i> Home
           </a>
-          <a href="./menu.html" className="menu-link">
+          <a href="/menu" className={styles["menu-link"]}>
             <i className="bi bi-list"></i> Menu
           </a>
-          <a href="./loginnew.html" className="menu-link">
+          <a href="/login" className={styles["menu-link"]}>
             <i className="bi bi-person"></i> Login
           </a>
         </div>
       </div>
 
-      {/* Reservation Cards */}
-      <div className="cont">
-        {/* Card Components */}
+      {/* Cards Section */}
+      <div className={styles.cont}>
         {["VIP", "Special", "Regular"].map((type, index) => (
-          <div key={index} className="card" style={{ width: "18rem" }}>
-            <div id={`carousel${index}`} className="carousel slide carousel-fade">
-              <div className="carousel-indicators">
-                {[0, 1, 2].map((item) => (
-                  <button
-                    key={item}
-                    type="button"
-                    data-bs-target={`#carousel${index}`}
-                    data-bs-slide-to={item}
-                    className={item === 0 ? "active" : ""}
-                    aria-current={item === 0 ? "true" : undefined}
-                    aria-label={`Slide ${item + 1}`}
-                  ></button>
-                ))}
-              </div>
+          <div
+            key={index}
+            className={`card ${styles.card}`}
+            style={{ width: "18rem" }}
+          >
+            <div
+              id={`carouselExampleCaptions${index + 1}`}
+              className="carousel slide carousel-fade"
+            >
               <div className="carousel-inner">
-                <div className="carousel-item active">
-                  <img
-                    src="/src/assets/images/AlooGobi.png"
-                    className="d-block w-100"
-                    alt="Aloo Gobi"
-                  />
-                </div>
-                <div className="carousel-item">
-                  <img
-                    src="/src/assets/images/BainganBharta.png"
-                    className="d-block w-100"
-                    alt="Baingan Bharta"
-                  />
-                </div>
+                {[`${type}.png`, `${type}1.png`, `${type}2.png`].map(
+                  (image, idx) => (
+                    <div
+                      key={idx}
+                      className={`carousel-item ${
+                        idx === 0 ? "active" : ""
+                      }`}
+                    >
+                      <img
+                        src={`../assets/Images/${image}`}
+                        className="d-block w-100"
+                        alt={type}
+                      />
+                    </div>
+                  )
+                )}
               </div>
               <button
                 className="carousel-control-prev"
                 type="button"
-                data-bs-target={`#carousel${index}`}
+                data-bs-target={`#carouselExampleCaptions${index + 1}`}
                 data-bs-slide="prev"
               >
-                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span
+                  className="carousel-control-prev-icon"
+                  aria-hidden="true"
+                ></span>
                 <span className="visually-hidden">Previous</span>
               </button>
               <button
                 className="carousel-control-next"
                 type="button"
-                data-bs-target={`#carousel${index}`}
+                data-bs-target={`#carouselExampleCaptions${index + 1}`}
                 data-bs-slide="next"
               >
-                <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                <span
+                  className="carousel-control-next-icon"
+                  aria-hidden="true"
+                ></span>
                 <span className="visually-hidden">Next</span>
               </button>
             </div>
             <div className="card-body">
               <h5 className="card-title">{type}</h5>
               <p className="card-text">
-                {type === "VIP"
-                  ? "Experience premium luxury with our exclusive VIP reservations."
-                  : type === "Special"
-                  ? "Enjoy a cozy atmosphere with our Special reservations."
-                  : "Book a Regular table for an enjoyable dining experience."}
+                {`Enjoy ${type.toLowerCase()} reservations for ${
+                  type === "VIP"
+                    ? "premium luxury"
+                    : type === "Special"
+                    ? "cozy gatherings"
+                    : "casual dining"
+                }.`}
               </p>
-              <button
-                onClick={() => handleBooking(type)}
+              <a
+                href={`/booking?tableType=${type}`}
                 className="btn btn-success"
+                role="button"
               >
                 Book Now
-              </button>
+              </a>
             </div>
           </div>
         ))}

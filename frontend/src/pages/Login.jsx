@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import Logo from "../assets/Images/SaffronSpice.jpeg";
 
 const Login = () => {
   const [theme, setTheme] = useState("dark");
+  const navigate = useNavigate(); // Hook for navigation
 
   // Update the theme on the root element (e.g., <html>)
   useEffect(() => {
@@ -12,6 +14,14 @@ const Login = () => {
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+    // Perform login logic here (e.g., authentication checks)
+
+    // On successful login, navigate to Booking page
+    navigate("/booking");
   };
 
   return (
@@ -37,7 +47,7 @@ const Login = () => {
           <img src={Logo} alt="Saffron Spice Logo" />
         </div>
         <h2>Login to Saffron Spice</h2>
-        <form action="#" method="post">
+        <form onSubmit={handleLogin}>
           <div className="form-group">
             <label htmlFor="username">Username:</label>
             <input
