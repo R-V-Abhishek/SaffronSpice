@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import "./ReservationForm.css";
 
 const ReservationForm = () => {
-  const { tableType } = useParams();
+  const [searchParams] = useSearchParams(); // Get the query parameters
+  const navigate = useNavigate(); // For navigation
   const [guests, setGuests] = useState(null);
   const [visitDate, setVisitDate] = useState("");
   const [selectedTableType, setSelectedTableType] = useState("");
@@ -17,8 +18,11 @@ const ReservationForm = () => {
 
     setVisitDate(today.toISOString().split("T")[0]);
     setMaxDate(max.toISOString().split("T")[0]);
-    setSelectedTableType(tableType || ""); // Set the table type from the route param
-  }, [tableType]);
+
+    // Get the "tableType" from the query parameter and set it
+    const tableTypeFromQuery = searchParams.get("tableType");
+    setSelectedTableType(tableTypeFromQuery || "");
+  }, [searchParams]);
 
   const handleGuestSelection = (guestCount) => {
     setGuests(guestCount);
@@ -41,7 +45,9 @@ const ReservationForm = () => {
       const foodPrep = window.confirm(
         "Would you like your food prepared in advance?"
       );
-      window.location.href = foodPrep ? "/menu.html" : "/payment.html";
+
+      // Navigate to the appropriate page
+      navigate(foodPrep ? "/menu" : "/payment");
     }
   };
 
