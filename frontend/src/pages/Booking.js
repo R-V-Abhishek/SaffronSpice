@@ -39,6 +39,7 @@ const Booking = () => {
       </div>
 
       {/* Sidebar (Offcanvas) */}
+
       <div 
         className="offcanvas offcanvas-end" 
         data-bs-scroll="true" 
@@ -47,12 +48,6 @@ const Booking = () => {
         aria-labelledby="offcanvasWithBothOptionsLabel"
       >
         <div className="offcanvas-header">
-          <button 
-            type="button" 
-            className="btn-close" 
-            data-bs-dismiss="offcanvas" 
-            aria-label="Close"
-          ></button>
           <div className="offcanvas-title" id="offcanvasWithBothOptionsLabel">
             <div className={styles.logo}>
               <img src="../assets/Images/Entrance.png" alt="Saffron Spice Logo" />
@@ -73,6 +68,7 @@ const Booking = () => {
           </button>
         </div>
       </div>
+
 
       {/* Card Container */}
       <div className={styles.cont}>
