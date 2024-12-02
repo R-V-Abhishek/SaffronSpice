@@ -159,98 +159,120 @@ body {
   background-color: transparent;
 }
 
-/* Offcanvas Styles */
-/* Offcanvas Sidebar */
-.offcanvas {
-  background-color: #FFF5E1;
-  max-width: 45vw;
-  transition: transform 0.3s ease-in-out;
-}
 
-.offcanvas-body {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  width: 100%;
-}
-
-.menu-link {
-  display: block;
-  font-size: 1.2rem;
-  color: white;
-  text-decoration: none;
-  padding: 15px 20px;
-  border-bottom: 1px solid #495057;
-  margin-bottom: 10px;
-  transition: background-color 0.3s ease;
-  width: 100%;
-}
-
-.menu-link:hover {
-  background-color: #495057;
-}
-
-.menu-link i {
-  font-size: 1.2rem;
-  margin-right: 8px;
-}
-
-/* Adjust Offcanvas Header */
+/* Offcanvas */
+/* Offcanvas Header */
 .offcanvasHeader {
+  position: relative; /* Enables absolute positioning of child elements */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  padding: 2rem 1rem;
+  border-radius: 10px;
   background-color: #FFF5E1;
-  padding: 20px;
+
 }
 
-.logo {
-  display: flex;
-  justify-content: center;
-  width: 100%;
+/* Close Button */
+.btn-close {
+  position: absolute; /* Places it within the header */
+  top: 10px; /* Top padding */
+  right: 10px; /* Right padding */
+  z-index: 10; /* Ensures it is above other elements */
 }
 
-.logo img {
-  max-width: 100px;
-  height: auto;
-  border-radius: 50%;
-  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
-}
-
-.restaurantName {
-  display: flex;
-  justify-content: center;
+/* Offcanvas Title */
+.offcanvasTitle {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
-  width: 100%;
+  justify-content: center;
+  text-align: center;
+  transition: transform 0.3s ease;
+  background: linear-gradient(120deg, brown, orange);
+  border-radius: 50%;
+  box-shadow: 5px 8px 30px black;
 }
 
-.restaurantFname, 
+/* Restaurant Name */
+.restaurantFname,
 .restaurantLname {
-  font-size: 5rem;
+  font-size: calc(100% + 4vb);
   font-family: 'Brush Script MT', cursive;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  padding: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  opacity: 0; /* Hidden initially */
+  animation: fadeIn 1s forwards; /* Fade-in effect */
 }
 
 .restaurantFname {
   color: orange;
-  margin-right: 5px;
+  padding-left: 10px;
+  padding-right: 5px;
 }
 
 .restaurantLname {
   color: rgb(216, 31, 31);
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: left;
 }
-/* Responsive Adjustments */
-@media (max-width: 992px) {
-  .offcanvas {
-    max-width: 60vw;
+
+/* Logo */
+.logo {
+  margin: 0;
+  padding: 0;
+}
+
+.logo img {
+  max-width: calc(90% + 2vb);
+  height: auto;
+  box-shadow: 0px 1px 10px #231f1f;
+  border-radius: 50%;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
-@media (max-width: 576px) {
-  .offcanvas {
-    max-width: 100vw;
-  }
+/* Offcanvas Body */
+.offcanvasBody { /* Light orange off-canvas background */
+  max-width: 100%;
+  padding: 1rem;
+  background-color: #FFF5E1;
+}
+
+/* Menu Links */
+.menuLink {
+  display: flex;
+  font-size: 1.2rem;
+  color: #333;
+  text-decoration: none;
+  margin: 10px 0;
+  padding: 10px 10px;
+  border-radius: 5px;
+  width: 100%;
+  background-color: #FFF5E1;
+  border-bottom: 1px solid #495057;
+}
+
+.menuLink:hover {
+  background-color: #d35400;
+  color: white;
+}
+
+.menuLink i {
+  margin-right: 8px;
 }
 
 /* Keyframe Animations */

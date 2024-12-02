@@ -76,14 +76,21 @@ const Booking = () => {
         aria-labelledby="offcanvasMenuLabel"
       >
         <div className={`offcanvas-header ${styles.offcanvasHeader}`}>
-          <div className={styles.logo}>
-            <img src={images.Logo} alt="Saffron Spice Logo" />
-          </div>
-          <div className={styles.restaurantName}>
-            <span className={styles.restaurantFname}>Saffron</span>
-            <span className={styles.restaurantLname}>Spice</span>
+          <button
+            type="button"
+            className="btn-close"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
+          <div className={`offcanvas-title ${styles.offcanvasTitle}`}>
+            <div className={styles.restaurantFname}>Saffron</div>
+            <div className={styles.logo}>
+              <img src={images.Logo} alt="Saffron Spice Logo" />
+            </div>
+            <div className={styles.restaurantLname}>Spice</div>
           </div>
         </div>
+
         <div className={`offcanvas-body ${styles.offcanvasBody}`}>
           <button className={`${styles.menuLink}`} onClick={() => navigate('/')}>
             <i className="bi bi-house-door"></i> Home
