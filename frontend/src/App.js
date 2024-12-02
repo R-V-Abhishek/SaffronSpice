@@ -8,7 +8,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/SignUp";
 import Home from "./pages/HomePage";
 import Menu from "./pages/Menu";
-import Booking from "./pages/Booking";
+import BookingPage from "./pages/BookingPage";
 import ReservationForm from "./pages/ReservationForm";
 
 // Component to handle scrolling to sections based on URL hash
@@ -37,7 +37,7 @@ const App = () => {
           {/* Standalone pages without header, navbar, or footer */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/Booking" element={<Booking />} />
+          <Route path="/Booking" element={<BookingPage />} />
           <Route path="/reservation" element={<ReservationForm />} />
 
           {/* Pages with header, navbar, and footer */}

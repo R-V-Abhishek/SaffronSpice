@@ -1,8 +1,6 @@
-import React from 'react';
+// Booking.jsx
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
-
 import styles from './Booking.module.css';
 
 // Dynamically importing images
@@ -23,10 +21,19 @@ const images = {
     require('../assets/Images/Regular2.png'),
   ],
   Entrance: require('../assets/Images/Entrance.png'),
+  Logo: require('../assets/Images/SaffronSpice.jpeg'),
 };
 
 const Booking = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Dynamically load Bootstrap JavaScript functionality
+    const bootstrap = require('bootstrap');
+    return () => {
+      // Cleanup if needed
+    };
+  }, []);
 
   const handleBookingClick = (tableType) => {
     navigate(`/reservation?tableType=${tableType}`);
@@ -70,7 +77,7 @@ const Booking = () => {
       >
         <div className={`offcanvas-header ${styles.offcanvasHeader}`}>
           <div className={styles.logo}>
-            <img src={images.Entrance} alt="Saffron Spice Logo" />
+            <img src={images.Logo} alt="Saffron Spice Logo" />
           </div>
           <div className={styles.restaurantName}>
             <span className={styles.restaurantFname}>Saffron</span>
