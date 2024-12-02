@@ -7,7 +7,7 @@ const Login = () => {
   const [theme, setTheme] = useState("dark");
   const navigate = useNavigate(); // Hook for navigation
 
-  // Update the theme on the root element (e.g., <html>)
+  // Dynamically apply the theme to the root element (e.g., <html>)
   useEffect(() => {
     document.documentElement.setAttribute("data-bs-theme", theme);
   }, [theme]);

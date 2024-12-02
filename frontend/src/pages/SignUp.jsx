@@ -35,7 +35,7 @@ const SignUp = () => {
     <div data-bs-theme={theme} className="signup-body">
       <div className="form-check form-switch">
         <label className="form-check-label" htmlFor="themeToggle">
-          Dark Mode
+          Toggle Mode
         </label>
         <input
           className="form-check-input"
