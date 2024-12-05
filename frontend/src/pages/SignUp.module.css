@@ -1,0 +1,197 @@
+/* SignUp.module.css */
+.wrapper {
+  transition: background-color 0.3s, color 0.3s;
+  min-height: 100vh;
+}
+
+/* Light Theme Specific Styles */
+.lightTheme {
+  background-color: #e67e22;
+  color: #333;
+}
+
+.lightTheme .signupContainer {
+  background-color: #fff;
+  box-shadow: 0 0 50px #af5303;
+}
+
+.lightTheme .logo img {
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+}
+
+.lightTheme input {
+  background-color: #fff;
+  color: #333;
+  border-color: #ccc;
+}
+
+/* Dark Theme Specific Styles */
+.darkTheme {
+  background-color: #121212;
+  color: white;
+}
+
+.darkTheme .signupContainer {
+  background-color: #231f1f;
+  box-shadow: 0 0 50px #af5303;
+}
+
+.darkTheme .logo img {
+  box-shadow: 0px 1px 10px whitesmoke;
+}
+
+.darkTheme input {
+  background-color: #121212;
+  color: white;
+  border-color: #333;
+}
+
+/* SignUp Body */
+.signupBody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  font-size: calc(1rem + 0.5vw);
+  box-sizing: border-box;
+  padding: 5px;
+  overflow-y: auto;
+}
+
+/* Signup Container */
+.signupContainer {
+  padding: calc(1rem + 0.5vw);
+  border-radius: 8px;
+  width: 100%;
+  max-width: calc(30% + 10vw);
+  height: 100vh;
+  box-sizing: border-box;
+  transition: background-color 0.3s, color 0.3s;
+  margin: 15px;
+  overflow-y: auto;
+}
+
+/* Logo Styling */
+.logo {
+  margin-bottom: calc(1rem + 0.5vw);
+  text-align: center;
+}
+
+.logo img {
+  max-width: 25%;
+  height: auto;
+  border-radius: 50%;
+}
+
+/* Form Group Styling */
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: calc(1rem + 0.5vw) 0;
+  box-sizing: border-box;
+}
+
+.formGroup label {
+  margin-bottom: 0.5rem;
+  font-size: calc(1rem + 0.3vw);
+}
+
+.formControl {
+  width: 100%;
+  padding: calc(0.5rem + 0.3vw);
+  border: 1px solid;
+  border-radius: 4px;
+  font-size: calc(1rem + 0.3vw);
+  box-sizing: border-box;
+}
+
+/* Submit Button */
+.submitButton {
+  background-color: #d35400;
+  color: white;
+  padding: calc(0.5rem + 0.3vw);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  font-size: calc(1rem + 0.3vw);
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.submitButton:hover {
+  background-color: #e67e22;
+}
+
+/* Theme Toggle */
+.formCheck {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  align-items: center;
+  z-index: 1000;
+}
+
+.formCheckLabel {
+  margin-right: 10px;
+  font-size: calc(0.8rem + 0.3vw);
+}
+
+.formCheckInput {
+  appearance: none;
+  width: 50px;
+  height: 25px;
+  background-color: #ccc;
+  border-radius: 25px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.formCheckInput::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 21px;
+  height: 21px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+.formCheckInput:checked {
+  background-color: #e67e22;
+}
+
+.formCheckInput:checked::before {
+  transform: translateX(25px);
+}
+
+/* Row and Column Styling */
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.colSm {
+  flex: 1;
+}
+
+/* Scrollbar Styling (Optional) */
+.signupBody::-webkit-scrollbar {
+  width: 0px;
+}
+
+.signupBody::-webkit-scrollbar-thumb {
+  background: #d35400;
+}
+
+.signupBody::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

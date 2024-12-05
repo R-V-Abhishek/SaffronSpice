@@ -9,14 +9,24 @@ import styles from './BookingPage.module.css'; // CSS Module for custom styles
 
 const BookingPage = () => {
   useEffect(() => {
+    let isMounted = true; // To prevent state updates after unmount if necessary
+
     // Dynamically import Bootstrap SCSS when the component is rendered
     import('bootstrap/scss/bootstrap.scss')
       .then(() => {
-        // Styles are now loaded, you can trigger any other actions if necessary
+        if (isMounted) {
+          console.log("Bootstrap SCSS successfully loaded.");
+        }
       })
       .catch((err) => {
-        console.error("Error loading Bootstrap SCSS", err);
+        if (isMounted) {
+          console.error("Error loading Bootstrap SCSS:", err);
+        }
       });
+
+    return () => {
+      isMounted = false; // Cleanup on unmount
+    };
   }, []); // Empty dependency array ensures this runs only once when the component mounts
 
   return (
