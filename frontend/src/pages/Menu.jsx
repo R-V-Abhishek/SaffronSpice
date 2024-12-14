@@ -1,5 +1,7 @@
 import React from "react";
 import "./Menu.css";
+import { useState } from "react";
+
 
 // Importing images for vegetarian dishes
 import VegetableBiryani from "../assets/Images/vegetableBiriyani.png";
@@ -49,6 +51,7 @@ import IcedTea from "../assets/Images/IcedTea.png";
 import Coffee from "../assets/Images/Coffee.png";
 
 const Menu = () => {
+  const [searchTerm, setSearchTerm] = useState("");
   const menuItems = [
     {
       id: 1,
@@ -286,27 +289,67 @@ const Menu = () => {
     },
   ];
 
+  const hasSearchResults = menuItems.some(category => 
+    category.items.some(item => 
+      item.name.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  );
+
   return (
     <div className="menu">
-      {menuItems.map((category) => (
-        <div key={category.id} className="category">
-          <h2>{category.category}</h2>
-          <div className="menu-items"> {/* Add this wrapper */}
-            {category.items.map((item, index) => (
-              <div key={index} className="menu-item">
-                <img src={item.image} alt={item.name} className="menu-item-image" />
-                <div className="menu-item-details">
-                  <h3>{item.name}</h3>
-                  <p>{item.description}</p>
-                  <p>{item.price}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+      {/* Search Bar */}
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="Search dish names..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
+
+      {/* Conditional rendering for no results */}
+      {searchTerm && !hasSearchResults && (
+        <div className="no-results">
+          <p>No dishes found matching "{searchTerm}"</p>
         </div>
-      ))}
+      )}
+
+      {/* Menu Items */}
+      {menuItems.map((category) => {
+        // Filter items based on the search term (only searching names)
+        const filteredItems = category.items.filter(
+          (item) => item.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+
+        // If search term is empty, show all items in the category
+        const itemsToRender = searchTerm ? filteredItems : category.items;
+
+        // Render the category only if there are filtered items or no search term
+        return (searchTerm === '' || itemsToRender.length > 0) ? (
+          <div key={category.id} className="category">
+            <h2>{category.category}</h2>
+            <div className="menu-items">
+              {itemsToRender.map((item, index) => (
+                <div key={index} className="menu-item">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="menu-item-image"
+                  />
+                  <div className="menu-item-details">
+                    <h3>{item.name}</h3>
+                    <p>{item.description}</p>
+                    <p>{item.price}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : null;
+      })}
     </div>
-  );  
+  );
 };
+
 
 export default Menu;
