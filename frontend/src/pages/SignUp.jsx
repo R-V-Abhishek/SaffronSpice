@@ -15,27 +15,32 @@ const SignUp = () => {
     setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
-
-    fetch("/api/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then(() => {
-        alert("Sign up successful!");
-      })
-      .catch(() => {
-        alert("Error during sign up.");
+  
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
       });
+  
+      const result = await response.json();
+  
+      if (response.ok) {
+        alert("Signup successful!");
+      } else {
+        alert(result.message || "Signup failed.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Something went wrong. Please try again.");
+    }
   };
-
   return (
     <div className={`${styles.wrapper} ${styles[theme + "Theme"]}`}>
       {/* Toggle Theme */}

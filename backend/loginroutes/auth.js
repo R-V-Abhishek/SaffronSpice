@@ -1,25 +1,29 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
-const LoginUser = require("../models/LoginUser");
-const { validateSignupFields, validateLoginFields } = require("../Loginmiddleware/LoginauthMiddleware");
-
+const jwt = require("jsonwebtoken");
 const router = express.Router();
+const LoginUser = require("../models/LoginUser"); // Import the User model
 
-// Signup Route
-router.post("/signup", validateSignupFields, async (req, res) => {
-  const { fname, lname, email, dob, phone, username, password } = req.body;
+// SIGNUP ROUTE
+router.post("/signup", async (req, res) => {
+  const { fname, lname, email, dob, phone, username, password, confirmPassword } = req.body;
 
   try {
-    // Check if user exists
+    // Check if passwords match
+    if (password !== confirmPassword) {
+      return res.status(400).json({ message: "Passwords do not match" });
+    }
+
+    // Check if user already exists (by email or username)
     const existingUser = await LoginUser.findOne({ $or: [{ email }, { username }] });
     if (existingUser) {
       return res.status(400).json({ message: "User already exists" });
     }
 
-    // Hash password
+    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create user
+    // Create a new user document
     const newUser = new LoginUser({
       fname,
       lname,
@@ -30,35 +34,39 @@ router.post("/signup", validateSignupFields, async (req, res) => {
       password: hashedPassword,
     });
 
+    // Save to database
     await newUser.save();
-    res.status(201).json({ message: "User created successfully" });
+    res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error creating user" });
+    console.error("Signup Error:", error);
+    res.status(500).json({ message: "Server error" });
   }
 });
 
-// Login Route
-router.post("/login", validateLoginFields, async (req, res) => {
+// LOGIN ROUTE
+router.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    // Find user
+    // Find user by username
     const user = await LoginUser.findOne({ username });
     if (!user) {
       return res.status(400).json({ message: "Invalid username or password" });
     }
 
-    // Validate password
+    // Compare passwords
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       return res.status(400).json({ message: "Invalid username or password" });
     }
 
-    res.status(200).json({ message: "Login successful", user: { username: user.username, email: user.email } });
+    // Generate JWT token
+    const token = jwt.sign({ id: user._id }, "secretKey", { expiresIn: "1h" });
+
+    res.status(200).json({ message: "Login successful", token });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error logging in" });
+    console.error("Login Error:", error);
+    res.status(500).json({ message: "Server error" });
   }
 });
 

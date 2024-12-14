@@ -33,11 +33,35 @@ const Login = () => {
     setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
   };
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    // Perform login logic here (e.g., authentication checks)
-    navigate("/booking");
+  const handleLogin = async (event) => {
+    event.preventDefault();
+  
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData.entries());
+  
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+  
+      const result = await response.json();
+  
+      if (response.ok) {
+        alert("Login successful!");
+        // Redirect user, store tokens, etc.
+      } else {
+        alert(result.message || "Login failed.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Something went wrong. Please try again.");
+    }
   };
+  
 
   return (
     <div className={`${styles.wrapper} ${styles[theme + "Theme"]}`}>
