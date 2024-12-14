@@ -52,6 +52,8 @@ const Login = () => {
   
       if (response.ok) {
         alert("Login successful!");
+        navigate("/Booking");
+        
         // Redirect user, store tokens, etc.
       } else {
         alert(result.message || "Login failed.");
