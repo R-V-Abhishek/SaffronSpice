@@ -7,6 +7,8 @@ const ReservationForm = () => {
   const navigate = useNavigate(); // For navigation
   const [guests, setGuests] = useState(null);
   const [visitDate, setVisitDate] = useState("");
+  const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
   const [selectedTableType, setSelectedTableType] = useState("");
   const [maxDate, setMaxDate] = useState("");
   const [guestError, setGuestError] = useState(false);
@@ -24,12 +26,23 @@ const ReservationForm = () => {
     setSelectedTableType(tableTypeFromQuery || "");
   }, [searchParams]);
 
-  const handleGuestSelection = (guestCount) => {
-    setGuests(guestCount);
-    setGuestError(false);
+  const fetchAvailableTimeSlots = async (date) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/reservation/timeslots?date=${date}`);
+      const data = await response.json();
+      setAvailableTimeSlots(data.timeSlots || []);
+    } catch (error) {
+      console.error("Failed to fetch time slots:", error);
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleDateChange = (e) => {
+    const selectedDate = e.target.value;
+    setVisitDate(selectedDate);
+    fetchAvailableTimeSlots(selectedDate); // Fetch time slots for the selected date
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!guests) {
@@ -38,16 +51,35 @@ const ReservationForm = () => {
     }
 
     const confirmBooking = window.confirm(
-      `Confirm your booking:\n\nGuests: ${guests}\nDate: ${visitDate}\nTable Type: ${selectedTableType}`
+      `Confirm your booking:\n\nGuests: ${guests}\nDate: ${visitDate}\nTime: ${selectedTimeSlot}\nTable Type: ${selectedTableType}`
     );
 
     if (confirmBooking) {
-      const foodPrep = window.confirm(
-        "Would you like your food prepared in advance?"
-      );
+      try {
+        const response = await fetch("http://localhost:5000/api/reservation/book", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            guests,
+            visitDate,
+            timeSlot: selectedTimeSlot,
+            tableType: selectedTableType,
+            userId: localStorage.getItem("userId"), // Assume userId is stored after login
+          }),
+        });
 
-      // Navigate to the appropriate page
-      navigate(foodPrep ? "/menu" : "/payment");
+        const result = await response.json();
+
+        if (response.ok) {
+          alert("Reservation successful!");
+          navigate("/confirmation");
+        } else {
+          alert(result.message || "Reservation failed.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("Something went wrong. Please try again.");
+      }
     }
   };
 
@@ -65,7 +97,7 @@ const ReservationForm = () => {
                 key={i + 1}
                 type="button"
                 className={`guest-button ${guests === i + 1 ? "selected" : ""}`}
-                onClick={() => handleGuestSelection(i + 1)}
+                onClick={() => setGuests(i + 1)}
               >
                 {i + 1}
               </button>
@@ -87,9 +119,30 @@ const ReservationForm = () => {
             value={visitDate}
             min={visitDate}
             max={maxDate}
-            onChange={(e) => setVisitDate(e.target.value)}
+            onChange={handleDateChange}
             required
           />
+        </div>
+
+        {/* Time Slots */}
+        <div className="form-group">
+          <label>Available Time Slots</label>
+          <div className="time-slots">
+            {availableTimeSlots.length > 0 ? (
+              availableTimeSlots.map((slot, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  className={`time-slot ${selectedTimeSlot === slot ? "selected" : ""}`}
+                  onClick={() => setSelectedTimeSlot(slot)}
+                >
+                  {slot}
+                </button>
+              ))
+            ) : (
+              <p>No time slots available for this date.</p>
+            )}
+          </div>
         </div>
 
         <div className="form-group">

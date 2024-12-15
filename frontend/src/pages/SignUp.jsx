@@ -33,6 +33,7 @@ const SignUp = () => {
   
       if (response.ok) {
         alert("Signup successful!");
+        
       } else {
         alert(result.message || "Signup failed.");
       }
