@@ -5,3 +5,22 @@ body {
   background-color: #f5f5f5;
   color: black;
 }
+.cart-icon-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.cart-menu {
+  position: fixed;
+  bottom: 60px;
+  right: 20px;
+  width: 300px;
+  background: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  z-index: 1000;
+}

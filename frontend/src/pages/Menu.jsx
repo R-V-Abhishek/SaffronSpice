@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Menu.css";
-import { useState } from "react";
+import { useCart } from "../context/CartContext";
+import Cart from './Cart'; 
 
 
 // Importing images for vegetarian dishes
@@ -52,6 +53,13 @@ import Coffee from "../assets/Images/Coffee.png";
 
 const Menu = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const { cartItems, addToCart } = useCart(); // Use the CartContext
+  const [isCartVisible, setIsCartVisible] = useState(false);
+
+  useEffect(() => {
+    console.log("Cart Items:", cartItems);
+  }, [cartItems]);
+
   const menuItems = [
     {
       id: 1,
@@ -289,6 +297,14 @@ const Menu = () => {
     },
   ];
 
+  const toggleCartVisibility = () => {
+    setIsCartVisible(!isCartVisible);
+  };
+
+  const handleAddToCart = (item) => {
+    addToCart(item);
+  };
+
   const hasSearchResults = menuItems.some(category => 
     category.items.some(item => 
       item.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -307,8 +323,17 @@ const Menu = () => {
         />
       </div>
 
+      {/* Cart Icon to Show Cart */}
+      <div className="cart-icon">
+        <button onClick={toggleCartVisibility}>
+          View Cart ({cartItems.length})
+        </button>
+      </div>
+
       {/* Conditional rendering for no results */}
-      {searchTerm && !hasSearchResults && (
+      {searchTerm && !menuItems.some(category => 
+        category.items.some(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()))
+      ) && (
         <div className="no-results">
           <p>No dishes found matching "{searchTerm}"</p>
         </div>
@@ -316,16 +341,13 @@ const Menu = () => {
 
       {/* Menu Items */}
       {menuItems.map((category) => {
-        // Filter items based on the search term (only searching names)
         const filteredItems = category.items.filter(
           (item) => item.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
 
-        // If search term is empty, show all items in the category
         const itemsToRender = searchTerm ? filteredItems : category.items;
 
-        // Render the category only if there are filtered items or no search term
-        return (searchTerm === '' || itemsToRender.length > 0) ? (
+        return (
           <div key={category.id} className="category">
             <h2>{category.category}</h2>
             <div className="menu-items">
@@ -340,16 +362,26 @@ const Menu = () => {
                     <h3>{item.name}</h3>
                     <p>{item.description}</p>
                     <p>{item.price}</p>
+                    <button onClick={() => handleAddToCart(item)}>Add to Cart</button>
                   </div>
                 </div>
               ))}
             </div>
           </div>
-        ) : null;
+        );
       })}
+
+      {/* Cart Modal */}
+      {isCartVisible && (
+        <div className="cart-modal-overlay">
+          <div className="cart-modal">
+            <Cart />
+            <button onClick={toggleCartVisibility}>Close Cart</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
-
 
 export default Menu;

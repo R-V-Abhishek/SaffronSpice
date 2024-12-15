@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
+import { CartProvider } from "./context/CartContext"; // Import CartProvider
 import './App.css';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -30,42 +31,44 @@ const ScrollToSection = () => {
 
 const App = () => {
   return (
-    <Router>
-      <div className="app-container">
-        <ScrollToSection /> {/* Add scroll handling */}
-        <Routes>
-          {/* Standalone pages without header, navbar, or footer */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/Booking" element={<BookingPage />} />
-          <Route path="/reservation" element={<ReservationForm />} />
+    <CartProvider> {/* Wrap the entire app with CartProvider */}
+      <Router>
+        <div className="app-container">
+          <ScrollToSection /> {/* Add scroll handling */}
+          <Routes>
+            {/* Standalone pages without header, navbar, or footer */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/Booking" element={<BookingPage />} />
+            <Route path="/reservation" element={<ReservationForm />} />
 
-          {/* Pages with header, navbar, and footer */}
-          <Route
-            path="/"
-            element={
-              <>
-                <Header />
-                <Navbar />
-                <Home />
-                <Footer />
-              </>
+            {/* Pages with header, navbar, and footer */}
+            <Route
+              path="/"
+              element={
+                <>
+                  <Header />
+                  <Navbar />
+                  <Home />
+                  <Footer />
+                </>
+              }
+            />
+            <Route
+              path="/menu"
+              element={
+                <>
+                  <Header />
+                  <Navbar />
+                  <Menu />
+                  <Footer />
+                </>
             }
-          />
-          <Route
-            path="/menu"
-            element={
-              <>
-                <Header />
-                <Navbar />
-                <Menu />
-                <Footer />
-              </>
-            }
-          />
-        </Routes>
-      </div>
-    </Router>
+            />
+          </Routes>
+        </div>
+      </Router>
+    </CartProvider>
   );
 };
 
