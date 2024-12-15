@@ -2,16 +2,19 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 import Logo from "../assets/Images/SaffronSpice.jpeg";
+import { setAuthData } from "../utils/authUtils";
 
 const Login = () => {
   const [theme, setTheme] = useState("light");
+  const [error, setError] = useState(""); // State to track errors
   const navigate = useNavigate();
 
   // Dynamically load Bootstrap styles
   useEffect(() => {
     const link = document.createElement("link");
     link.rel = "stylesheet";
-    link.href = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css";
+    link.href =
+      "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css";
     link.id = "bootstrap-css";
     document.head.appendChild(link);
 
@@ -35,10 +38,10 @@ const Login = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-  
+
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
-  
+
     try {
       const response = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
@@ -47,23 +50,25 @@ const Login = () => {
         },
         body: JSON.stringify(data),
       });
-  
+
       const result = await response.json();
-  
+
       if (response.ok) {
+        // Store userId and token in localStorage
+        const { userId, token } = result;
+        localStorage.setItem("userId", userId);
+        localStorage.setItem("token", token);
+
         alert("Login successful!");
-        navigate("/Booking");
-        
-        // Redirect user, store tokens, etc.
+        navigate("/Booking"); // Redirect to booking page
       } else {
-        alert(result.message || "Login failed.");
+        setError(result.message || "Invalid username or password.");
       }
     } catch (error) {
-      console.error("Error:", error);
-      alert("Something went wrong. Please try again.");
+      console.error("Login Error:", error);
+      setError("Something went wrong. Please try again.");
     }
   };
-  
 
   return (
     <div className={`${styles.wrapper} ${styles[theme + "Theme"]}`}>
@@ -110,13 +115,13 @@ const Login = () => {
                 className={styles.formControl}
               />
             </div>
+            {error && <p className={styles.errorMessage}>{error}</p>}
             <button type="submit" className={styles.submitButton}>
               Login
             </button>
           </form>
           <p className={styles.signupLink}>
-            Don't have an account?{" "}
-            <a href="/signup">Sign Up</a>
+            Don't have an account? <a href="/signup">Sign Up</a>
           </p>
         </div>
       </div>

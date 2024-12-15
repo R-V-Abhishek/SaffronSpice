@@ -2,8 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
-const authRoutes = require("./loginroutes/auth");
-
+const authRoutes = require("./routes/auth");
+const reservationRoutes = require("./routes/reservation");
 dotenv.config(); // Load environment variables
 
 const app = express();
@@ -15,6 +15,7 @@ app.use(express.json()); // Parse JSON payloads
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/reservation", reservationRoutes);
 
 // MongoDB Connection
 mongoose

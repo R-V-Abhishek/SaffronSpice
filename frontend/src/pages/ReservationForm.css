@@ -10,7 +10,7 @@ body {
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(86, 16, 16, 0.1);
   box-sizing: border-box;
 }
 
@@ -82,6 +82,68 @@ h2 {
     flex: 0 0 calc((100% / 3) - 12px); /* Show 3 buttons at a time on very small screens */
   }
 }
+/* Time slots container */
+.time-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Adds space between buttons */
+  margin-top: 15px;
+  justify-content: center; /* Center the buttons */
+}
+
+/* Individual time slot button */
+.time-slot {
+  flex: 0 0 calc((100% / 4) - 12px); /* 4 buttons per row */
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  text-align: center;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.time-slot:hover {
+  background-color: #f0f0f0;
+}
+
+.time-slot.selected {
+  background-color: #28a745;
+  color: white;
+  border-color: #28a745;
+}
+
+.time-slot:active {
+  transform: scale(0.95);
+}
+
+/* Responsive adjustments for time slots */
+@media (max-width: 768px) {
+  .time-slot {
+    flex: 0 0 calc((100% / 3) - 12px); /* 3 buttons per row on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .time-slot {
+    flex: 0 0 calc((100% / 2) - 12px); /* 2 buttons per row on very small screens */
+  }
+}
+
+/* Header styling for time slot section */
+.time-slot-header {
+  font-size: 16px;
+  font-weight: bold;
+  color: #555;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+
 
 .proceed-button {
   display: block;
