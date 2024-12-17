@@ -123,3 +123,22 @@
     color: #666;
     text-align: center;
 }
+.logout-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .logout-button:hover {
+    background-color: #d9363e;
+  }
+  

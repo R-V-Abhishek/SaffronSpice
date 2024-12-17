@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; // For navigation after logout
 import "./Header.css";
 import logo from "../assets/Images/SaffronSpice.jpeg";
 
 function Header() {
   const [userData, setUserData] = useState(null); // State to store user data
+  const navigate = useNavigate(); // For navigation after logout
 
   // Function to toggle the profile card visibility
   const toggleProfileCard = () => {
@@ -39,6 +41,19 @@ function Header() {
     fetchUserData();
   }, []);
 
+  // Function to handle logout
+  const handleLogout = () => {
+    // Clear user-related data from localStorage
+    localStorage.removeItem("userId");
+    localStorage.removeItem("token");
+
+    // Acknowledge successful logout
+    alert("You have logged out successfully.");
+
+    // Redirect user to the login page
+    navigate("/login");
+  };
+
   return (
     <header className="header">
       <div className="logo-container">
@@ -59,6 +74,10 @@ function Header() {
               <p>Username: {userData.username || "N/A"}</p>
               <p>Email: {userData.email || "N/A"}</p>
               <p>Role: {userData.role || "Guest"}</p>
+              {/* Logout Button */}
+              <button className="logout-button" onClick={handleLogout}>
+                Logout
+              </button>
             </>
           ) : (
             <p>Loading...</p>
