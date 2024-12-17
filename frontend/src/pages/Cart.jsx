@@ -4,6 +4,13 @@ import { useCart } from '../context/CartContext';
 const Cart = () => {
   const { cartItems } = useCart();
 
+  // Only log in development
+  React.useEffect(() => {
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Cart Items:', cartItems);
+    }
+  }, [cartItems]);
+
   return (
     <div style={{
       backgroundColor: 'white', 
@@ -15,8 +22,8 @@ const Cart = () => {
         <p>No items in cart</p>
       ) : (
         <ul>
-          {cartItems.map((item, index) => (
-            <li key={index}>
+          {cartItems.map((item) => (
+            <li key={item.id}>
               {item.name} - {item.price} (Qty: {item.quantity || 1})
             </li>
           ))}
