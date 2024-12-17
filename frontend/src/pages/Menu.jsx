@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
+import {React, useState} from "react";
 import "./Menu.css";
-import { useCart } from "../context/CartContext";
-import Cart from './Cart'; 
 
 
 // Importing images for vegetarian dishes
@@ -53,12 +51,6 @@ import Coffee from "../assets/Images/Coffee.png";
 
 const Menu = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const { cartItems, addToCart } = useCart(); // Use the CartContext
-  const [isCartVisible, setIsCartVisible] = useState(false);
-
-  useEffect(() => {
-    console.log("Cart Items:", cartItems);
-  }, [cartItems]);
 
   const menuItems = [
     {
@@ -297,14 +289,6 @@ const Menu = () => {
     },
   ];
 
-  const toggleCartVisibility = () => {
-    setIsCartVisible(!isCartVisible);
-  };
-
-  const handleAddToCart = (item) => {
-    addToCart(item);
-  };
-
   const hasSearchResults = menuItems.some(category => 
     category.items.some(item => 
       item.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -321,13 +305,6 @@ const Menu = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-      </div>
-
-      {/* Cart Icon to Show Cart */}
-      <div className="cart-icon">
-        <button onClick={toggleCartVisibility}>
-          View Cart ({cartItems.length})
-        </button>
       </div>
 
       {/* Conditional rendering for no results */}
@@ -362,7 +339,6 @@ const Menu = () => {
                     <h3>{item.name}</h3>
                     <p>{item.description}</p>
                     <p>{item.price}</p>
-                    <button onClick={() => handleAddToCart(item)}>Add to Cart</button>
                   </div>
                 </div>
               ))}
@@ -370,16 +346,6 @@ const Menu = () => {
           </div>
         );
       })}
-
-      {/* Cart Modal */}
-      {isCartVisible && (
-        <div className="cart-modal-overlay">
-          <div className="cart-modal">
-            <Cart />
-            <button onClick={toggleCartVisibility}>Close Cart</button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

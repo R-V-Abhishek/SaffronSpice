@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
-import { CartProvider } from "./context/CartContext"; // Import CartProvider
 import './App.css';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -29,46 +28,100 @@ const ScrollToSection = () => {
   return null;
 };
 
+// Layout for Authentication Pages (Login & Signup)
+const AuthLayout = ({ children }) => {
+  return (
+    <div className="auth-layout">
+      {children}
+    </div>
+  );
+};
+
+// Layout for Booking Pages
+const BookingLayout = ({ children }) => {
+  return (
+    <div className="booking-layout">
+      {children}
+    </div>
+  );
+};
+
+// Layout for Pages with Header, Navbar, and Footer
+const MainLayout = ({ children }) => {
+  return (
+    <>
+      <Header />
+      <Navbar />
+      <div className="main-content">
+        {children}
+      </div>
+      <Footer />
+    </>
+  );
+};
+
 const App = () => {
   return (
-    <CartProvider> {/* Wrap the entire app with CartProvider */}
-      <Router>
-        <div className="app-container">
-          <ScrollToSection /> {/* Add scroll handling */}
-          <Routes>
-            {/* Standalone pages without header, navbar, or footer */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/Booking" element={<BookingPage />} />
-            <Route path="/reservation" element={<ReservationForm />} />
-
-            {/* Pages with header, navbar, and footer */}
-            <Route
-              path="/"
-              element={
-                <>
-                  <Header />
-                  <Navbar />
-                  <Home />
-                  <Footer />
-                </>
-              }
-            />
-            <Route
-              path="/menu"
-              element={
-                <>
-                  <Header />
-                  <Navbar />
-                  <Menu />
-                  <Footer />
-                </>
+    <Router>
+      <div className="app-container">
+        <ScrollToSection /> {/* Add scroll handling */}
+        <Routes>
+          {/* Auth Pages */}
+          <Route
+            path="/login"
+            element={
+              <AuthLayout>
+                <Login />
+              </AuthLayout>
             }
-            />
-          </Routes>
-        </div>
-      </Router>
-    </CartProvider>
+          />
+          <Route
+            path="/signup"
+            element={
+              <AuthLayout>
+                <Signup />
+              </AuthLayout>
+            }
+          />
+
+          {/* Booking Pages */}
+          <Route
+            path="/Booking"
+            element={
+              <BookingLayout>
+                <BookingPage />
+              </BookingLayout>
+            }
+          />
+          <Route
+            path="/reservation"
+            element={
+              <BookingLayout>
+                <ReservationForm />
+              </BookingLayout>
+            }
+          />
+
+          {/* Pages with Header, Navbar, and Footer */}
+          <Route
+            path="/"
+            element={
+              <MainLayout>
+                <Home />
+              </MainLayout>
+            }
+          />
+          <Route
+            path="/menu"
+            element={
+              <MainLayout>
+                <Menu />
+              </MainLayout>
+            }
+          />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 
