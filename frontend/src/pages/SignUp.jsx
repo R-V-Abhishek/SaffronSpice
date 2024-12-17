@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import styles from "./SignUp.module.css";
 import Logo from "../assets/Images/SaffronSpice.jpeg";
 
 const SignUp = () => {
   const [theme, setTheme] = useState("light");
+  const navigate = useNavigate(); // Initialize useNavigate hook
 
   // Dynamically apply the theme to the body and document elements
   useEffect(() => {
     document.body.setAttribute("data-bs-theme", theme);
     document.documentElement.setAttribute("data-bs-theme", theme);
   }, [theme]);
-  
+
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
   };
@@ -19,7 +21,7 @@ const SignUp = () => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
-  
+
     try {
       const response = await fetch("http://localhost:5000/api/auth/signup", {
         method: "POST",
@@ -28,12 +30,12 @@ const SignUp = () => {
         },
         body: JSON.stringify(data),
       });
-  
+
       const result = await response.json();
-  
+
       if (response.ok) {
         alert("Signup successful!");
-        
+        navigate("/Login"); // Redirect to the login page
       } else {
         alert(result.message || "Signup failed.");
       }
@@ -42,6 +44,7 @@ const SignUp = () => {
       alert("Something went wrong. Please try again.");
     }
   };
+
   return (
     <div className={`${styles.wrapper} ${styles[theme + "Theme"]}`}>
       {/* Toggle Theme */}
