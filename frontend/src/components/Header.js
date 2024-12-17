@@ -1,12 +1,43 @@
-import React from 'react';
-import './Header.css';
-import logo from '../assets/Images/SaffronSpice.jpeg';
+import React, { useEffect, useState } from "react";
+import "./Header.css";
+import logo from "../assets/Images/SaffronSpice.jpeg";
 
 function Header() {
+  const [userData, setUserData] = useState(null); // State to store user data
+
+  // Function to toggle the profile card visibility
   const toggleProfileCard = () => {
-    const profileCard = document.getElementById('profile-card');
-    profileCard.classList.toggle('active');
+    const profileCard = document.getElementById("profile-card");
+    profileCard.classList.toggle("active");
   };
+
+  // Fetch user data using the userId from localStorage
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userId = localStorage.getItem("userId"); // Retrieve userId from localStorage
+        if (!userId) return;
+
+        const response = await fetch(`http://localhost:5000/api/auth/user/${userId}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setUserData(data); // Set fetched user data in state
+        } else {
+          console.error("Failed to fetch user data");
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   return (
     <header className="header">
@@ -22,9 +53,16 @@ function Header() {
       <div className="profile-container">
         <div className="profile-pic" onClick={toggleProfileCard}></div>
         <div className="profile-card" id="profile-card">
-          <h3>John Doe</h3>
-          <p>Chef & Owner</p>
-          <p>Serving delicious meals since 2000!</p>
+          {userData ? (
+            <>
+              <h3>{userData.name || "Unknown User"}</h3>
+              <p>Username: {userData.username || "N/A"}</p>
+              <p>Email: {userData.email || "N/A"}</p>
+              <p>Role: {userData.role || "Guest"}</p>
+            </>
+          ) : (
+            <p>Loading...</p>
+          )}
         </div>
       </div>
     </header>

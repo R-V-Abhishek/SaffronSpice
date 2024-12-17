@@ -103,4 +103,25 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// Updated GET USER DATA BY ID ROUTE
+router.get("/user/:id", async (req, res) => {
+  try {
+    const user = await LoginUser.findById(req.params.id).select("-password"); // Exclude password
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    res.status(200).json({
+      name: `${user.fname} ${user.lname}`, // Full name
+      username: user.username,            // Username
+      email: user.email,                  // Email ID
+      role: "Customer",                   // Static role for now
+    });
+  } catch (error) {
+    console.error("Get User Error:", error);
+    res.status(500).json({ message: "Server error. Please try again later." });
+  }
+});
+
+
 module.exports = router;
