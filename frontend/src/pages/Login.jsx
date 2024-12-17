@@ -2,12 +2,20 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 import Logo from "../assets/Images/SaffronSpice.jpeg";
+import { isAuthenticated } from "../utils/authUtils"; // Import the utility function
 import { setAuthData } from "../utils/authUtils";
-
 const Login = () => {
   const [theme, setTheme] = useState("light");
   const [error, setError] = useState(""); // State to track errors
   const navigate = useNavigate();
+
+  // Redirect if user is already logged in
+  useEffect(() => {
+    if (isAuthenticated()) {
+      alert("You are already logged in");
+      navigate("/Booking"); // Redirect to the Booking page or any other protected route
+    }
+  }, [navigate]);
 
   // Dynamically load Bootstrap styles
   useEffect(() => {

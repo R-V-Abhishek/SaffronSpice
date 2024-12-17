@@ -3,8 +3,8 @@
     overflow: hidden;
     position: sticky;
     top: 0;
-    z-index: 1000;
-    padding: 5px 0; /* Reduced height */
+    z-index: auto; /* Lower z-index to keep profile card above it */
+    padding: 5px 0;
     transition: padding 0.3s ease;
     font-size: small;
 }
@@ -33,6 +33,6 @@
 .navbar ul li a:hover {
     background-color: #d4a017;
     border-radius: 5px;
-    transform: scale(1.05); /* Slight zoom on hover */
+    transform: scale(1.05);
     letter-spacing: 1px;
 }

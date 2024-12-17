@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // For navigation after logout
+import { useNavigate } from "react-router-dom";
 import "./Header.css";
 import logo from "../assets/Images/SaffronSpice.jpeg";
+import { isAuthenticated } from "../utils/authUtils"; // Import the utility function
 
 function Header() {
-  const [userData, setUserData] = useState(null); // State to store user data
-  const navigate = useNavigate(); // For navigation after logout
+  const [userData, setUserData] = useState(null);
+  const navigate = useNavigate();
 
-  // Function to toggle the profile card visibility
+  // Toggle visibility of the profile card
   const toggleProfileCard = () => {
     const profileCard = document.getElementById("profile-card");
     profileCard.classList.toggle("active");
   };
 
-  // Fetch user data using the userId from localStorage
+  // Fetch user data using userId from localStorage
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const userId = localStorage.getItem("userId"); // Retrieve userId from localStorage
+        const userId = localStorage.getItem("userId");
         if (!userId) return;
 
         const response = await fetch(`http://localhost:5000/api/auth/user/${userId}`, {
@@ -29,7 +30,7 @@ function Header() {
 
         if (response.ok) {
           const data = await response.json();
-          setUserData(data); // Set fetched user data in state
+          setUserData(data);
         } else {
           console.error("Failed to fetch user data");
         }
@@ -41,16 +42,15 @@ function Header() {
     fetchUserData();
   }, []);
 
-  // Function to handle logout
+  // Handle user logout
   const handleLogout = () => {
-    // Clear user-related data from localStorage
     localStorage.removeItem("userId");
     localStorage.removeItem("token");
-
-    // Acknowledge successful logout
     alert("You have logged out successfully.");
+  };
 
-    // Redirect user to the login page
+  // Handle navigation to Login page
+  const handleLogin = () => {
     navigate("/login");
   };
 
@@ -72,15 +72,20 @@ function Header() {
             <>
               <h3>{userData.name || "Unknown User"}</h3>
               <p>Username: {userData.username || "N/A"}</p>
-              <p>Email: {userData.email || "N/A"}</p>
-              <p>Role: {userData.role || "Guest"}</p>
+
               {/* Logout Button */}
               <button className="logout-button" onClick={handleLogout}>
                 Logout
               </button>
             </>
           ) : (
-            <p>Loading...</p>
+            <>
+              <p>Please login to view your profile</p>
+              {/* Login Button (only visible when no user is logged in) */}
+              <button className="login-button" onClick={handleLogin}>
+                Login
+              </button>
+            </>
           )}
         </div>
       </div>
