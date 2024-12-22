@@ -54,6 +54,17 @@ function Header() {
     navigate("/login");
   };
 
+  useEffect(() => {
+    document.addEventListener('DOMContentLoaded', () => {
+      const profileContainer = document.querySelector('.profile-container');
+      const toggleProfileButton = document.querySelector('.toggle-profile-button'); // Assuming there's a button to toggle the profile container
+
+      toggleProfileButton.addEventListener('click', () => {
+        profileContainer.classList.toggle('open');
+      });
+    });
+  }, []);
+
   return (
     <header className="header">
       <div className="logo-container">

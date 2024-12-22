@@ -77,6 +77,10 @@
     position: relative;
 }
 
+.profile-container.open .login-button {
+    animation: buttonExpand 1s ease-in-out forwards;
+}
+
 .profile-pic {
     width: 5vw;
     height: 5vw;
@@ -133,17 +137,66 @@
     display: block;
     width: 100%;
     padding: 10px;
-    margin-top: 5px;
-    background-color: #a65b00; /* Matches navbar theme */
+    margin-top: 10px;
+    background: linear-gradient(to right, orange, brown); /* Theme gradient */
     color: white;
     border: none;
-    border-radius: 5px;
-    font-size: 14px;
+    border-radius: 10px; /* Rounded corners */
+    font-size: 1em;
     font-weight: bold;
     cursor: pointer;
     text-align: center;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Subtle text shadow */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    animation: buttonFadeIn 1s ease-in-out;
 }
 
 .logout-button:hover {
-    background-color: #d4a017; /* Matches hover theme of navbar links */
+    background: linear-gradient(to right, brown, orange); /* Reversed gradient */
+    transform: scale(1.05); /* Subtle zoom effect */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Glow-like hover effect */
+    color: #fdfdfd; /* Lighter text on hover */
 }
+
+/* Login button */
+/* Login button */
+.login-button {
+    display: block;
+    width: 0; /* Start with no width for animation */
+    padding: 10px;
+    margin-top: 10px;
+    background: linear-gradient(to right, orange, brown); /* Theme gradient */
+    color: white;
+    border: none;
+    border-radius: 10px; /* Rounded corners */
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Subtle text shadow */
+    transition: all 0.3s ease-in-out;
+    opacity: 0; /* Initially hidden */
+    overflow: hidden; /* Prevent text overflow during animation */
+    animation: buttonExpand 1s ease-in-out forwards; /* Expand animation */
+}
+
+.login-button:hover {
+    background: linear-gradient(to right, brown, orange); /* Reversed gradient */
+    transform: scale(1.05); /* Subtle zoom effect */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Glow-like hover effect */
+    color: #fdfdfd; /* Lighter text on hover */
+}
+
+/* Animation for button expansion */
+@keyframes buttonExpand {
+    0% {
+        width: 0; /* Start with no width */
+        opacity: 0; /* Hidden */
+    }
+    
+    100% {
+        width: 100%; /* Full width */
+        opacity: 1; /* Fully visible */
+    }
+}
+
