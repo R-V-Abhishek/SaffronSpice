@@ -148,7 +148,7 @@
     text-align: center;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Subtle text shadow */
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    animation: buttonFadeIn 1s ease-in-out;
+    animation: buttonExpand 1s ease-in-out forwards;
 }
 
 .logout-button:hover {
