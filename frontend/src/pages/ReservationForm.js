@@ -12,6 +12,10 @@ const ReservationForm = () => {
   const [selectedTableType, setSelectedTableType] = useState("");
   const [maxDate, setMaxDate] = useState("");
   const [guestError, setGuestError] = useState(false);
+  const [showConfirmPopup, setShowConfirmPopup] = useState(false);
+  const [showErrorPopup, setShowErrorPopup] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [bookingDetails, setBookingDetails] = useState(null);
 
   useEffect(() => {
     const today = new Date();
@@ -50,37 +54,40 @@ const ReservationForm = () => {
       return;
     }
 
-    const confirmBooking = window.confirm(
-      `Confirm your booking:\n\nGuests: ${guests}\nDate: ${visitDate}\nTime: ${selectedTimeSlot}\nTable Type: ${selectedTableType}`
-    );
+    setBookingDetails({
+      guests,
+      visitDate,
+      timeSlot: selectedTimeSlot,
+      tableType: selectedTableType,
+    });
+    setShowConfirmPopup(true);
+  };
 
-    if (confirmBooking) {
-      try {
-        const response = await fetch("http://localhost:5000/api/reservation/book", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            guests,
-            visitDate,
-            timeSlot: selectedTimeSlot,
-            tableType: selectedTableType,
-            userId: localStorage.getItem("userId"), // Assume userId is stored after login
-          }),
-        });
+  const handleConfirmBooking = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/reservation/book", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...bookingDetails,
+          userId: localStorage.getItem("userId"),
+        }),
+      });
 
-        const result = await response.json();
+      const result = await response.json();
 
-        if (response.ok) {
-          alert("Reservation successful!");
-          navigate("/confirmation");
-        } else {
-          alert(result.message || "Reservation failed.");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        alert("Something went wrong. Please try again.");
+      if (response.ok) {
+        navigate("/confirmation");
+      } else {
+        setErrorMessage(result.message || "Reservation failed.");
+        setShowErrorPopup(true);
       }
+    } catch (error) {
+      console.error("Error:", error);
+      setErrorMessage("Something went wrong. Please try again.");
+      setShowErrorPopup(true);
     }
+    setShowConfirmPopup(false);
   };
 
   return (
@@ -167,6 +174,46 @@ const ReservationForm = () => {
           Proceed
         </button>
       </form>
+
+      {showConfirmPopup && (
+        <div className="popupOverlay">
+          <div className="popup successPopup">
+            <h3>Confirm Booking</h3>
+            <div className="bookingDetails">
+              <p>Number of Guests: {bookingDetails.guests}</p>
+              <p>Date: {bookingDetails.visitDate}</p>
+              <p>Time: {bookingDetails.timeSlot}</p>
+              <p>Table Type: {bookingDetails.tableType}</p>
+            </div>
+            <div className="popupButtons">
+              <button className="confirmButton" onClick={handleConfirmBooking}>
+                Confirm
+              </button>
+              <button
+                className="cancelButton"
+                onClick={() => setShowConfirmPopup(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showErrorPopup && (
+        <div className="popupOverlay">
+          <div className="popup errorPopup">
+            <h3>Error</h3>
+            <p>{errorMessage}</p>
+            <button 
+              className="popupButton"
+              onClick={() => setShowErrorPopup(false)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
