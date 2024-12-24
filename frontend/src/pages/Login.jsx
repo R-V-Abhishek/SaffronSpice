@@ -12,7 +12,6 @@ const Login = () => {
   // Redirect if user is already logged in
   useEffect(() => {
     if (isAuthenticated()) {
-      alert("You are already logged in");
       navigate("/Booking"); // Redirect to the Booking page or any other protected route
     }
   }, [navigate]);
@@ -67,7 +66,6 @@ const Login = () => {
         localStorage.setItem("userId", userId);
         localStorage.setItem("token", token);
 
-        alert("Login successful!");
         navigate("/Booking"); // Redirect to booking page
       } else {
         setError(result.message || "Invalid username or password.");

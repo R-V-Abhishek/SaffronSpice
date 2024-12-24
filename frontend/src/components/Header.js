@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Header.css";
 import logo from "../assets/Images/SaffronSpice.jpeg";
-import { isAuthenticated } from "../utils/authUtils"; // Import the utility function
+import { isAuthenticated, clearAuthData } from "../utils/authUtils"; // Import the utility functions
 
 function Header() {
   const [userData, setUserData] = useState(null);
@@ -44,10 +44,9 @@ function Header() {
 
   // Handle user logout
   const handleLogout = () => {
-    localStorage.removeItem("userId");
-    localStorage.removeItem("token");
-    alert("You have logged out successfully.");
-  };
+    clearAuthData(); // Clear user data from localStorage
+    window.location.href = "/"; // Force a full reload and redirect to the homepage
+  };  
 
   // Handle navigation to Login page
   const handleLogin = () => {

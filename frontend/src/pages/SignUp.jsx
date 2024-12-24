@@ -6,6 +6,9 @@ import Logo from "../assets/Images/SaffronSpice.jpeg";
 const SignUp = () => {
   const [theme, setTheme] = useState("light");
   const navigate = useNavigate(); // Initialize useNavigate hook
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [showErrorPopup, setShowErrorPopup] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   // Dynamically apply the theme to the body and document elements
   useEffect(() => {
@@ -34,14 +37,15 @@ const SignUp = () => {
       const result = await response.json();
 
       if (response.ok) {
-        alert("Signup successful!");
-        navigate("/Login"); // Redirect to the login page
+        setShowSuccessPopup(true);
       } else {
-        alert(result.message || "Signup failed.");
+        setErrorMessage(result.message || "Signup failed.");
+        setShowErrorPopup(true);
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("Something went wrong. Please try again.");
+      setErrorMessage("Something went wrong. Please try again.");
+      setShowErrorPopup(true);
     }
   };
 
@@ -174,6 +178,39 @@ const SignUp = () => {
           </form>
         </div>
       </div>
+
+      {showSuccessPopup && (
+        <div className={styles.popupOverlay}>
+          <div className={styles.popup}>
+            <h3>Success!</h3>
+            <p>Your account has been created successfully.</p>
+            <button
+              className={styles.popupButton}
+              onClick={() => {
+                setShowSuccessPopup(false);
+                navigate("/Login");
+              }}
+            >
+              Go to Login
+            </button>
+          </div>
+        </div>
+      )}
+
+      {showErrorPopup && (
+        <div className={styles.popupOverlay}>
+          <div className={styles.popup}>
+            <h3>Error</h3>
+            <p>{errorMessage}</p>
+            <button
+              className={styles.popupButton}
+              onClick={() => setShowErrorPopup(false)}
+            >
+              Try Again
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
