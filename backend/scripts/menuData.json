@@ -1,0 +1,208 @@
+[
+    {
+        "category": "Vegetarian Dishes",
+        "items": [
+            {
+                "name": "Vegetable Biryani",
+                "description": "A fragrant rice dish made with mixed vegetables, saffron, and a blend of aromatic spices.",
+                "price": "₹200",
+                "image": "../frontend/src/assets/Images/vegetableBiriyani.png"
+            },
+            {
+                "name": "Palak Paneer",
+                "description": "A creamy spinach curry with paneer cubes, cooked in a mix of spices.",
+                "price": "₹220",
+                "image": "../frontend/src/assets/Images/PalakPaneer.png"
+            },
+            {
+                "name": "Paneer Butter Masala",
+                "description": "A creamy tomato-based curry with soft cubes of paneer (Indian cottage cheese).",
+                "price": "₹210",
+                "image": "../frontend/src/assets/Images/PaneerButterMasala.png"
+            },
+            {
+                "name": "Aloo Gobi",
+                "description": "A hearty dish made with potatoes and cauliflower cooked in aromatic Indian spices.",
+                "price": "₹180",
+                "image": "../frontend/src/assets/Images/AlooGobi.png"
+            },
+            {
+                "name": "Baingan Bharta",
+                "description": "Smoky mashed eggplant cooked with tomatoes and spices.",
+                "price": "₹210",
+                "image": "../frontend/src/assets/Images/BainganBharta.png"
+            },
+            {
+                "name": "Vegetable Pulao",
+                "description": "A fragrant rice dish made with assorted vegetables and mild spices.",
+                "price": "₹150",
+                "image": "../frontend/src/assets/Images/VegetablePulao.png"
+            },
+            {
+                "name": "Dal Tadka",
+                "description": "A traditional yellow lentil dish flavored with cumin, garlic, and ghee.",
+                "price": "₹130",
+                "image": "../frontend/src/assets/Images/DalTadka.png"
+            },
+            {
+                "name": "Vegetable Kofta Curry",
+                "description": "Deep-fried vegetable dumplings in a rich, flavorful gravy.",
+                "price": "₹250",
+                "image": "../frontend/src/assets/Images/VegKoftaCurry.png"
+            },
+            {
+                "name": "Jeera Rice",
+                "description": "A simple and aromatic rice dish flavored with cumin seeds.",
+                "price": "₹100",
+                "image": "../frontend/src/assets/Images/JeeraRice.png"
+            },
+            {
+                "name": "Vegetable Kurma",
+                "description": "A rich, creamy curry made with mixed vegetables and cashew paste.",
+                "price": "₹240",
+                "image": "../frontend/src/assets/Images/VegetableKurma.png"
+            },
+            {
+                "name": "Chana Masala",
+                "description": "A spicy chickpea curry cooked in tomato gravy with a variety of spices.",
+                "price": "₹170",
+                "image": "../frontend/src/assets/Images/ChanaMasala.png"
+            }
+        ]
+    },
+    {
+        "category": "Non-Vegetarian Dishes",
+        "items": [
+            {
+                "name": "Chicken Tikka",
+                "description": "Boneless chicken marinated in yogurt and spices, grilled to perfection.",
+                "price": "₹350",
+                "image": "../frontend/src/assets/Images/ChickenTikka.png"
+            },
+            {
+                "name": "Mutton Korma",
+                "description": "Tender mutton cooked in a rich, creamy, and flavorful gravy.",
+                "price": "₹450",
+                "image": "../frontend/src/assets/Images/MuttonKorma.png"
+            },
+            {
+                "name": "Chicken Biryani",
+                "description": "Aromatic basmati rice layered with spiced chicken and saffron.",
+                "price": "₹400",
+                "image": "../frontend/src/assets/Images/ChickenBiryani.png"
+            },
+            {
+                "name": "Fish Curry",
+                "description": "Delicious fish cooked in a spicy and tangy curry.",
+                "price": "₹380",
+                "image": "../frontend/src/assets/Images/FishCurry.png"
+            },
+            {
+                "name": "Keema Matar",
+                "description": "Minced mutton cooked with peas in a flavorful gravy.",
+                "price": "₹370",
+                "image": "../frontend/src/assets/Images/KeemaMatar.png"
+            },
+            {
+                "name": "Chicken Curry",
+                "description": "Traditional chicken curry cooked in a blend of spices.",
+                "price": "₹320",
+                "image": "../frontend/src/assets/Images/ChickenCurry.png"
+            },
+            {
+                "name": "Seekh Kebab",
+                "description": "Minced meat skewers grilled to perfection, served with mint chutney.",
+                "price": "₹290",
+                "image": "../frontend/src/assets/Images/SeekhKebab.png"
+            },
+            {
+                "name": "Chicken Masala",
+                "description": "Spicy chicken cooked in a tomato-based gravy.",
+                "price": "₹330",
+                "image": "../frontend/src/assets/Images/ChickenMasala.png"
+            },
+            {
+                "name": "Lamb Shank",
+                "description": "Slow-cooked lamb shank in rich, spiced gravy.",
+                "price": "₹550",
+                "image": "../frontend/src/assets/Images/LambShank.png"
+            },
+            {
+                "name": "Butter Chicken",
+                "description": "Chicken cooked in a creamy, rich tomato sauce.",
+                "price": "₹400",
+                "image": "../frontend/src/assets/Images/ButterChicken.png"
+            }
+        ]
+    },
+    {
+        "category": "Chinese Dishes",
+        "items": [
+            {
+                "name": "Chinese Fried Rice",
+                "description": "Stir-fried rice with vegetables and soy sauce.",
+                "price": "₹200",
+                "image": "../frontend/src/assets/Images/ChineseFriedRice.png"
+            },
+            {
+                "name": "Veg Chowmein",
+                "description": "Stir-fried noodles with mixed vegetables.",
+                "price": "₹220",
+                "image": "../frontend/src/assets/Images/VegChowmein.png"
+            },
+            {
+                "name": "Veg Manchurian",
+                "description": "Fried vegetable balls in a sweet and spicy sauce.",
+                "price": "₹230",
+                "image": "../frontend/src/assets/Images/VegManchurian.png"
+            },
+            {
+                "name": "Chicken Chowmein",
+                "description": "Stir-fried noodles with chicken and vegetables.",
+                "price": "₹250",
+                "image": "../frontend/src/assets/Images/ChickenChowmein.png"
+            }
+        ]
+    },
+    {
+        "category": "Beverages",
+        "items": [
+            {
+                "name": "Mango Lassi",
+                "description": "A sweet yogurt drink flavored with mango.",
+                "price": "₹120",
+                "image": "../frontend/src/assets/Images/MangoLassi.png"
+            },
+            {
+                "name": "Sweet Lassi",
+                "description": "A sweet yogurt drink with a creamy texture.",
+                "price": "₹100",
+                "image": "../frontend/src/assets/Images/SweetLassi.png"
+            },
+            {
+                "name": "Masala Chai",
+                "description": "A spiced tea with a blend of aromatic spices.",
+                "price": "₹60",
+                "image": "../frontend/src/assets/Images/MasalaChai.png"
+            },
+            {
+                "name": "Lemonade",
+                "description": "A refreshing drink made with lemon juice and sugar.",
+                "price": "₹50",
+                "image": "../frontend/src/assets/Images/Lemonade.png"
+            },
+            {
+                "name": "Iced Tea",
+                "description": "Chilled tea served with lemon and mint.",
+                "price": "₹80",
+                "image": "../frontend/src/assets/Images/IcedTea.png"
+            },
+            {
+                "name": "Coffee",
+                "description": "A hot cup of freshly brewed coffee.",
+                "price": "₹90",
+                "image": "../frontend/src/assets/Images/Coffee.png"
+            }
+        ]
+    }
+]

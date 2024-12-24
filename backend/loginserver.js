@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const authRoutes = require("./routes/auth");
 const reservationRoutes = require("./routes/reservation");
+const menuRoutes = require("./routes/menu"); // Import menu routes
 dotenv.config(); // Load environment variables
 
 const app = express();
@@ -16,6 +17,7 @@ app.use(express.json()); // Parse JSON payloads
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/reservation", reservationRoutes);
+app.use("/api/menu", menuRoutes); // Add menu routes
 
 // MongoDB Connection
 mongoose
