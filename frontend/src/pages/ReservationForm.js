@@ -54,12 +54,15 @@ const ReservationForm = () => {
       return;
     }
 
-    setBookingDetails({
+    // Set booking details to be passed to the PaymentPage
+    const newBookingDetails = {
       guests,
       visitDate,
       timeSlot: selectedTimeSlot,
       tableType: selectedTableType,
-    });
+    };
+    setBookingDetails(newBookingDetails);
+
     setShowConfirmPopup(true);
   };
 
@@ -77,7 +80,8 @@ const ReservationForm = () => {
       const result = await response.json();
 
       if (response.ok) {
-        navigate("/confirmation");
+        // Navigate to PaymentPage with booking details passed in the state
+        navigate("/payment", { state: bookingDetails });
       } else {
         setErrorMessage(result.message || "Reservation failed.");
         setShowErrorPopup(true);

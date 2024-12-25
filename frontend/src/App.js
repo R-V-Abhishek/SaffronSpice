@@ -10,6 +10,8 @@ import Home from "./pages/HomePage";
 import Menu from "./pages/Menu";
 import BookingPage from "./pages/BookingPage";
 import ReservationForm from "./pages/ReservationForm";
+import PaymentPage from "./pages/PaymentPage";  
+import PaymentConfirmationPage from "./pages/PaymentConfirmationPage";  // Import the PaymentConfirmationPage component
 
 // Component to handle scrolling to sections based on URL hash
 const ScrollToSection = () => {
@@ -86,7 +88,7 @@ const App = () => {
 
           {/* Booking Pages */}
           <Route
-            path="/Booking"
+            path="/booking"
             element={
               <BookingLayout>
                 <BookingPage />
@@ -98,6 +100,22 @@ const App = () => {
             element={
               <BookingLayout>
                 <ReservationForm />
+              </BookingLayout>
+            }
+          />
+          <Route
+            path="/payment"
+            element={
+              <BookingLayout>
+                <PaymentPage />
+              </BookingLayout>
+            }
+          />
+          <Route
+            path="/confirmation"
+            element={
+              <BookingLayout>
+                <PaymentConfirmationPage />
               </BookingLayout>
             }
           />
