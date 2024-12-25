@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "start": "npm run populate-menu && concurrently \"cd backend && npm start\" \"cd frontend && npm start\"",
+    "populate-menu": "cd backend && node scripts/populateMenu.js"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.0"
+  }
+}
