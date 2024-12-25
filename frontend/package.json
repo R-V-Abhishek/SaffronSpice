@@ -15,12 +15,16 @@
     "react-router-dom": "^7.0.2",
     "react-scripts": "^5.0.1",
     "sass": "^1.81.0",
-    "scss": "^0.2.4",
     "styled-components": "^6.1.13",
     "web-vitals": "^2.1.4"
   },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \"npm run start-backend\" \"npm run start-frontend\"",
+    "start-backend": "node backend/loginserver.js",
+    "start-frontend": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
