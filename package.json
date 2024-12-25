@@ -4,6 +4,6 @@
     "populate-menu": "cd backend && node scripts/populateMenu.js"
   },
   "dependencies": {
-    "concurrently": "^8.2.0"
+    "concurrently": "^9.1.0"
   }
 }
