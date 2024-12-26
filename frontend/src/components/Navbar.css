@@ -1,12 +1,11 @@
 .navbar {
     background-color: #a65b00;
-    overflow: hidden;
-    position: sticky;
-    top: 0;
-    z-index: auto; /* Lower z-index to keep profile card above it */
-    padding: 5px 0;
-    transition: padding 0.3s ease;
-    font-size: small;
+    position: sticky; /* Sticky positioning */
+    top: 0; /* Stick to the top of the viewport */
+    z-index: 1000; /* Ensure it stays above other elements */
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add subtle shadow for depth */
+    transition: padding 0.3s ease, box-shadow 0.3s ease;
 }
 
 .navbar ul {

@@ -1,35 +1,324 @@
-.about, .speciality, .contact {
+
+/* Hero Section */
+.hero {
+    background: url('../assets/Images/Hero.png') no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    animation: fadeInUp 1s ease forwards;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: #a65b00;
+    color: white;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: pulse 2s infinite;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(166, 91, 0, 0.4);
+}
+
+/* Quick Info Section */
+.quick-info {
+    background: #fff;
+    padding: 2rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+}
+
+.info-item i {
+    font-size: 2rem;
+}
+
+/* Enhanced Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Reviews Section */
+
+.reviews-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .reviews-slider {
+    display: flex;
+    flex-wrap: wrap; /* Enable wrapping */
+    justify-content: space-around; /* Add space between cards */
+}
+
+  .review-card {
+       display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    position: absolute; 
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.6s ease;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width: calc(33.33% - 20px); /* Calculate width for 3 columns */
+    margin: 10px;
+  }
+
+  .review-card.active {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .review-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ddd;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .dot.active {
+    background: #a65b00;
+  }
+
+  .review-card p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    text-align: center;
+    margin: 0;
+  }
+  @media (max-width: 768px) {
+    .review-card {
+        width: 100%; 
+    }
+}
+
+/* Speciality Section */
+.speciality {
     padding: 60px 20px;
     background-color: #f9f9f9;
     margin: 20px 0;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    max-width: 100%;
-    opacity: 0;
-    animation: fadeInSection 1s forwards;
 }
 
-.about h2, .speciality h2, .contact h2 {
+.speciality h2 {
     color: #a65b00;
     font-size: 2.5em;
     text-align: center;
     margin-bottom: 20px;
     text-transform: uppercase;
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-@keyframes fadeInSection {
-    0% { opacity: 0; transform: translateY(50px); }
-    100% { opacity: 1; transform: translateY(0); }
+.speciality.reveal h2 {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-.about p, .speciality p, .contact p {
+.speciality-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.dish-card {
+    position: relative;
+    height: 300px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dish-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.dish-card:hover img {
+    transform: scale(1.1);
+}
+
+.dish-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    color: white;
+}
+
+/* About Section */
+.about {
+    padding: 60px 20px;
+    background-color: #f9f9f9;
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.about h2 {
+    color: #a65b00;
+    font-size: 2.5em;
+    text-align: center;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.about.reveal h2 {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.about p {
     font-size: 1.2em;
     line-height: 1.8;
     color: #333;
     text-align: center;
     margin: 10px auto;
     max-width: 800px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease 0.3s;
 }
 
+.about.reveal p {
+    opacity: 1;
+    transform: translateY(0);
+}
 
+/* Map Styling */
+.map-container iframe {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Stats Section */
+.about-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+}
+
+.stat {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #a65b00;
+}
+
+.stat-label {
+    font-size: 1.2rem;
+    color: #555;
+    margin-top: 0.5rem;
+}
+
+/* Contact Section */
+.contact {
+    padding-top: 2rem;
+    margin-top: 3rem;
+}
+
+.reviews {
+    margin-bottom: 3rem;
+}
