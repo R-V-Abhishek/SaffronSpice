@@ -1,7 +1,7 @@
 .cart-page {
   min-height: 100vh;
   padding: 2rem;
-  background-color: #e67e22; /* Light orange from login page */
+  background-color: rgb(232, 219, 196); /* Soft peach tone */
   color: #333; /* Text color for light theme */
   display: flex;
   flex-direction: column;
@@ -49,18 +49,10 @@
   transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
 }
 
-.cart-page li:hover {
-  background-color: rgb(248, 212, 145); /* Light orange hover effect */
-  transform: scale(1.02);
-}
-
-.item-image {
-  width: 80px;
-  height: 80px;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  object-fit: cover;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+.empty-cart {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #555; /* Dark gray */
 }
 
 .item-details {
@@ -129,7 +121,7 @@
 
 .remove-btn {
   justify-self: center;
-  background-color: #d35400;  /* Dark orange */
+  background-color: #d35400; /* Dark orange */
   color: white;
   padding: 0.6rem 1rem;
   border: none;
@@ -141,7 +133,6 @@
 }
 
 .remove-btn:hover {
-   /* Brighter orange */
   transform: scale(1.1);
 }
 
@@ -163,27 +154,4 @@
   color: #555;
 }
 
-.empty-cart {
-  text-align: center;
-  color: #999;
-  font-size: 1.4rem;
-  margin: 2rem 0;
-}
 
-.checkout-btn {
-  margin-top: 2rem;
-  background: linear-gradient(90deg, #e67e22, #d35400); /* Orange gradient */
-  color: white;
-  padding: 0.8rem 2rem;
-  font-size: 1.2rem;
-  font-weight: bold;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: transform 0.3s, background-color 0.3s;
-}
-
-.checkout-btn:hover {
-  transform: translateY(-2px);
-  background: linear-gradient(90deg, #d35400, #e67e22); /* Reverse gradient */
-}
