@@ -64,4 +64,29 @@ router.delete("/remove", authenticateUser, async (req, res) => {
   }
 });
 
+// 🛒 Update item quantity in the cart
+router.put("/update", authenticateUser, async (req, res) => {
+  const { menuItemId, quantity } = req.body;
+  try {
+    if (quantity <= 0) return res.status(400).json({ message: "Quantity must be greater than 0" });
+
+    let cart = await Cart.findOne({ userId: req.userId });
+    if (!cart) return res.status(404).json({ message: "Cart not found" });
+
+    const itemIndex = cart.items.findIndex(item => item.menuItemId.toString() === menuItemId.toString());
+    if (itemIndex === -1) return res.status(404).json({ message: "Item not found in cart" });
+
+    cart.items[itemIndex].quantity = quantity;
+
+    cart.total = cart.items.reduce((sum, item) => sum + item.quantity * parseFloat(item.price.replace("₹", "")), 0);
+
+    await cart.save();
+    res.status(200).json(cart);
+  } catch (error) {
+    console.error("Error updating cart:", error);
+    res.status(500).json({ message: "Error updating cart", error });
+  }
+});
+
+
 module.exports = router;

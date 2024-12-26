@@ -28,7 +28,6 @@ const Cart = () => {
   const updateQuantity = async (menuItemId, newQuantity) => {
     try {
       if (newQuantity <= 0) {
-        // If the new quantity is 0, remove the item
         handleRemove(menuItemId);
         return;
       }
@@ -40,7 +39,7 @@ const Cart = () => {
           : item
       );
       const newTotal = updatedItems.reduce(
-        (acc, item) => acc + item.quantity * item.price,
+        (acc, item) => acc + item.quantity * parseFloat(item.price.replace("₹", "")),
         0
       );
       setCart({ items: updatedItems, total: newTotal });
@@ -59,9 +58,11 @@ const Cart = () => {
       if (!response.ok) {
         throw new Error("Failed to update quantity");
       }
+
+      const updatedCart = await response.json();
+      setCart(updatedCart);
     } catch (err) {
       console.error(err.message);
-      // Revert changes on error
       fetchCart();
     }
   };
@@ -126,7 +127,7 @@ const Cart = () => {
 
                   <div className="item-details">
                     <span className="item-name">{item.name}</span>
-                    <span className="item-price">₹{item.price}</span>
+                    <span className="item-price">{item.price}</span>
                   </div>
 
                   <button
