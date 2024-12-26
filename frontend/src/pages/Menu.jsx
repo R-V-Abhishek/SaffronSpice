@@ -58,16 +58,17 @@ const Menu = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          userId: userId, // Add this line to include userId in headers
+          Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify({ userId, menuItemId, quantity: 1 }),
+        body: JSON.stringify({ menuItemId, quantity: 1 }) // Remove userId from body
       });
 
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || "Failed to add item to cart");
       }
-
+      
       alert("Item added to cart successfully!");
     } catch (err) {
       console.error("Cart Error:", err.message);
@@ -75,7 +76,6 @@ const Menu = () => {
       alert(err.message);
     }
   };
-
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
