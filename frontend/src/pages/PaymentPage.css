@@ -1,0 +1,186 @@
+body {
+    background-color: #f8f8f8; /* Light grey background, matches your site's theme */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  .payment-container {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(86, 16, 16, 0.1); /* Slightly larger shadow */
+    margin: 20px auto;
+    max-width: 500px;
+    padding: 30px;
+    box-sizing: border-box;
+  }
+  
+  h2 {
+    color: #ff6f00; /* Warm orange, consistent with your site's theme */
+    font-size: 24px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    color: #555; /* Darker text for labels */
+    display: block;
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  
+  input {
+    border: 1px solid #ccc; /* Lighter grey border for input fields */
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+  }
+  
+  input:focus {
+    border-color: #ff6f00; /* Orange border when focused */
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 111, 0, 0.25); /* Slight glow effect */
+  }
+  
+  /* Error message styling for invalid email */
+  .error {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  button {
+    background-color: #ff6f00; /* Warm orange background for the button */
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 20px auto;
+    padding: 14px 30px;
+    display: block;
+    transition: background-color 0.3s ease, transform 0.2s;
+  }
+  
+  button:hover {
+    background-color: #e65b00; /* Darker orange on hover */
+  }
+  
+  button:active {
+    transform: scale(0.98); /* Slightly shrink the button on click */
+  }
+  
+ /* Spinner Styles */
+.spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+}
+
+.loading-spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #ff6f00;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Button Hover and Active States */
+.btn {
+    background-color: #ff6f00;
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #e65b00;
+}
+
+.btn.loading {
+    background-color: #cccccc;
+    cursor: wait;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    width: 400px;
+    text-align: center;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.confirm-btn, .cancel-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.confirm-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.cancel-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.confirm-btn:hover, .cancel-btn:hover {
+    opacity: 0.8;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #666;
+    font-size: 14px;
+}
+
+.footer a {
+    color: #ff6f00;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}

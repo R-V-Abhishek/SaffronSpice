@@ -66,6 +66,12 @@ const ReservationForm = () => {
     fetchAvailableTimeSlots(selectedDate); // Fetch time slots for the selected date
   };
 
+  const calculatePrice = (tableType) => {
+    if (tableType === "VIP") return 2000;
+    if (tableType === "Special") return 1500;
+    return 1000;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -80,6 +86,7 @@ const ReservationForm = () => {
       visitDate,
       timeSlot: selectedTimeSlot,
       tableType: selectedTableType,
+      price: calculatePrice(selectedTableType),
     };
     setBookingDetails(newBookingDetails);
 
@@ -100,7 +107,10 @@ const ReservationForm = () => {
       const result = await response.json();
 
       if (response.ok) {
-        // Navigate to PaymentPage with booking details passed in the state
+        // Save booking details in localStorage
+        localStorage.setItem("bookingDetails", JSON.stringify(bookingDetails));
+
+        // Navigate to PaymentPage with booking details in the state
         navigate("/payment", { state: bookingDetails });
       } else {
         setErrorMessage(result.message || "Reservation failed.");
@@ -155,7 +165,6 @@ const ReservationForm = () => {
           />
         </div>
 
-        {/* Time Slots */}
         <div className="form-group">
           <label>Available Time Slots</label>
           <div className="time-slots">
