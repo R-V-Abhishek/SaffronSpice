@@ -2,6 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import "./ReservationForm.css";
 
+const formatTimeSlot = (time) => {
+  const [hours] = time.split(':');
+  const hour = parseInt(hours);
+  return `${hour > 12 ? hour - 12 : hour}:00 ${hour >= 12 ? 'PM' : 'AM'}`;
+};
+
 const ReservationForm = () => {
   const [searchParams] = useSearchParams(); // Get the query parameters
   const navigate = useNavigate(); // For navigation
@@ -34,11 +40,25 @@ const ReservationForm = () => {
     try {
       const response = await fetch(`http://localhost:5000/api/reservation/timeslots?date=${date}`);
       const data = await response.json();
-      setAvailableTimeSlots(data.timeSlots || []);
+      if (response.ok) {
+        setAvailableTimeSlots(data.timeSlots || []);
+      } else {
+        setErrorMessage("Failed to fetch time slots");
+        setShowErrorPopup(true);
+      }
     } catch (error) {
       console.error("Failed to fetch time slots:", error);
+      setErrorMessage("Network error while fetching time slots");
+      setShowErrorPopup(true);
     }
   };
+
+  useEffect(() => {
+    if (visitDate) {
+      fetchAvailableTimeSlots(visitDate);
+      setSelectedTimeSlot(''); // Reset selected time when date changes
+    }
+  }, [visitDate]);
 
   const handleDateChange = (e) => {
     const selectedDate = e.target.value;
@@ -140,18 +160,18 @@ const ReservationForm = () => {
           <label>Available Time Slots</label>
           <div className="time-slots">
             {availableTimeSlots.length > 0 ? (
-              availableTimeSlots.map((slot, idx) => (
+              availableTimeSlots.map((slot) => (
                 <button
-                  key={idx}
+                  key={slot}
                   type="button"
-                  className={`time-slot ${selectedTimeSlot === slot ? "selected" : ""}`}
+                  className={`time-slot ${selectedTimeSlot === slot ? 'selected' : ''}`}
                   onClick={() => setSelectedTimeSlot(slot)}
                 >
-                  {slot}
+                  {formatTimeSlot(slot)}
                 </button>
               ))
             ) : (
-              <p>No time slots available for this date.</p>
+              <p>No time slots available for this date. Please note that reservations require at least 4 hours advance notice.</p>
             )}
           </div>
         </div>
