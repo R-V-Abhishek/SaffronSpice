@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            text-align: center;
+            padding: 20px;
+        }
+        .confirmation-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;\n            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);\n            border-radius: 8px;
+        }
+        .confirmation-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="confirmation-container">
+        <h2>Payment Confirmation</h2>
+        <div id="payment-details"></div>
+        <a href="index.html" class="btn">Return to Payment Page</a>
+    </div>
+
+    <script>
+        const paymentDetails = JSON.parse(sessionStorage.getItem('paymentDetails'));
+        if (paymentDetails) {
+            const detailsHTML = `
+                <p>Thank you, <strong>${paymentDetails.name}</strong>!</p>
+                <p>Payment of ₹${paymentDetails.amount} using UPI ID <strong>${paymentDetails.upi}</strong> has been recorded.</p>
+            `;
+            document.getElementById('payment-details').innerHTML = detailsHTML;
+        } else {
+            document.getElementById('payment-details').innerHTML = '<p>No payment details found!</p>';
+        }
+    </script>
+</body>
+</html>
