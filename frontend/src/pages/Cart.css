@@ -1,0 +1,26 @@
+.cart-page {
+    padding: 2rem;
+  }
+  
+  .cart-page ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .cart-page li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0;
+    padding: 0.5rem;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .cart-page button {
+    background: red;
+    color: white;
+    border: none;
+    padding: 0.3rem 0.6rem;
+    cursor: pointer;
+  }
+  

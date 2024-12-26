@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from "react";
+import {
+  getUserId,
+  getToken,
+  isAuthenticated,
+} from "../utils/authUtils";
 import "./Menu.css";
 
 const Menu = () => {
@@ -6,7 +11,9 @@ const Menu = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [cartError, setCartError] = useState(null);
 
+  // Fetch menu items on component mount
   useEffect(() => {
     const fetchMenuItems = async () => {
       try {
@@ -15,13 +22,12 @@ const Menu = () => {
           throw new Error("Failed to fetch menu items");
         }
         const data = await response.json();
-        // Update image paths to use imported images
-        const updatedData = data.map(category => ({
+        const updatedData = data.map((category) => ({
           ...category,
-          items: category.items.map(item => ({
+          items: category.items.map((item) => ({
             ...item,
-            image: require(`../assets/Images/${item.image.split('/').pop()}`)
-          }))
+            image: require(`../assets/Images/${item.image.split('/').pop()}`),
+          })),
         }));
         setMenuItems(updatedData);
       } catch (err) {
@@ -34,11 +40,48 @@ const Menu = () => {
     fetchMenuItems();
   }, []);
 
+  // Add item to cart with userId linked
+  const addToCart = async (menuItemId) => {
+    try {
+      if (!isAuthenticated()) {
+        throw new Error("You must be logged in to add items to the cart.");
+      }
+
+      const userId = getUserId();
+      const token = getToken();
+
+      if (!userId || !token) {
+        throw new Error("Authentication data missing. Please log in again.");
+      }
+
+      const response = await fetch("http://localhost:5000/api/cart/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ userId, menuItemId, quantity: 1 }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to add item to cart");
+      }
+
+      alert("Item added to cart successfully!");
+    } catch (err) {
+      console.error("Cart Error:", err.message);
+      setCartError(err.message);
+      alert(err.message);
+    }
+  };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="menu">
+      {/* Search Bar */}
       <div className="search-bar">
         <input
           type="text"
@@ -48,18 +91,21 @@ const Menu = () => {
         />
       </div>
 
-      {searchTerm && !menuItems.some(category => 
-        category.items.some(item => 
-          item.name.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-      ) && (
-        <div className="no-results">
-          <p>No dishes found matching "{searchTerm}"</p>
-        </div>
-      )}
+      {/* No Results Found */}
+      {searchTerm &&
+        !menuItems.some((category) =>
+          category.items.some((item) =>
+            item.name.toLowerCase().includes(searchTerm.toLowerCase())
+          )
+        ) && (
+          <div className="no-results">
+            <p>No dishes found matching "{searchTerm}"</p>
+          </div>
+        )}
 
+      {/* Menu Categories */}
       {menuItems.map((category) => {
-        const filteredItems = category.items.filter(item =>
+        const filteredItems = category.items.filter((item) =>
           item.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
 
@@ -80,6 +126,12 @@ const Menu = () => {
                     <h3>{item.name}</h3>
                     <p>{item.description}</p>
                     <p className="price">{item.price}</p>
+                    <button
+                      onClick={() => addToCart(item._id)}
+                      className="add-to-cart-btn"
+                    >
+                      Add to Cart
+                    </button>
                   </div>
                 </div>
               ))}

@@ -12,7 +12,7 @@ import BookingPage from "./pages/BookingPage";
 import ReservationForm from "./pages/ReservationForm";
 import PaymentPage from "./pages/PaymentPage";  
 import PaymentConfirmationPage from "./pages/PaymentConfirmationPage";  // Import the PaymentConfirmationPage component
-
+import Cart from "./pages/Cart";
 // Component to handle scrolling to sections based on URL hash
 const ScrollToSection = () => {
   const location = useLocation();
@@ -135,6 +135,14 @@ const App = () => {
               <MainLayout>
                 <Menu />
               </MainLayout>
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              <MainLayout>
+              <Cart />
+            </MainLayout>
             }
           />
         </Routes>

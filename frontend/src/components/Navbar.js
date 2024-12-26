@@ -12,6 +12,7 @@ function Navbar() {
         <li><Link to="/#speciality">Speciality</Link></li> {/* Updated */}
         <li><Link to="/#about">About Us</Link></li>
         <li><Link to="/#contact">Contact Us</Link></li>
+        <li><Link to="/cart">Cart</Link></li> {/* Add Cart Link */}      
       </ul>
     </nav>
   );

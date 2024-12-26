@@ -5,6 +5,7 @@ const cors = require("cors");
 const authRoutes = require("./routes/auth");
 const reservationRoutes = require("./routes/reservation");
 const menuRoutes = require("./routes/menu"); // Import menu routes
+const cartRoutes = require("./routes/cart");
 dotenv.config(); // Load environment variables
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(express.json()); // Parse JSON payloads
 app.use("/api/auth", authRoutes);
 app.use("/api/reservation", reservationRoutes);
 app.use("/api/menu", menuRoutes); // Add menu routes
+app.use("/api/cart", cartRoutes);
 
 // MongoDB Connection
 mongoose
