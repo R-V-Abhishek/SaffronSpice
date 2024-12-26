@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./PaymentConfirmationPage.css";
 
 const ConfirmationPage = () => {
   const navigate = useNavigate();
@@ -16,9 +17,9 @@ const ConfirmationPage = () => {
   }, [navigate]);
 
   return (
-    <div className="confirmation-container" style={styles.confirmationContainer}>
-      <h2 style={styles.heading}>Payment Confirmation</h2>
-      <div id="payment-details" style={styles.paymentDetails}>
+    <div className="confirmation-container">
+      <h2>Payment Confirmation</h2>
+      <div id="payment-details">
         {paymentDetails ? (
           <>
             <p>
@@ -33,38 +34,11 @@ const ConfirmationPage = () => {
           <p>No payment details found!</p>
         )}
       </div>
-      <button onClick={() => navigate("/")} className="btn" style={styles.btn}>
+      <button onClick={() => navigate("/")} className="btn">
         Return to Home Page
       </button>
     </div>
   );
-};
-
-const styles = {
-  confirmationContainer: {
-    maxWidth: "400px",
-    margin: "0 auto",
-    padding: "20px",
-    background: "#fff",
-    boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-    borderRadius: "8px",
-  },
-  heading: {
-    marginBottom: "20px",
-    color: "#333",
-  },
-  paymentDetails: {
-    color: "#333",
-  },
-  btn: {
-    display: "inline-block",
-    padding: "10px 20px",
-    background: "#007bff",
-    color: "#fff",
-    textDecoration: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-  },
 };
 
 export default ConfirmationPage;

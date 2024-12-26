@@ -1,0 +1,65 @@
+/* Confirmation Page Container */
+.confirmation-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: calc(1rem + 0.5vw);
+    background-color: #fff;
+    box-shadow: 0 0 50px #af5303;
+    border-radius: 8px;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  /* Heading Styling */
+  .confirmation-container h2 {
+    margin-bottom: calc(1rem + 0.5vw);
+    font-size: calc(1.5rem + 0.5vw);
+    color: #af5303;
+  }
+  
+  /* Payment Details Styling */
+  #payment-details {
+    color: #333;
+    margin-bottom: calc(1rem + 0.5vw);
+    font-size: calc(1rem + 0.3vw);
+  }
+  
+  /* Button Styling */
+  .confirmation-container .btn {
+    display: inline-block;
+    padding: calc(0.5rem + 0.3vw) calc(1rem + 0.5vw);
+    background-color: #e67e22;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: calc(1rem + 0.3vw);
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  .confirmation-container .btn:hover {
+    background-color: #d35400;
+    transform: scale(1.05);
+  }
+  
+  /* Light Theme */
+  .lightTheme .confirmation-container {
+    background-color: #fff;
+    color: #333;
+  }
+  
+  .lightTheme #payment-details {
+    color: #333;
+  }
+  
+  /* Dark Theme */
+  .darkTheme .confirmation-container {
+    background-color: #231f1f;
+    color: white;
+  }
+  
+  .darkTheme #payment-details {
+    color: white;
+  }
+  
+  
