@@ -17,6 +17,35 @@ const PaymentPage = () => {
     // Adding a class to the body on load to ensure CSS is applied
     document.body.classList.add("payment-page-loaded");
 
+    const fetchUserData = async () => {
+      const userId = localStorage.getItem('userId');
+      if (!userId) {
+        navigate('/login');
+        return;
+      }
+
+      try {
+        const response = await fetch(`http://localhost:5000/api/auth/user/${userId}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (response.ok) {
+          const userData = await response.json();
+          setName(userData.name);
+          setEmail(userData.email);
+        } else {
+          setError('Failed to fetch user data');
+        }
+      } catch (error) {
+        setError('Error fetching user data');
+      }
+    };
+
+    fetchUserData();
+
     const details = location.state || JSON.parse(localStorage.getItem("bookingDetails"));
     
     if (details) {
@@ -33,7 +62,7 @@ const PaymentPage = () => {
   }, [location.state, navigate]);
 
   const validateEmail = (email) => {
-    const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA0-9]{2,6}$/;
+    const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9]{2,6}$/;
     return regex.test(email);
   };
 
@@ -68,71 +97,71 @@ const PaymentPage = () => {
   };
 
   return (
-    <div className="payment-container" key={location.pathname}> {/* Ensure key prop */}
-      <h2>Payment Page</h2>
-      <form id="payment-form">
-        <div className="form-group">
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            id="name"
-            placeholder="Enter your name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          {error && email && !validateEmail(email) && <p className="error">{error}</p>}
-        </div>
-        <div className="form-group">
-          <label htmlFor="upi">UPI ID</label>
-          <input
-            type="text"
-            id="upi"
-            placeholder="Enter your UPI ID"
-            value={upi}
-            onChange={(e) => setUpi(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="amount">Amount</label>
-          <p>₹{amount}</p> {/* Display amount as read-only */}
-        </div>
-        <button
-          type="button"
-          onClick={handlePayment}
-          className={loading ? "btn loading" : "btn"}
-        >
-          {loading ? "Processing..." : "Pay Now"}
-        </button>
-      </form>
+    <div className="payment-wrapper">
+      <div className="payment-container" key={location.pathname}> {/* Ensure key prop */}
+        <h2>Payment Page</h2>
+        <form id="payment-form">
+          <div className="form-group">
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              value={name}
+              readOnly
+              className="readonly-input"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              readOnly
+              className="readonly-input"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="upi">UPI ID</label>
+            <input
+              type="text"
+              id="upi"
+              placeholder="Enter your UPI ID"
+              value={upi}
+              onChange={(e) => setUpi(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="amount">Amount</label>
+            <p>₹{amount}</p> {/* Display amount as read-only */}
+          </div>
+          <button
+            type="button"
+            onClick={handlePayment}
+            className={loading ? "btn loading" : "btn"}
+            disabled={loading}
+          >
+            {loading ? "Processing..." : "Pay Now"}
+          </button>
+        </form>
 
-      {/* Modal for payment confirmation */}
-      {isModalOpen && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <h3>Confirm Payment</h3>
-            <p>Are you sure you want to proceed with the payment of ₹{amount}?</p>
-            <div className="modal-buttons">
-              <button className="confirm-btn" onClick={confirmPayment}>Confirm</button>
-              <button className="cancel-btn" onClick={cancelPayment}>Cancel</button>
+        {/* Modal for payment confirmation */}
+        {isModalOpen && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <h3>Confirm Payment</h3>
+              <p>Are you sure you want to proceed with the payment of ₹{amount}?</p>
+              <div className="modal-buttons">
+                <button className="confirm-btn" onClick={confirmPayment}>Confirm</button>
+                <button className="cancel-btn" onClick={cancelPayment}>Cancel</button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      <div className="footer">Dummy Payment System &copy; 2024</div>
+        <div className="footer">Dummy Payment System &copy; 2024</div>
+      </div>
     </div>
   );
 };

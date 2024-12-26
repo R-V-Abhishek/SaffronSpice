@@ -1,39 +1,45 @@
-body {
-    background-color: #f8f8f8; /* Light grey background, matches your site's theme */
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-  }
-  
-  .payment-container {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(86, 16, 16, 0.1); /* Slightly larger shadow */
-    margin: 20px auto;
-    max-width: 500px;
-    padding: 30px;
-    box-sizing: border-box;
-  }
-  
-  h2 {
+.payment-wrapper {
+  min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(135deg, #ffa500 0%, #ff6f00 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.payment-container {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 
+    0 0 30px rgba(139, 69, 19, 0.5),
+    0 0 60px rgba(139, 69, 19, 0.3);
+  width: 100%;
+  max-width: 500px;
+  padding: 30px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+}
+
+h2 {
     color: #ff6f00; /* Warm orange, consistent with your site's theme */
     font-size: 24px;
     margin-bottom: 30px;
     text-align: center;
-  }
-  
-  .form-group {
+}
+
+.form-group {
     margin-bottom: 20px;
-  }
-  
-  label {
+}
+
+label {
     color: #555; /* Darker text for labels */
     display: block;
     font-size: 16px;
     margin-bottom: 8px;
-  }
-  
-  input {
+}
+
+input {
     border: 1px solid #ccc; /* Lighter grey border for input fields */
     border-radius: 5px;
     font-size: 16px;
@@ -41,22 +47,22 @@ body {
     width: 100%;
     box-sizing: border-box;
     transition: border-color 0.3s ease;
-  }
-  
-  input:focus {
+}
+
+input:focus {
     border-color: #ff6f00; /* Orange border when focused */
     outline: none;
     box-shadow: 0 0 0 2px rgba(255, 111, 0, 0.25); /* Slight glow effect */
-  }
-  
-  /* Error message styling for invalid email */
-  .error {
+}
+
+/* Error message styling for invalid email */
+.error {
     color: red;
     font-size: 14px;
     margin-top: 5px;
-  }
-  
-  button {
+}
+
+button {
     background-color: #ff6f00; /* Warm orange background for the button */
     border: none;
     border-radius: 5px;
@@ -67,17 +73,17 @@ body {
     padding: 14px 30px;
     display: block;
     transition: background-color 0.3s ease, transform 0.2s;
-  }
-  
-  button:hover {
+}
+
+button:hover {
     background-color: #e65b00; /* Darker orange on hover */
-  }
-  
-  button:active {
+}
+
+button:active {
     transform: scale(0.98); /* Slightly shrink the button on click */
-  }
-  
- /* Spinner Styles */
+}
+
+/* Spinner Styles */
 .spinner {
     display: flex;
     justify-content: center;
@@ -125,54 +131,100 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
 }
 
 .modal-content {
-    background-color: white;
+    background: white;
     padding: 30px;
-    border-radius: 8px;
-    width: 400px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    width: 90%;
     text-align: center;
+}
+
+.modal-content h3 {
+    color: #ff6f00;
+    margin-bottom: 20px;
+    font-size: 1.5em;
 }
 
 .modal-buttons {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    padding: 20px 40px;
+    margin-top: 20px;
+    width: 100%;
 }
 
 .confirm-btn, .cancel-btn {
-    padding: 10px 20px;
+    padding: 12px 30px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: opacity 0.3s;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    min-width: 120px;
 }
 
 .confirm-btn {
-    background-color: #28a745;
+    background: linear-gradient(to right, orange, brown);
     color: white;
+}
+
+.confirm-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 111, 0, 0.3);
 }
 
 .cancel-btn {
-    background-color: #dc3545;
-    color: white;
+    background: white;
+    color: #666;
+    border: 2px solid #666;
 }
 
-.confirm-btn:hover, .cancel-btn:hover {
-    opacity: 0.8;
+.cancel-btn:hover {
+    background: #666;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 102, 102, 0.3);
+}
+
+/* Error and Success States */
+.error .modal-content {
+    border-left: 5px solid #dc3545;
+}
+
+.success .modal-content {
+    border-left: 5px solid #28a745;
+}
+
+/* Add readonly input styles */
+.readonly-input {
+    background-color: #f8f8f8;
+    cursor: not-allowed;
+    border: 1px solid #ddd;
+}
+
+.readonly-input:focus {
+    border-color: #ddd;
+    box-shadow: none;
 }
 
 .footer {
+    background: #f8f8f8;
     text-align: center;
     margin-top: 30px;
-    color: #666;
     font-size: 14px;
+    color: #666;
 }
 
 .footer a {
