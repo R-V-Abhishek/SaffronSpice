@@ -12,17 +12,25 @@
   color: #a65b00;
   text-align: center;
   margin-bottom: 30px;
-  font-size: xx-large;
+  
 }
 
 .category {
   margin-bottom: 40px;
 }
 
+.category h2 {
+  color: #a65b00;
+  font-size: 2em;
+  text-align: center;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+} 
+
 .menu-items {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+  gap: 50px;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -36,11 +44,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end; /* Ensure content stays at the bottom */
   width: 100%; 
-  max-width: 300px;  /* Add a max-width to constrain item size */
-  justify-self: center;  /* Center items within grid cells */
+  max-width: 300px;  
+  justify-self: center;  
   aspect-ratio: 3 / 4;
+  position: relative; /* For positioning the button */
+}
+
+.add-to-cart-btn {
+  position: absolute; /* Absolute positioning within the menu-item *//* Set distance from the bottom of the card */
+  background-color: rgb(255, 111, 0);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
 }
 .menu-item img {
   width: 100%;
@@ -52,7 +71,7 @@
 
 .menu-item:hover {
   transform: scale(1.05);
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 15px orange;
 }
 
 .menu-item h3 {
@@ -67,6 +86,20 @@
   color: #333;
 }
 
+.add-to-cart-btn {
+  position: relative;
+  background-color: rgb(255, 111, 0);
+  color: white;;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+  transform: scale(1.2);
+}
+
 @keyframes fadeIn {
   0% {
       opacity: 0;
@@ -79,6 +112,7 @@
 }
 
 .search-bar {
+  margin-top: 20px;
   text-align: center;
   margin-bottom: 20px;
 }
@@ -115,110 +149,170 @@
   font-size: 1.2em;
 }
 
-.cart {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-}
-
-.cart-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.cart-modal {
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  width: 80%;
-  max-width: 500px;
-  max-height: 70%;
-  overflow-y: auto;
-}
-
-.cart ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.cart li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #eee;
-  padding: 10px 0;
-}
-
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5); /* Background overlay */
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
 }
 
 .modal-content {
-  background-color: white;
-  padding: 20px;
+  background-color: #ffffff;
+  padding: 30px;
   border-radius: 10px;
-  min-width: 300px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  min-width: 320px;
+  max-width: 500px;
+  width: 90%; /* Responsive width */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Depth effect */
+  animation: slideIn 0.4s ease-out;
+}
+
+/* Modal content styling */
+.modal-content h3 {
+  font-size: 2.2em;
+  color: #d35400;
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content .item-details h4 {
+  font-size: 1.8em;
+  color: #333;
+  margin: 15px 0;
+  font-weight: 600;
+}
+
+.modal-content .item-details p {
+  font-size: 1.5em;
+  color: #e67e22;
+  font-weight: bold;
+  margin: 10px 0;
 }
 
 .item-details {
-  text-align: center;
-  margin: 15px 0;
+  text-align: center !important;
+  font-size: 1.1em; /* Slightly smaller */
+  color: brown; /* Neutral color for details */
+  margin-bottom: 20px;
+}
+
+.item-details h2 {
+  font-size: 2em; /* Bigger heading */
+  font-weight: bold;
+  color: #a65b00; /* Original color */
+  margin-bottom: 15px;
 }
 
 .quantity-controls {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  margin: 15px 0;
+  gap: 15px;
+  margin: 20px 0;
 }
 
 .quantity-controls button {
-  width: 30px;
-  height: 30px;
+  width: 45px;
+  height: 45px;
   border: none;
   border-radius: 50%;
-  background-color: #e67e22;
-  color: white;
+  background-color: #e67e22; /* Plain orange */
+  color: #fff;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: transform 0.3s, background-color 0.3s;
 }
 
+.quantity-controls button:hover {
+  transform: scale(1.2); /* Grow larger on hover */
+  background-color: #cf611c; /* Slightly darker orange */
+}
+
+/* Make the quantity text larger */
 .quantity-controls span {
-  font-size: 18px;
-  min-width: 30px;
-  text-align: center;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333;
+  padding: 0 15px;
 }
 
 .modal-actions {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
-  margin-top: 20px;
+  gap: 20px; /* Adjust spacing between buttons */
+  margin-top: 30px;
 }
+
+.modal-actions button {
+  padding: 15px 25px;
+  font-size: 1.1em; /* Bigger text */
+  border: none;
+  border-radius: 8px;
+  background-color: rgb(255, 111, 0); /* Plain orange */
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.modal-actions button:hover {
+  transform: scale(1.1); 
+  background-color: red;
+  box-shadow: 0 4px 15px rgba(230, 126, 34, 0.4);
+ /* Slightly darker orange */
+}
+
+/* Enhanced confirm button */
+.modal-actions .confirm-btn {
+  font-size: 1.3em;
+  font-weight: bold;
+  padding: 12px 30px;
+  background: linear-gradient(to right, #e67e22, #d35400);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.modal-actions .confirm-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px rgba(230, 126, 34, 0.4);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
