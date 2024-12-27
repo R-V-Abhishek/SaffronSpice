@@ -69,28 +69,33 @@ const Menu = () => {
       const userId = getUserId();
       const token = getToken();
 
+      if (!userId || !token) {
+        throw new Error("Authentication data missing. Please log in again.");
+      }
+
       const response = await fetch("http://localhost:5000/api/cart/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
-          "userId": userId
+          userId: userId,
+          Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify({
-          menuItemId: selectedItem._id,
-          quantity: quantity
-        })
+        body: JSON.stringify({ menuItemId: selectedItem._id, quantity })
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to add item to cart");
+      const data = await response.json();
+      if (response.ok) {
+        showNotification('Item added to cart successfully!');
+        setShowPopup(false);
+        setSelectedItem(null);
+        setCartError(null);
+      } else {
+        throw new Error(data.message || "Failed to add item to cart");
       }
-
-      showNotification("Item added to cart successfully");
-      setShowPopup(false);
-      setSelectedItem(null);
-    } catch (error) {
-      showNotification(error.message, "error");
+    } catch (err) {
+      console.error("Cart Error:", err.message);
+      setCartError(err.message);
+      showNotification(err.message, 'error');
     }
   };
 
@@ -98,7 +103,7 @@ const Menu = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="menu-container">
+    <div className="menu">
       {/* Search Bar */}
       <div className="search-bar">
         <input
@@ -158,30 +163,43 @@ const Menu = () => {
         );
       })}
 
-      {showPopup && selectedItem && (
-        <div className="modal-overlay" onClick={() => setShowPopup(false)}>
-          <div className="modal-content" onClick={e => e.stopPropagation()}>
-            <h3>Add to Cart</h3>
-            <div className="item-details">
-              <h4>{selectedItem.name}</h4>
-              <p>₹{selectedItem.price}</p>
-            </div>
-            <div className="quantity-controls">
-              <button onClick={() => quantity > 1 && setQuantity(q => q - 1)}>-</button>
-              <span>{quantity}</span>
-              <button onClick={() => setQuantity(q => q + 1)}>+</button>
-            </div>
-            <div className="modal-actions">
-              <button className="confirm-btn" onClick={handleConfirmAddToCart}>
-                Add to Cart
-              </button>
-              <button className="cancel-btn" onClick={() => setShowPopup(false)}>
-                Cancel
-              </button>
-            </div>
+    {showPopup && selectedItem && (
+      <div className="modal-overlay">
+        <div className="modal-content">
+          <h3>Add to Cart</h3>
+          <div className="item-details">
+            <h4>{selectedItem.name}</h4>
+            <p>{selectedItem.price}</p>
+          </div>
+          <div className="quantity-controls">
+            <button 
+              onClick={() => quantity > 1 && setQuantity(q => q - 1)}
+              disabled={quantity <= 1}
+            >
+              -
+            </button>
+            <span>{quantity}</span>
+            <button onClick={() => setQuantity(q => q + 1)}>
+              +
+            </button>
+          </div>
+          <div className="modal-actions">
+            <button className="confirm-btn" onClick={handleConfirmAddToCart}>
+              Add to Cart
+            </button>
+            <button 
+              className="cancel-btn" 
+              onClick={() => {
+                setShowPopup(false);
+                setSelectedItem(null);
+              }}
+            >
+              Cancel
+            </button>
           </div>
         </div>
-      )}
+      </div>
+    )}
     </div>
   );
 };
