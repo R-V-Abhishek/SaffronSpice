@@ -1,0 +1,202 @@
+/* About Section */
+.about-section {
+    min-height: 100vh;
+    padding: 4rem 2rem;
+    background: #f9f9f9;
+}
+
+.about-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    background: white;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.about-text {
+    padding: 0;
+}
+
+.about-text h3 {
+    color: #a65b00;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+.about-text p {
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+    color: #333;
+}
+
+.about-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding: 2rem;
+}
+
+.stat {
+    text-align: center;
+    padding: 1.5rem;
+    background: linear-gradient(145deg, #fff, #f5f5f5);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.stat:hover {
+    transform: translateY(-5px);
+}
+
+.stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #a65b00;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: #666;
+    font-size: 1rem;
+}
+
+/* Reviews Section */
+.reviews {
+    padding: 4rem 2rem;  /* Reduced padding for a balanced look */
+    overflow: hidden;
+    text-align: center;
+    background: #f9f9f9; /* Add a light background for better visual separation */
+}
+
+.reviews-container {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column; /* Stack cards vertically for better responsiveness */
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem; /* Space between review cards */
+    text-align: center;
+}
+
+.review-card {
+    background: white;
+    position: relative;
+    width: 100%;
+    max-width: 600px; /* Restrict maximum width for cards */
+    margin: 0 auto;
+    padding: 2rem; /* Add consistent padding */
+    border-radius: 10px; /* Rounded corners for modern look */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transform: none; 
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease;
+}
+
+.review-card.active {
+    position: relative; /* Fix for layout */
+    opacity: 1;
+    visibility: visible;
+}
+
+.review-content {
+    margin: 0 auto;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333;
+    text-align: center;
+}
+
+.quote-icon {
+    font-size: 2.5rem; /* Adjusted for mobile and desktop */
+    color: #a65b00;
+    opacity: 0.2;
+    position: absolute;
+    top: -10px;
+    left: 10px;
+}
+
+.review-author {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1.5rem;
+    gap: 1rem;
+}
+
+.author-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #a65b00;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.author-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.review-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.review-dots {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ddd;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background: #a65b00;
+    transform: scale(1.2);
+}
+
+@media (max-width: 768px) {
+    /* Adjusted Reviews Section for Mobile */
+    .reviews {
+        padding: 2rem 1rem; /* Reduce padding for smaller screens */
+    }
+
+    .reviews-container {
+        padding: 0 1rem; /* Add padding to prevent edge overflow */
+        gap: 1rem; /* Adjust spacing for smaller screens */
+    }
+
+    .review-card {
+        margin: 1rem auto;
+        padding: 1.5rem;
+        width: 90%; /* Ensure proper fit on mobile */
+        text-align: center;
+    }
+
+    .quote-icon {
+        font-size: 2rem; /* Reduce size for mobile */
+        top: -5px;
+        left: 5px;
+    }
+}

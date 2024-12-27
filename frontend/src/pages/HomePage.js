@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { TypeAnimation } from 'react-type-animation';
 import './HomePage.css';
 // Import images
 import biryaniImg from '../assets/Images/ChickenBiryani.png';
@@ -7,6 +9,8 @@ import tandooriImg from '../assets/Images/ButterChicken.png';
 
 function HomePage() {
   const [activeReview, setActiveReview] = useState(0);
+  const [showBackToTop, setShowBackToTop] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Reviews data
   const reviews = [
@@ -15,7 +19,25 @@ function HomePage() {
     { text: "A true taste of India. The curries and naan were absolutely divine.", author: "Priya" }
   ];
 
+  // Animation variants
+  const fadeInUp = {
+    initial: { opacity: 0, y: 60 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6 }
+  };
+
+  const staggerChildren = {
+    animate: {
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
   useEffect(() => {
+    // Simulate loading
+    setTimeout(() => setIsLoading(false), 1500);
+
     // Intersection Observer for animated sections
     const observer = new IntersectionObserver(
       (entries) => {
@@ -36,23 +58,66 @@ function HomePage() {
       setActiveReview((prev) => (prev + 1) % reviews.length);
     }, 5000);
 
+    // Show back-to-top button
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 300);
+    };
+    window.addEventListener('scroll', handleScroll);
+
     return () => {
       observer.disconnect();
       clearInterval(reviewInterval);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, [reviews.length]);
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  if (isLoading) {
+    return (
+      <div className="loading-screen">
+        <motion.div
+          className="loading-spinner"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+        />
+        <motion.h2
+          animate={{ opacity: [0.5, 1] }}
+          transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
+        >
+          Loading Saffron Spice...
+        </motion.h2>
+      </div>
+    );
+  }
+
   return (
-    <div>
+    <motion.div initial="initial" animate="animate">
       <section className="hero parallax-bg">
         <div className="hero-overlay"></div>
-        <div className="hero-content animated-section">
-          <h1>Welcome to Saffron Spice</h1>
+        <motion.div className="hero-content" variants={fadeInUp}>
+          <h1>
+            <TypeAnimation
+              sequence={[
+                'Welcome to Saffron Spice',
+                1000,
+                'Experience Indian Cuisine',
+                1000
+              ]}
+              wrapper="span"
+              repeat={Infinity}
+            />
+          </h1>
           <p>Experience the authentic flavors of India</p>
-          <a href="#about" className="cta-button pulse">
+          <a href="#about" className="cta-button pulse" onClick={(e) => {
+            e.preventDefault();
+            document.querySelector('#about').scrollIntoView({ behavior: 'smooth' });
+          }}>
             Discover More
           </a>
-        </div>
+        </motion.div>
       </section>
 
       <section id="quick-info" className="quick-info animated-section">
@@ -72,77 +137,100 @@ function HomePage() {
         </div>
       </section>
 
-      <section id="about" className="about animated-section">
-        <h2>About Us</h2>
+      <section id="about" className="about-section animated-section">
+        <motion.h2 variants={fadeInUp}>About Us</motion.h2>
         <div className="about-content">
           <div className="about-text">
+            <h3>Our Story</h3>
             <p>
-              At Saffron Spice, we bring the flavors of India to life with hand-picked ingredients, traditional recipes, and a touch of love. Indulge in the most authentic dishes crafted to perfection!
+              Since 2008, Saffron Spice has been serving authentic Indian cuisine with passion and dedication. Our master chefs bring decades of culinary expertise from various regions of India, ensuring each dish tells a story of tradition and flavor.
+            </p>
+            <p>
+              We take pride in using premium ingredients, hand-ground spices, and time-honored cooking techniques to create an unforgettable dining experience for our guests.
+            </p>
+            <p>
+              Our restaurant has become a landmark destination for food enthusiasts seeking authentic Indian flavors. We continue to innovate while staying true to traditional recipes passed down through generations.
             </p>
           </div>
           <div className="about-stats">
-            <div className="stat">
+            <motion.div className="stat" whileHover={{ scale: 1.05 }}>
               <span className="stat-number">15+</span>
               <span className="stat-label">Years of Excellence</span>
-            </div>
-            <div className="stat">
+            </motion.div>
+            <motion.div className="stat" whileHover={{ scale: 1.05 }}>
               <span className="stat-number">50+</span>
               <span className="stat-label">Signature Dishes</span>
-            </div>
+            </motion.div>
+            <motion.div className="stat" whileHover={{ scale: 1.05 }}>
+              <span className="stat-number">1000+</span>
+              <span className="stat-label">Happy Customers</span>
+            </motion.div>
+            <motion.div className="stat" whileHover={{ scale: 1.05 }}>
+              <span className="stat-number">4.8</span>
+              <span className="stat-label">Customer Rating</span>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      <section id="speciality" className="speciality animated-section">
-        <h2>Our Speciality</h2>
-        <div className="speciality-grid">
-          <div className="dish-card">
-            <img src={biryaniImg} alt="Royal Biryani" loading="lazy" />
-            <div className="dish-info">
-              <h3>Royal Biryani</h3>
-              <p>Fragrant basmati rice cooked with aromatic spices</p>
-            </div>
-          </div>
-          <div className="dish-card">
-            <img src={curryImg} alt="Butter Chicken" loading="lazy" />
-            <div className="dish-info">
-              <h3>Butter Chicken</h3>
-              <p>Creamy tomato gravy with tender chicken pieces</p>
-            </div>
-          </div>
-          <div className="dish-card">
-            <img src={tandooriImg} alt="Tandoori Platter" loading="lazy" />
-            <div className="dish-info">
-              <h3>Tandoori Platter</h3>
-              <p>Assortment of grilled delicacies</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <motion.section
+        variants={staggerChildren}
+        id="speciality"
+        className="speciality"
+      >
+        <motion.h2 variants={fadeInUp}>Our Speciality</motion.h2>
+        <motion.div className="speciality-grid" variants={staggerChildren}>
+          {[
+            { img: biryaniImg, title: 'Royal Biryani', desc: 'Fragrant basmati rice cooked with aromatic spices' },
+            { img: curryImg, title: 'Butter Chicken', desc: 'Creamy tomato gravy with tender chicken pieces' },
+            { img: tandooriImg, title: 'Tandoori Platter', desc: 'Assortment of grilled delicacies' }
+          ].map((dish, index) => (
+            <motion.div
+              key={index}
+              className="dish-card"
+              variants={fadeInUp}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <img src={dish.img} alt={dish.title} loading="lazy" />
+              <div className="dish-info">
+                <h3>{dish.title}</h3>
+                <p>{dish.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </motion.section>
 
-      <section id="reviews" className="reviews animated-section">
-        <h2>What Our Customers Say</h2>
-        <div className="reviews-slider">
+      <motion.section id="reviews" className="reviews" variants={fadeInUp}>
+        <motion.h2 variants={fadeInUp}>Customer Reviews</motion.h2>
+        <div className="reviews-container">
           {reviews.map((review, index) => (
-            <blockquote 
+            <div 
               key={index}
               className={`review-card ${index === activeReview ? 'active' : ''}`}
             >
-              {review.text}
-              <span className="author">- {review.author}</span>
-            </blockquote>
+              <div className="review-content">
+                <div className="quote-icon">❝</div>
+                <p className="review-text">{review.text}</p>
+                <p className="author-name">- {review.author}</p>
+              </div>
+            </div>
           ))}
+        </div>
+        <div className="review-controls">
           <div className="review-dots">
             {reviews.map((_, index) => (
-              <span 
+              <button 
                 key={index}
                 className={`dot ${index === activeReview ? 'active' : ''}`}
                 onClick={() => setActiveReview(index)}
-              ></span>
+                aria-label={`Review ${index + 1}`}
+              />
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       <section id="contact" className="contact animated-section">
         <h2>Contact Us</h2>
@@ -164,7 +252,20 @@ function HomePage() {
           </div>
         </div>
       </section>
-    </div>
+
+      {showBackToTop && (
+        <motion.button
+          className="back-to-top"
+          onClick={scrollToTop}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          ↑
+        </motion.button>
+      )}
+    </motion.div>
   );
 }
 
