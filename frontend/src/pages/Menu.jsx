@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {
-  getUserId,
-  getToken,
-  isAuthenticated,
-} from "../utils/authUtils";
+import { useNavigate } from "react-router-dom";
+import { getUserId, getToken, isAuthenticated } from "../utils/authUtils";
 import "./Menu.css";
 
 const Menu = () => {
@@ -12,6 +9,10 @@ const Menu = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [cartError, setCartError] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+  const navigate = useNavigate();
 
   // Fetch menu items on component mount
   useEffect(() => {
@@ -40,11 +41,29 @@ const Menu = () => {
     fetchMenuItems();
   }, []);
 
-  // Add item to cart with userId linked
-  const addToCart = async (menuItemId) => {
+  const showNotification = (message, type = 'success') => {
+    const notification = document.createElement('div');
+    notification.className = `cart-notification ${type}`;
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    setTimeout(() => notification.remove(), 2000);
+  };
+
+  const handleAddToCartClick = (item) => {
+    if (!isAuthenticated()) {
+      navigate('/login', { state: { from: '/menu' } });
+      return;
+    }
+    setSelectedItem(item);
+    setQuantity(1);
+    setShowPopup(true);
+  };
+
+  const handleConfirmAddToCart = async () => {
     try {
       if (!isAuthenticated()) {
-        throw new Error("You must be logged in to add items to the cart.");
+        navigate('/login', { state: { from: '/menu' } });
+        return;
       }
 
       const userId = getUserId();
@@ -58,24 +77,28 @@ const Menu = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          userId: userId, // Add this line to include userId in headers
+          userId: userId,
           Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify({ menuItemId, quantity: 1 }) // Remove userId from body
+        body: JSON.stringify({ menuItemId: selectedItem._id, quantity })
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to add item to cart");
+      const data = await response.json();
+      if (response.ok) {
+        showNotification('Item added to cart successfully!');
+        setShowPopup(false);
+        setSelectedItem(null);
+        setCartError(null);
+      } else {
+        throw new Error(data.message || "Failed to add item to cart");
       }
-      
-      alert("Item added to cart successfully!");
     } catch (err) {
       console.error("Cart Error:", err.message);
       setCartError(err.message);
-      alert(err.message);
+      showNotification(err.message, 'error');
     }
   };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
@@ -127,7 +150,7 @@ const Menu = () => {
                     <p>{item.description}</p>
                     <p className="price">{item.price}</p>
                     <button
-                      onClick={() => addToCart(item._id)}
+                      onClick={() => handleAddToCartClick(item)}
                       className="add-to-cart-btn"
                     >
                       Add to Cart
@@ -139,6 +162,44 @@ const Menu = () => {
           </div>
         );
       })}
+
+    {showPopup && selectedItem && (
+      <div className="modal-overlay">
+        <div className="modal-content">
+          <h3>Add to Cart</h3>
+          <div className="item-details">
+            <h4>{selectedItem.name}</h4>
+            <p>{selectedItem.price}</p>
+          </div>
+          <div className="quantity-controls">
+            <button 
+              onClick={() => quantity > 1 && setQuantity(q => q - 1)}
+              disabled={quantity <= 1}
+            >
+              -
+            </button>
+            <span>{quantity}</span>
+            <button onClick={() => setQuantity(q => q + 1)}>
+              +
+            </button>
+          </div>
+          <div className="modal-actions">
+            <button className="confirm-btn" onClick={handleConfirmAddToCart}>
+              Add to Cart
+            </button>
+            <button 
+              className="cancel-btn" 
+              onClick={() => {
+                setShowPopup(false);
+                setSelectedItem(null);
+              }}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
     </div>
   );
 };
