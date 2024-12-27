@@ -24,18 +24,46 @@ function HomePage() {
     { text: "A true taste of India. The curries and naan were absolutely divine.", author: "Priya" }
   ];
 
-  // Animation variants
+  // Enhanced animation variants
   const fadeInUp = {
-    initial: { opacity: 0, y: 60 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 }
+    initial: { 
+      opacity: 0, 
+      y: 60,
+      scale: 0.9
+    },
+    animate: { 
+      opacity: 1, 
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.8,
+        ease: [0.6, -0.05, 0.01, 0.99]
+      }
+    }
   };
 
   const staggerChildren = {
+    initial: { opacity: 0 },
     animate: {
+      opacity: 1,
       transition: {
-        staggerChildren: 0.2
+        delayChildren: 0.4,
+        staggerChildren: 0.3
       }
+    }
+  };
+
+  const cardHover = {
+    hover: {
+      scale: 1.05,
+      rotateY: 5,
+      boxShadow: "0px 10px 20px rgba(0,0,0,0.2)",
+      transition: {
+        duration: 0.3
+      }
+    },
+    tap: {
+      scale: 0.95
     }
   };
 
@@ -43,34 +71,57 @@ function HomePage() {
     // Simulate loading
     setTimeout(() => setIsLoading(false), 1500);
 
-    // Intersection Observer for animated sections
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('reveal');
+    // Enhanced Intersection Observer setup
+    const observerOptions = {
+      threshold: 0.2,
+      rootMargin: '50px'
+    };
+
+    const animationObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Add animation classes and handle delay
+          const element = entry.target;
+          element.classList.add('animate');
+          
+          if (element.dataset.animationDelay) {
+            element.style.animationDelay = `${element.dataset.animationDelay}ms`;
           }
-        });
-      },
-      { threshold: 0.2, rootMargin: '50px' }
-    );
+          
+          // Unobserve after animation is added
+          animationObserver.unobserve(element);
+        }
+      });
+    }, observerOptions);
 
-    const sections = document.querySelectorAll('.animated-section');
-    sections.forEach((section) => observer.observe(section));
+    // Observe elements with proper error handling
+    const elementsToAnimate = [
+      ...document.querySelectorAll('.dish-card'),
+      ...document.querySelectorAll('.review-card'),
+      document.querySelector('.contact-content')
+    ].filter(Boolean); // Filter out null elements
 
-    // Auto-rotate reviews
+    elementsToAnimate.forEach((element, index) => {
+      if (element) {
+        element.dataset.animationDelay = index * 100;
+        animationObserver.observe(element);
+      }
+    });
+
+    // Auto-rotate reviews with cleanup
     const reviewInterval = setInterval(() => {
       setActiveReview((prev) => (prev + 1) % reviews.length);
     }, 5000);
 
-    // Show back-to-top button
+    // Back to top button handler
     const handleScroll = () => {
       setShowBackToTop(window.scrollY > 300);
     };
     window.addEventListener('scroll', handleScroll);
 
+    // Cleanup function
     return () => {
-      observer.disconnect();
+      animationObserver.disconnect();
       clearInterval(reviewInterval);
       window.removeEventListener('scroll', handleScroll);
     };
@@ -99,10 +150,25 @@ function HomePage() {
   }
 
   return (
-    <motion.div initial="initial" animate="animate">
+    <motion.div
+      initial="initial"
+      animate="animate"
+      variants={staggerChildren}
+    >
       <section className="hero parallax-bg">
         <div className="hero-overlay"></div>
-        <motion.div className="hero-content" variants={fadeInUp}>
+        <motion.div 
+          className="hero-content"
+          initial={{ opacity: 0, y: 100 }}
+          animate={{ 
+            opacity: 1, 
+            y: 0,
+            transition: {
+              duration: 1,
+              ease: "easeOut"
+            }
+          }}
+        >
           <h1 style={{ fontWeight: 'bold', textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' }}>
             <TypeAnimation
               sequence={[
@@ -124,7 +190,7 @@ function HomePage() {
         </motion.div>
       </section>
 
-      <section id="quick-info" className="quick-info animated-section">
+      <motion.section id="quick-info" className="quick-info animated-section" variants={fadeInUp}>
         <div className="info-grid">
           <div className="info-item">
             <span>Open Daily: 11 AM - 10 PM</span>
@@ -136,12 +202,12 @@ function HomePage() {
             <span>Reservations Available</span>
           </div>
         </div>
-      </section>
+      </motion.section>
 
-      <section id="about" className="about animated-section">
+      <motion.section id="about" className="about animated-section" variants={fadeInUp}>
         <motion.h2 variants={fadeInUp}>About Us</motion.h2>
         <motion.div className="about-content" variants={staggerChildren}>
-          <div className="about-text">
+          <motion.div className="about-text full-width" variants={fadeInUp}>
             <h3>Our Story</h3>
             <p>
               Since 2008, Saffron Spice has been serving authentic Indian cuisine with passion and dedication. Our master chefs bring decades of culinary expertise from various regions of India, ensuring each dish tells a story of tradition and flavor.
@@ -152,35 +218,41 @@ function HomePage() {
             <p>
               Our restaurant has become a landmark destination for food enthusiasts seeking authentic Indian flavors. We continue to innovate while staying true to traditional recipes passed down through generations.
             </p>
-          </div>
-          <div className="about-stats">
-            <motion.div className="stat" whileHover={{ scale: 1.05 }}>
-              <span className="stat-number">15+</span>
-              <span className="stat-label">Years of Excellence</span>
-            </motion.div>
-            <motion.div className="stat" whileHover={{ scale: 1.05 }}>
-              <span className="stat-number">50+</span>
-              <span className="stat-label">Signature Dishes</span>
-            </motion.div>
-            <motion.div className="stat" whileHover={{ scale: 1.05 }}>
-              <span className="stat-number">1000+</span>
-              <span className="stat-label">Happy Customers</span>
-            </motion.div>
-            <motion.div className="stat" whileHover={{ scale: 1.05 }}>
-              <span className="stat-number">4.8</span>
-              <span className="stat-label">Customer Rating</span>
-            </motion.div>
-          </div>
+          </motion.div>
+          <motion.div className="about-stats full-width" variants={fadeInUp}>
+            <div className="stat-group">
+              <motion.div className="stat" whileHover={{ scale: 1.05 }}>
+                <span className="stat-number">15+</span>
+                <span className="stat-label">Years of Excellence</span>
+              </motion.div>
+              <motion.div className="stat" whileHover={{ scale: 1.05 }}>
+                <span className="stat-number">50+</span>
+                <span className="stat-label">Signature Dishes</span>
+              </motion.div>
+            </div>
+            <div className="stat-group">
+              <motion.div className="stat" whileHover={{ scale: 1.05 }}>
+                <span className="stat-number">1000+</span>
+                <span className="stat-label">Happy Customers</span>
+              </motion.div>
+              <motion.div className="stat" whileHover={{ scale: 1.05 }}>
+                <span className="stat-number">4.8</span>
+                <span className="stat-label">Customer Rating</span>
+              </motion.div>
+            </div>
+          </motion.div>
         </motion.div>
-      </section>
+      </motion.section>
 
       <motion.section
-        variants={staggerChildren}
         id="speciality"
         className="speciality"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
       >
         <motion.h2 variants={fadeInUp}>Our Speciality</motion.h2>
-        <motion.div className="speciality-grid" variants={staggerChildren}>
+        <div className="speciality-grid">
           {[
             { img: biryaniImg, title: 'Royal Biryani', desc: 'Fragrant basmati rice cooked with aromatic spices' },
             { img: curryImg, title: 'Butter Chicken', desc: 'Creamy tomato gravy with tender chicken pieces' },
@@ -192,9 +264,20 @@ function HomePage() {
             <motion.div
               key={index}
               className="dish-card"
-              variants={fadeInUp}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+                transition: {
+                  duration: 0.5,
+                  delay: index * 0.1
+                }
+              }}
+              viewport={{ once: true }}
+              whileHover={{
+                scale: 1.05,
+                transition: { duration: 0.2 }
+              }}
             >
               <img src={dish.img} alt={dish.title} loading="lazy" />
               <div className="dish-info">
@@ -203,7 +286,7 @@ function HomePage() {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
         <div className="view-more-container">
           <Link to="/menu" className="view-more-button">View More</Link>
         </div>
@@ -216,9 +299,19 @@ function HomePage() {
             <motion.div
               key={index}
               className={`review-card ${index === activeReview ? 'active' : ''}`}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: index === activeReview ? 1 : 0.5, scale: index === activeReview ? 1 : 0.9 }}
-              transition={{ duration: 0.5 }}
+              initial={{ opacity: 0, x: 200 }}
+              animate={{ 
+                opacity: index === activeReview ? 1 : 0,
+                x: index === activeReview ? 0 : 200,
+                position: index === activeReview ? 'relative' : 'absolute',
+                transition: {
+                  duration: 0.5,
+                  ease: "easeOut"
+                }
+              }}
+              style={{
+                display: Math.abs(activeReview - index) <= 1 ? 'block' : 'none'
+              }}
             >
               <p>{review.text}</p>
               <span className="author">- {review.author}</span>
@@ -227,57 +320,86 @@ function HomePage() {
         </div>
         <div className="review-dots">
           {reviews.map((_, index) => (
-            <span
+            <motion.span
               key={index}
               className={`dot ${index === activeReview ? 'active' : ''}`}
               onClick={() => setActiveReview(index)}
-            ></span>
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+            />
           ))}
         </div>
       </motion.section>
 
-      <section id="video-intro" className="video-intro animated-section">
+      <motion.section id="video-intro" className="video-intro animated-section" variants={fadeInUp}>
         <motion.h2 variants={fadeInUp}>Watch Our Story</motion.h2>
         <motion.div className="video-container" variants={fadeInUp}>
           <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer">
             <img src={videoThumbnail} alt="Watch Our Story" className="video-thumbnail" />
           </a>
         </motion.div>
-      </section>
+      </motion.section>
 
-      <section id="contact" className="contact animated-section">
+      <motion.section 
+        id="contact" 
+        className="contact animated-section"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ 
+          opacity: 1, 
+          y: 0,
+          transition: {
+            duration: 0.8,
+            ease: "easeOut"
+          }
+        }}
+        viewport={{ once: true, amount: 0.3 }}
+      >
         <motion.h2 variants={fadeInUp}>Contact Us</motion.h2>
         <motion.div className="contact-content" variants={staggerChildren}>
-          <div className="contact-info">
-            <p>123 Spice Street, Flavor Town, India</p>
-            <p>Phone: +91 123 456 7890</p>
-            <p>Email: info@saffronspice.com</p>
-          </div>
-          <div className="map-container">
+          <motion.div className="contact-info full-width" variants={fadeInUp}>
+            <p className="contact-item"><span className="contact-label">Address:</span> 123 Spice Street, Flavor Town, India</p>
+            <p className="contact-item"><span className="contact-label">Phone:</span> +91 123 456 7890</p>
+            <p className="contact-item"><span className="contact-label">Email:</span> info@saffronspice.com</p>
+          </motion.div>
+          <motion.div className="map-container" variants={fadeInUp}>
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.835434509273!2d144.96305771582256!3d-37.81410787975159!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf577801d5a9a33f2!2sFlinders%20Street%20Station!5e0!3m2!1sen!2sin!4v1617319162321!5m2!1sen!2sin"
               width="100%"
-              height="300"
+              height="500"
               allowFullScreen=""
               loading="lazy"
               title="Google Maps Location"
             ></iframe>
-          </div>
+          </motion.div>
         </motion.div>
-      </section>
+      </motion.section>
 
       {showBackToTop && (
         <motion.button
           className="back-to-top"
           onClick={scrollToTop}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          whileHover={{ scale: 1.1 }}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ 
+            opacity: 1, 
+            scale: 1,
+            transition: {
+              type: "spring",
+              stiffness: 260,
+              damping: 20
+            }
+          }}
+          whileHover={{ 
+            scale: 1.1,
+            rotate: 360,
+            transition: { duration: 0.5 }
+          }}
           whileTap={{ scale: 0.9 }}
         >
           ↑
         </motion.button>
       )}
+
+      
     </motion.div>
   );
 }
