@@ -124,7 +124,7 @@ function HomePage() {
         </motion.div>
       </section>
 
-      <section id="quick-info" className="quick-info animated-section">
+      <motion.section id="quick-info" className="quick-info animated-section" variants={fadeInUp}>
         <div className="info-grid">
           <div className="info-item">
             <span>Open Daily: 11 AM - 10 PM</span>
@@ -136,12 +136,12 @@ function HomePage() {
             <span>Reservations Available</span>
           </div>
         </div>
-      </section>
+      </motion.section>
 
-      <section id="about" className="about animated-section">
+      <motion.section id="about" className="about animated-section" variants={fadeInUp}>
         <motion.h2 variants={fadeInUp}>About Us</motion.h2>
         <motion.div className="about-content" variants={staggerChildren}>
-          <div className="about-text">
+          <motion.div className="about-text full-width" variants={fadeInUp}>
             <h3>Our Story</h3>
             <p>
               Since 2008, Saffron Spice has been serving authentic Indian cuisine with passion and dedication. Our master chefs bring decades of culinary expertise from various regions of India, ensuring each dish tells a story of tradition and flavor.
@@ -152,27 +152,31 @@ function HomePage() {
             <p>
               Our restaurant has become a landmark destination for food enthusiasts seeking authentic Indian flavors. We continue to innovate while staying true to traditional recipes passed down through generations.
             </p>
-          </div>
-          <div className="about-stats">
-            <motion.div className="stat" whileHover={{ scale: 1.05 }}>
-              <span className="stat-number">15+</span>
-              <span className="stat-label">Years of Excellence</span>
-            </motion.div>
-            <motion.div className="stat" whileHover={{ scale: 1.05 }}>
-              <span className="stat-number">50+</span>
-              <span className="stat-label">Signature Dishes</span>
-            </motion.div>
-            <motion.div className="stat" whileHover={{ scale: 1.05 }}>
-              <span className="stat-number">1000+</span>
-              <span className="stat-label">Happy Customers</span>
-            </motion.div>
-            <motion.div className="stat" whileHover={{ scale: 1.05 }}>
-              <span className="stat-number">4.8</span>
-              <span className="stat-label">Customer Rating</span>
-            </motion.div>
-          </div>
+          </motion.div>
+          <motion.div className="about-stats full-width" variants={fadeInUp}>
+            <div className="stat-group">
+              <motion.div className="stat" whileHover={{ scale: 1.05 }}>
+                <span className="stat-number">15+</span>
+                <span className="stat-label">Years of Excellence</span>
+              </motion.div>
+              <motion.div className="stat" whileHover={{ scale: 1.05 }}>
+                <span className="stat-number">50+</span>
+                <span className="stat-label">Signature Dishes</span>
+              </motion.div>
+            </div>
+            <div className="stat-group">
+              <motion.div className="stat" whileHover={{ scale: 1.05 }}>
+                <span className="stat-number">1000+</span>
+                <span className="stat-label">Happy Customers</span>
+              </motion.div>
+              <motion.div className="stat" whileHover={{ scale: 1.05 }}>
+                <span className="stat-number">4.8</span>
+                <span className="stat-label">Customer Rating</span>
+              </motion.div>
+            </div>
+          </motion.div>
         </motion.div>
-      </section>
+      </motion.section>
 
       <motion.section
         variants={staggerChildren}
@@ -236,35 +240,35 @@ function HomePage() {
         </div>
       </motion.section>
 
-      <section id="video-intro" className="video-intro animated-section">
+      <motion.section id="video-intro" className="video-intro animated-section" variants={fadeInUp}>
         <motion.h2 variants={fadeInUp}>Watch Our Story</motion.h2>
         <motion.div className="video-container" variants={fadeInUp}>
           <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer">
             <img src={videoThumbnail} alt="Watch Our Story" className="video-thumbnail" />
           </a>
         </motion.div>
-      </section>
+      </motion.section>
 
-      <section id="contact" className="contact animated-section">
+      <motion.section id="contact" className="contact animated-section" variants={fadeInUp}>
         <motion.h2 variants={fadeInUp}>Contact Us</motion.h2>
         <motion.div className="contact-content" variants={staggerChildren}>
-          <div className="contact-info">
-            <p>123 Spice Street, Flavor Town, India</p>
-            <p>Phone: +91 123 456 7890</p>
-            <p>Email: info@saffronspice.com</p>
-          </div>
-          <div className="map-container">
+          <motion.div className="contact-info full-width" variants={fadeInUp}>
+            <p className="contact-item"><span className="contact-label">Address:</span> 123 Spice Street, Flavor Town, India</p>
+            <p className="contact-item"><span className="contact-label">Phone:</span> +91 123 456 7890</p>
+            <p className="contact-item"><span className="contact-label">Email:</span> info@saffronspice.com</p>
+          </motion.div>
+          <motion.div className="map-container" variants={fadeInUp}>
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.835434509273!2d144.96305771582256!3d-37.81410787975159!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf577801d5a9a33f2!2sFlinders%20Street%20Station!5e0!3m2!1sen!2sin!4v1617319162321!5m2!1sen!2sin"
               width="100%"
-              height="300"
+              height="500"
               allowFullScreen=""
               loading="lazy"
               title="Google Maps Location"
             ></iframe>
-          </div>
+          </motion.div>
         </motion.div>
-      </section>
+      </motion.section>
 
       {showBackToTop && (
         <motion.button
@@ -278,6 +282,8 @@ function HomePage() {
           ↑
         </motion.button>
       )}
+
+      
     </motion.div>
   );
 }
