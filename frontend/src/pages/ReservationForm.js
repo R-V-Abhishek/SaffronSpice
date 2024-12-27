@@ -16,6 +16,9 @@ const ReservationForm = () => {
   const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
   const [selectedTableType, setSelectedTableType] = useState("");
+  const [availableTables, setAvailableTables] = useState([]);
+  const [tablesNeeded, setTablesNeeded] = useState(1);
+  const [selectedTables, setSelectedTables] = useState([]);
   const [maxDate, setMaxDate] = useState("");
   const [guestError, setGuestError] = useState(false);
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
@@ -53,12 +56,36 @@ const ReservationForm = () => {
     }
   };
 
+  const fetchAvailableTables = async () => {
+    try {
+      if (!selectedTableType || !visitDate || !selectedTimeSlot || !guests) {
+        return;
+      }
+      const response = await fetch(
+        `http://localhost:5000/api/reservation/available-tables?type=${selectedTableType}&date=${visitDate}&timeSlot=${selectedTimeSlot}&guests=${guests}`
+      );
+      const data = await response.json();
+      setAvailableTables(data.tables);
+      setTablesNeeded(data.tablesNeeded);
+    } catch (error) {
+      console.error("Error fetching available tables:", error);
+      setErrorMessage("Failed to fetch available tables");
+      setShowErrorPopup(true);
+    }
+  };
+
   useEffect(() => {
     if (visitDate) {
       fetchAvailableTimeSlots(visitDate);
       setSelectedTimeSlot(''); // Reset selected time when date changes
     }
   }, [visitDate]);
+
+  useEffect(() => {
+    if (selectedTimeSlot && selectedTableType && guests) {
+      fetchAvailableTables();
+    }
+  }, [selectedTimeSlot, selectedTableType, guests, visitDate]);
 
   const handleDateChange = (e) => {
     const selectedDate = e.target.value;
@@ -72,6 +99,20 @@ const ReservationForm = () => {
     return 1000;
   };
 
+  const handleTableSelection = (tableNumber) => {
+    setSelectedTables(prev => {
+      if (prev.includes(tableNumber)) {
+        // Remove table if already selected
+        return prev.filter(t => t !== tableNumber);
+      }
+      if (prev.length < tablesNeeded) {
+        // Add table if we haven't reached the needed amount
+        return [...prev, tableNumber].sort((a, b) => a - b);
+      }
+      return prev;
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -80,16 +121,21 @@ const ReservationForm = () => {
       return;
     }
 
-    // Set booking details to be passed to the PaymentPage
+    if (selectedTables.length !== tablesNeeded) {
+      setErrorMessage(`Please select ${tablesNeeded} tables for ${guests} guests`);
+      setShowErrorPopup(true);
+      return;
+    }
+
     const newBookingDetails = {
       guests,
       visitDate,
       timeSlot: selectedTimeSlot,
       tableType: selectedTableType,
-      price: calculatePrice(selectedTableType),
+      tableNumbers: selectedTables,
+      price: calculatePrice(selectedTableType) * tablesNeeded,
     };
     setBookingDetails(newBookingDetails);
-
     setShowConfirmPopup(true);
   };
 
@@ -101,6 +147,7 @@ const ReservationForm = () => {
         body: JSON.stringify({
           ...bookingDetails,
           userId: localStorage.getItem("userId"),
+          tableNumbers: selectedTables
         }),
       });
 
@@ -115,6 +162,9 @@ const ReservationForm = () => {
       } else {
         setErrorMessage(result.message || "Reservation failed.");
         setShowErrorPopup(true);
+        if (result.message.includes("no longer available")) {
+          fetchAvailableTables();
+        }
       }
     } catch (error) {
       console.error("Error:", error);
@@ -128,6 +178,7 @@ const ReservationForm = () => {
     <div className="container">
       <h2>Book Your Table</h2>
       <form onSubmit={handleSubmit}>
+        {/* Guest selection section */}
         <div className="form-group">
           <label htmlFor="guests">
             Number of Guests <span style={{ color: "red" }}>*</span>
@@ -151,6 +202,7 @@ const ReservationForm = () => {
           )}
         </div>
 
+        {/* Date selection section */}
         <div className="form-group">
           <label htmlFor="visitDate">When are you visiting?</label>
           <input
@@ -165,6 +217,7 @@ const ReservationForm = () => {
           />
         </div>
 
+        {/* Time slots section */}
         <div className="form-group">
           <label>Available Time Slots</label>
           <div className="time-slots">
@@ -185,6 +238,7 @@ const ReservationForm = () => {
           </div>
         </div>
 
+        {/* Table type selection */}
         <div className="form-group">
           <label htmlFor="tableType">Select Table Type</label>
           <select
@@ -203,6 +257,26 @@ const ReservationForm = () => {
           </select>
         </div>
 
+        <div className="form-group">
+          <label>Select Tables (You need {tablesNeeded} tables for {guests} guests)</label>
+          <div className="table-buttons">
+            {availableTables.map((table) => (
+              <button
+                key={table.tableNumber}
+                type="button"
+                className={`table-button ${selectedTables.includes(table.tableNumber) ? 'selected' : ''}`}
+                onClick={() => handleTableSelection(table.tableNumber)}
+                disabled={selectedTables.length >= tablesNeeded && !selectedTables.includes(table.tableNumber)}
+              >
+                Table {table.tableNumber}
+              </button>
+            ))}
+          </div>
+          {selectedTables.length < tablesNeeded && (
+            <p className="error-message">Please select {tablesNeeded} tables</p>
+          )}
+        </div>
+
         <button type="submit" className="proceed-button">
           Proceed
         </button>
@@ -217,6 +291,7 @@ const ReservationForm = () => {
               <p>Date: {bookingDetails.visitDate}</p>
               <p>Time: {bookingDetails.timeSlot}</p>
               <p>Table Type: {bookingDetails.tableType}</p>
+              <p>Table Numbers: {bookingDetails.tableNumbers.join(', ')}</p>
             </div>
             <div className="popupButtons">
               <button className="confirmButton" onClick={handleConfirmBooking}>
@@ -238,8 +313,8 @@ const ReservationForm = () => {
           <div className="popup errorPopup">
             <h3>Error</h3>
             <p>{errorMessage}</p>
-            <button 
-              className="popupButton"
+            <button
+              className="closeButton"
               onClick={() => setShowErrorPopup(false)}
             >
               Close

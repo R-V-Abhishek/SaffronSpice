@@ -29,6 +29,9 @@ const ConfirmationPage = () => {
               Payment of ₹{paymentDetails.amount} using UPI ID{" "}
               <strong>{paymentDetails.upi}</strong> has been recorded.
             </p>
+            <p>Table Type: {paymentDetails.bookingDetails.tableType}</p>
+            <p>Number of Tables: {paymentDetails.bookingDetails.tableNumbers.length}</p>
+            <p>Table Numbers: {paymentDetails.bookingDetails.tableNumbers.join(', ')}</p>
           </>
         ) : (
           <p>No payment details found!</p>

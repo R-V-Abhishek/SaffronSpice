@@ -285,13 +285,14 @@
   color: white;
   border: none;
   border-radius: 8px;
-  transition: all 0.3s ease;
+  transition: transform 0.3s;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
 .modal-actions .confirm-btn:hover {
   transform: scale(1.1);
+  background: green;
   box-shadow: 0 4px 15px rgba(230, 126, 34, 0.4);
 }
 

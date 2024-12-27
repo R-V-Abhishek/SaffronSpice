@@ -1,58 +1,69 @@
 .payment-wrapper {
-  min-height: 100vh;
-  padding: 20px;
-  background: linear-gradient(135deg, #ffa500 0%, #ff6f00 100%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    min-height: 100vh;
+    padding: 40px;
+    background: linear-gradient(135deg, #ffa500 0%, #ff6f00 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .payment-container {
-  background: #fff;
-  border-radius: 15px;
-  box-shadow: 
-    0 0 30px rgba(139, 69, 19, 0.5),
-    0 0 60px rgba(139, 69, 19, 0.3);
-  width: 100%;
-  max-width: 500px;
-  padding: 30px;
-  box-sizing: border-box;
-  position: relative;
-  z-index: 1;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 
+        0 0 30px rgba(139, 69, 19, 0.5),
+        0 0 60px rgba(139, 69, 19, 0.3);
+    width: 100%;
+    max-width: 600px;
+    padding: 30px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1;
 }
 
 h2 {
-    color: #ff6f00; /* Warm orange, consistent with your site's theme */
-    font-size: 24px;
-    margin-bottom: 30px;
+    color: #ff6f00;
+    font-size: 28px;
+    margin-bottom: 20px;
     text-align: center;
+    font-weight: bold;
+}
+
+.section-header {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff6f00;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #ff6f00;
+    padding-bottom: 5px;
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 label {
-    color: #555; /* Darker text for labels */
-    display: block;
+    color: #333;
     font-size: 16px;
+    font-weight: 500;
+    display: block;
     margin-bottom: 8px;
 }
 
 input {
-    border: 1px solid #ccc; /* Lighter grey border for input fields */
+    border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 16px;
-    padding: 12px;
+    padding: 10px;
     width: 100%;
     box-sizing: border-box;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 input:focus {
-    border-color: #ff6f00; /* Orange border when focused */
+    border-color: #ff6f00;
     outline: none;
-    box-shadow: 0 0 0 2px rgba(255, 111, 0, 0.25); /* Slight glow effect */
+    box-shadow: 0 0 0 3px rgba(255, 111, 0, 0.2);
 }
 
 /* Error message styling for invalid email */
@@ -63,24 +74,31 @@ input:focus {
 }
 
 button {
-    background-color: #ff6f00; /* Warm orange background for the button */
+    background-color: #ff6f00;
     border: none;
     border-radius: 5px;
     color: white;
-    cursor: pointer;
     font-size: 16px;
-    margin: 20px auto;
-    padding: 14px 30px;
-    display: block;
-    transition: background-color 0.3s ease, transform 0.2s;
+    padding: 14px 20px;
+    width: 100%;
+    text-align: center;
+    transition: all 0.3s ease;
+    margin-top: 20px;
 }
 
 button:hover {
-    background-color: #e65b00; /* Darker orange on hover */
+    background-color: #e65b00;
+    transform: scale(1.05);
+}
+
+button:disabled {
+    background-color: #ddd;
+    color: #999;
+    cursor: not-allowed;
 }
 
 button:active {
-    transform: scale(0.98); /* Slightly shrink the button on click */
+    transform: scale(0.98);
 }
 
 /* Spinner Styles */
@@ -105,27 +123,6 @@ button:active {
     100% { transform: rotate(360deg); }
 }
 
-/* Button Hover and Active States */
-.btn {
-    background-color: #ff6f00;
-    border: none;
-    color: white;
-    padding: 12px 24px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.btn:hover {
-    background-color: #e65b00;
-}
-
-.btn.loading {
-    background-color: #cccccc;
-    cursor: wait;
-}
-
 /* Modal Styles */
 .modal-overlay {
     position: fixed;
@@ -133,7 +130,7 @@ button:active {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -141,10 +138,11 @@ button:active {
 }
 
 .modal-content {
+    justify-items: center;
     background: white;
     padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     max-width: 500px;
     width: 90%;
     text-align: center;
@@ -158,7 +156,7 @@ button:active {
 
 .modal-buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     padding: 20px 40px;
     margin-top: 20px;
     width: 100%;
@@ -172,7 +170,8 @@ button:active {
     font-size: 1.1em;
     font-weight: bold;
     transition: all 0.3s ease;
-    min-width: 120px;
+    max-width: fit-content;
+    transform: 0.3s ease;
 }
 
 .confirm-btn {
@@ -181,7 +180,8 @@ button:active {
 }
 
 .confirm-btn:hover {
-    transform: translateY(-2px);
+    background: green;
+    transform: scale(1.05);
     box-shadow: 0 4px 15px rgba(255, 111, 0, 0.3);
 }
 
@@ -192,9 +192,9 @@ button:active {
 }
 
 .cancel-btn:hover {
-    background: #666;
+    background: red;
     color: white;
-    transform: translateY(-2px);
+    transform: scale(1.05);
     box-shadow: 0 4px 15px rgba(102, 102, 102, 0.3);
 }
 
@@ -217,6 +217,20 @@ button:active {
 .readonly-input:focus {
     border-color: #ddd;
     box-shadow: none;
+}
+
+.payment-details {
+    margin-top: 20px;
+    background: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+}
+
+.payment-details p {
+    font-size: 15px;
+    color: #555;
+    margin: 5px 0;
 }
 
 .footer {

@@ -6,7 +6,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node loginserver.js",
     "dev": "nodemon loginserver.js",
-    "populate-menu": "node scripts/populateMenu.js"
+    "populate-menu": "node scripts/populateMenu.js",
+    "populate-tables": "node scripts/populateTables.js",
+    "populate-data": "npm run populate-menu && npm run populate-tables"
   },
   "keywords": [],
   "author": "",

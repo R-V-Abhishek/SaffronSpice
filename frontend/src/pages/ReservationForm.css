@@ -10,7 +10,7 @@ body {
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(86, 16, 16, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
 }
 
@@ -35,31 +35,20 @@ h2 {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  box-sizing: border-box;
 }
 
 .form-group input[type="date"] {
   width: auto;
   min-width: 200px;
   max-width: 100%;
-  padding: 10px 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-family: inherit;
-  font-size: 14px;
-  color: #333;
-  background-color: white;
-  cursor: pointer;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.form-group input[type="date"]:hover {
-  border-color: #ff6f00;
-}
-
+.form-group input[type="date"]:hover,
 .form-group input[type="date"]:focus {
-  outline: none;
   border-color: #ff6f00;
   box-shadow: 0 0 5px rgba(255, 111, 0, 0.2);
+  outline: none;
 }
 
 .guest-buttons {
@@ -68,13 +57,13 @@ h2 {
   gap: 10px;
   overflow-x: auto;
   padding: 10px 0;
-  scroll-snap-type: x mandatory; /* Enables snap scrolling */
+  scroll-snap-type: x mandatory;
   box-sizing: border-box;
   max-width: 100%;
 }
 
 .guest-buttons .guest-button {
-  flex: 0 0 calc((100% / 6) - 12px); /* Show 6 buttons at a time */
+  flex: 0 0 calc((100% / 6) - 12px);
   padding: 10px 15px;
   background-color: white;
   color: black;
@@ -82,7 +71,7 @@ h2 {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s;
-  scroll-snap-align: start; /* Align buttons to the scroll position */
+  scroll-snap-align: start;
 }
 
 .guest-buttons .guest-button.selected {
@@ -95,30 +84,28 @@ h2 {
   transform: scale(0.95);
 }
 
-/* Ensure responsive behavior */
 @media (max-width: 768px) {
   .guest-buttons .guest-button {
-    flex: 0 0 calc((100% / 4) - 12px); /* Show 4 buttons at a time on smaller screens */
+    flex: 0 0 calc((100% / 4) - 12px);
   }
 }
 
 @media (max-width: 480px) {
   .guest-buttons .guest-button {
-    flex: 0 0 calc((100% / 3) - 12px); /* Show 3 buttons at a time on very small screens */
+    flex: 0 0 calc((100% / 3) - 12px);
   }
 }
-/* Time slots container */
+
 .time-slots {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px; /* Adds space between buttons */
+  gap: 10px;
   margin-top: 15px;
-  justify-content: center; /* Center the buttons */
+  justify-content: center;
 }
 
-/* Individual time slot button */
 .time-slot {
-  flex: 0 0 calc((100% / 4) - 12px); /* 4 buttons per row */
+  flex: 0 0 calc((100% / 4) - 12px);
   padding: 10px 12px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -128,7 +115,6 @@ h2 {
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .time-slot:hover {
@@ -145,30 +131,45 @@ h2 {
   transform: scale(0.95);
 }
 
-/* Responsive adjustments for time slots */
 @media (max-width: 768px) {
   .time-slot {
-    flex: 0 0 calc((100% / 3) - 12px); /* 3 buttons per row on smaller screens */
+    flex: 0 0 calc((100% / 3) - 12px);
   }
 }
 
 @media (max-width: 480px) {
   .time-slot {
-    flex: 0 0 calc((100% / 2) - 12px); /* 2 buttons per row on very small screens */
+    flex: 0 0 calc((100% / 2) - 12px);
   }
 }
 
-/* Header styling for time slot section */
-.time-slot-header {
-  font-size: 16px;
-  font-weight: bold;
-  color: #555;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  text-align: center;
+.table-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
 }
 
+.table-button {
+  padding: 10px 15px;
+  border: 1px solid orangered;
+  border-radius: 5px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: rgb(255, 119, 0);
+}
 
+.table-button:hover {
+  background: rgb(255, 119, 0);
+  color: white;
+}
+
+.table-button.selected {
+  background: rgb(255, 119, 0);
+  color: white;
+  border-color: #ff6f00;
+}
 
 .proceed-button {
   display: block;
@@ -242,7 +243,7 @@ h2 {
 
 .popupButtons {
   display: flex;
-  justify-content: space-between; /* Align buttons to opposite sides */
+  justify-content: space-between;
   gap: 15px;
   margin-top: 20px;
 }
@@ -252,60 +253,37 @@ h2 {
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 1em;
+  font-size: 1.1em;
+  font-weight: bold;
   transition: all 0.3s ease;
-  background: #ff6f00;
-  color: white;
 }
 
 .confirmButton {
-  padding: 12px 30px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1.1em;
-  font-weight: bold;
-  background: linear-gradient(to right, orange, orangered); /* Green gradient for confirmation */
+  background: linear-gradient(to right, orange, orangered);
   color: white;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2); /* Add subtle shadow */
+  box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
 }
 
-.confirmButton:hover { /* Darker gradient on hover */
-  box-shadow: 0 6px 15px rgba(40, 167, 69, 0.4); /* Stronger shadow on hover */
-  transform: scale(1.2); /* Slightly enlarge button */
-}
-
-.cancelButton {
-  padding: 12px 30px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1.1em;
-  font-weight: bold;
-  background: #dc3545; /* Red background for cancellation */
-  color: white;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 10px rgba(220, 53, 69, 0.2); /* Add subtle shadow */
-}
-
-.cancelButton:hover {
-  background: #c82333; /* Darker red on hover */
-  box-shadow: 0 6px 15px rgba(220, 53, 69, 0.4); /* Stronger shadow on hover */
-  transform: scale(1.2); /* Slightly enlarge button */
-}
-
-.cancelButton:active,
-.confirmButton:active {
-  transform: scale(0.95); /* Slightly reduce size on click */
+.confirmButton:hover {
+  background: green;
+  box-shadow: 0 6px 15px rgba(40, 167, 69, 0.4);
+  transform: scale(1.2);
 }
 
 .cancelButton {
   background: #666;
+  color: white;
 }
 
-.popupButton:hover {
-  transform: translateY(-2px);
+.cancelButton:hover {
+  background: #c82333;
+  box-shadow: 0 6px 15px rgba(220, 53, 69, 0.4);
+  transform: scale(1.2);
+}
+
+.cancelButton:active,
+.confirmButton:active {
+  transform: scale(0.95);
 }
 
 .errorPopup .popup {
@@ -314,4 +292,19 @@ h2 {
 
 .successPopup .popup {
   border-left: 5px solid orange;
+}
+
+.closeButton {
+  /* Style for the close button */
+  background: #999;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.closeButton:hover {
+  background: red;
 }

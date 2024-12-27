@@ -9,7 +9,7 @@ function Footer() {
         Follow us on{' '}
         <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a>,{' '}
         <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>, and{' '}
-        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a>.
+        <a href="https://x.com/" target="_blank" rel="noopener noreferrer">X</a>.
       </p>
     </footer>
   );

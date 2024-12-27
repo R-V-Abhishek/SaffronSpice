@@ -1,7 +1,9 @@
 {
   "scripts": {
-    "start": "npm run populate-menu && concurrently \"cd backend && npm start\" \"cd frontend && npm start\"",
-    "populate-menu": "cd backend && node scripts/populateMenu.js"
+    "start": "npm run populate-all && concurrently \"cd backend && npm start\" \"cd frontend && npm start\"",
+    "populate-menu": "cd backend && node scripts/populateMenu.js",
+    "populate-all": "cd backend && npm run populate-data",
+    "build": "cd frontend && npm run build"
   },
   "devDependencies": {
     "concurrently": "^9.1.0"
