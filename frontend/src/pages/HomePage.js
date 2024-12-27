@@ -24,18 +24,46 @@ function HomePage() {
     { text: "A true taste of India. The curries and naan were absolutely divine.", author: "Priya" }
   ];
 
-  // Animation variants
+  // Enhanced animation variants
   const fadeInUp = {
-    initial: { opacity: 0, y: 60 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 }
+    initial: { 
+      opacity: 0, 
+      y: 60,
+      scale: 0.9
+    },
+    animate: { 
+      opacity: 1, 
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.8,
+        ease: [0.6, -0.05, 0.01, 0.99]
+      }
+    }
   };
 
   const staggerChildren = {
+    initial: { opacity: 0 },
     animate: {
+      opacity: 1,
       transition: {
-        staggerChildren: 0.2
+        delayChildren: 0.4,
+        staggerChildren: 0.3
       }
+    }
+  };
+
+  const cardHover = {
+    hover: {
+      scale: 1.05,
+      rotateY: 5,
+      boxShadow: "0px 10px 20px rgba(0,0,0,0.2)",
+      transition: {
+        duration: 0.3
+      }
+    },
+    tap: {
+      scale: 0.95
     }
   };
 
@@ -43,34 +71,57 @@ function HomePage() {
     // Simulate loading
     setTimeout(() => setIsLoading(false), 1500);
 
-    // Intersection Observer for animated sections
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('reveal');
+    // Enhanced Intersection Observer setup
+    const observerOptions = {
+      threshold: 0.2,
+      rootMargin: '50px'
+    };
+
+    const animationObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Add animation classes and handle delay
+          const element = entry.target;
+          element.classList.add('animate');
+          
+          if (element.dataset.animationDelay) {
+            element.style.animationDelay = `${element.dataset.animationDelay}ms`;
           }
-        });
-      },
-      { threshold: 0.2, rootMargin: '50px' }
-    );
+          
+          // Unobserve after animation is added
+          animationObserver.unobserve(element);
+        }
+      });
+    }, observerOptions);
 
-    const sections = document.querySelectorAll('.animated-section');
-    sections.forEach((section) => observer.observe(section));
+    // Observe elements with proper error handling
+    const elementsToAnimate = [
+      ...document.querySelectorAll('.dish-card'),
+      ...document.querySelectorAll('.review-card'),
+      document.querySelector('.contact-content')
+    ].filter(Boolean); // Filter out null elements
 
-    // Auto-rotate reviews
+    elementsToAnimate.forEach((element, index) => {
+      if (element) {
+        element.dataset.animationDelay = index * 100;
+        animationObserver.observe(element);
+      }
+    });
+
+    // Auto-rotate reviews with cleanup
     const reviewInterval = setInterval(() => {
       setActiveReview((prev) => (prev + 1) % reviews.length);
     }, 5000);
 
-    // Show back-to-top button
+    // Back to top button handler
     const handleScroll = () => {
       setShowBackToTop(window.scrollY > 300);
     };
     window.addEventListener('scroll', handleScroll);
 
+    // Cleanup function
     return () => {
-      observer.disconnect();
+      animationObserver.disconnect();
       clearInterval(reviewInterval);
       window.removeEventListener('scroll', handleScroll);
     };
@@ -99,10 +150,25 @@ function HomePage() {
   }
 
   return (
-    <motion.div initial="initial" animate="animate">
+    <motion.div
+      initial="initial"
+      animate="animate"
+      variants={staggerChildren}
+    >
       <section className="hero parallax-bg">
         <div className="hero-overlay"></div>
-        <motion.div className="hero-content" variants={fadeInUp}>
+        <motion.div 
+          className="hero-content"
+          initial={{ opacity: 0, y: 100 }}
+          animate={{ 
+            opacity: 1, 
+            y: 0,
+            transition: {
+              duration: 1,
+              ease: "easeOut"
+            }
+          }}
+        >
           <h1 style={{ fontWeight: 'bold', textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' }}>
             <TypeAnimation
               sequence={[
@@ -179,12 +245,14 @@ function HomePage() {
       </motion.section>
 
       <motion.section
-        variants={staggerChildren}
         id="speciality"
         className="speciality"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
       >
         <motion.h2 variants={fadeInUp}>Our Speciality</motion.h2>
-        <motion.div className="speciality-grid" variants={staggerChildren}>
+        <div className="speciality-grid">
           {[
             { img: biryaniImg, title: 'Royal Biryani', desc: 'Fragrant basmati rice cooked with aromatic spices' },
             { img: curryImg, title: 'Butter Chicken', desc: 'Creamy tomato gravy with tender chicken pieces' },
@@ -196,9 +264,20 @@ function HomePage() {
             <motion.div
               key={index}
               className="dish-card"
-              variants={fadeInUp}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+                transition: {
+                  duration: 0.5,
+                  delay: index * 0.1
+                }
+              }}
+              viewport={{ once: true }}
+              whileHover={{
+                scale: 1.05,
+                transition: { duration: 0.2 }
+              }}
             >
               <img src={dish.img} alt={dish.title} loading="lazy" />
               <div className="dish-info">
@@ -207,7 +286,7 @@ function HomePage() {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
         <div className="view-more-container">
           <Link to="/menu" className="view-more-button">View More</Link>
         </div>
@@ -220,9 +299,19 @@ function HomePage() {
             <motion.div
               key={index}
               className={`review-card ${index === activeReview ? 'active' : ''}`}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: index === activeReview ? 1 : 0.5, scale: index === activeReview ? 1 : 0.9 }}
-              transition={{ duration: 0.5 }}
+              initial={{ opacity: 0, x: 200 }}
+              animate={{ 
+                opacity: index === activeReview ? 1 : 0,
+                x: index === activeReview ? 0 : 200,
+                position: index === activeReview ? 'relative' : 'absolute',
+                transition: {
+                  duration: 0.5,
+                  ease: "easeOut"
+                }
+              }}
+              style={{
+                display: Math.abs(activeReview - index) <= 1 ? 'block' : 'none'
+              }}
             >
               <p>{review.text}</p>
               <span className="author">- {review.author}</span>
@@ -231,11 +320,13 @@ function HomePage() {
         </div>
         <div className="review-dots">
           {reviews.map((_, index) => (
-            <span
+            <motion.span
               key={index}
               className={`dot ${index === activeReview ? 'active' : ''}`}
               onClick={() => setActiveReview(index)}
-            ></span>
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+            />
           ))}
         </div>
       </motion.section>
@@ -249,7 +340,20 @@ function HomePage() {
         </motion.div>
       </motion.section>
 
-      <motion.section id="contact" className="contact animated-section" variants={fadeInUp}>
+      <motion.section 
+        id="contact" 
+        className="contact animated-section"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ 
+          opacity: 1, 
+          y: 0,
+          transition: {
+            duration: 0.8,
+            ease: "easeOut"
+          }
+        }}
+        viewport={{ once: true, amount: 0.3 }}
+      >
         <motion.h2 variants={fadeInUp}>Contact Us</motion.h2>
         <motion.div className="contact-content" variants={staggerChildren}>
           <motion.div className="contact-info full-width" variants={fadeInUp}>
@@ -274,9 +378,21 @@ function HomePage() {
         <motion.button
           className="back-to-top"
           onClick={scrollToTop}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          whileHover={{ scale: 1.1 }}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ 
+            opacity: 1, 
+            scale: 1,
+            transition: {
+              type: "spring",
+              stiffness: 260,
+              damping: 20
+            }
+          }}
+          whileHover={{ 
+            scale: 1.1,
+            rotate: 360,
+            transition: { duration: 0.5 }
+          }}
           whileTap={{ scale: 0.9 }}
         >
           ↑

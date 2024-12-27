@@ -9,6 +9,7 @@
     color: white;
     position: relative;
     overflow: hidden;
+    animation: heroZoomIn 1.5s ease-out forwards;
 }
 
 .hero-overlay {
@@ -25,7 +26,7 @@
     position: relative;
     z-index: 2;
     opacity: 0;
-    animation: fadeInUp 1s ease forwards;
+    animation: fadeInUp 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
     text-align: center;
 }
 
@@ -49,7 +50,7 @@
     border-radius: 30px;
     text-decoration: none;
     transition: transform 0.3s, box-shadow 0.3s;
-    animation: pulse 2s infinite;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 .cta-button:hover {
@@ -88,7 +89,55 @@
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    }
+    to {
+        opacity: 1;
+        transform: perspective(400px) rotate3d(1, 0, 0, 0deg);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(166, 91, 0, 0.4);
+    }
+    70% {
+        transform: scale(1.1);
+        box-shadow: 0 0 0 15px rgba(166, 91, 0, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(166, 91, 0, 0);
+    }
+}
+
+@keyframes heroZoomIn {
+    from {
+        opacity: 0;
+        transform: scale(1.2) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100px) rotate(-10deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) rotate(0deg);
+    }
+}
+
+@keyframes fadeInUpScroll {
+    from {
+        opacity: 0;
+        transform: translateY(60px);
     }
     to {
         opacity: 1;
@@ -96,14 +145,13 @@
     }
 }
 
-@keyframes pulse {
-    0% {
-        transform: scale(1);
+@keyframes zoomInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
     }
-    50% {
-        transform: scale(1.05);
-    }
-    100% {
+    to {
+        opacity: 1;
         transform: scale(1);
     }
 }
@@ -145,20 +193,39 @@
 }
 
 .reviews-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    height: 200px; /* Adjust based on your content */
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    justify-content: center;
+    overflow: hidden;
 }
 
 .review-card {
-    max-width: 600px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
     padding: 20px;
     background: rgba(255, 255, 255, 0.95);
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     text-align: center;
     transition: all 0.6s ease;
+    opacity: 0;
+    transform: translateY(60px);
+}
+
+.review-card.active {
+    position: relative;
+}
+
+.review-card.animate {
+    animation: fadeInUpScroll 0.8s ease-out forwards;
 }
 
 .review-card p {
@@ -182,16 +249,18 @@
 }
 
 .dot {
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     background: #ddd;
     border-radius: 50%;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    margin: 0 5px;
 }
 
 .dot.active {
     background: #a65b00;
+    transform: scale(1.2);
 }
 
 @media (max-width: 480px) {
@@ -243,7 +312,6 @@
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
 }
 
 .dish-card img {
@@ -470,6 +538,11 @@
     margin: 0 auto;
     visibility: visible;
     opacity: 1;
+    transform: scale(0.8);
+}
+
+.contact-content.animate {
+    animation: zoomInScale 0.8s ease-out forwards;
 }
 
 .contact-card {
@@ -531,6 +604,13 @@
     transform: translateY(-5px); /* Add slight movement on hover */
     color: #a65b00; /* Change color on hover */
 }
+
+/* Animation Delay Utilities */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
 
 /* Common section headers */
 .section-header {
