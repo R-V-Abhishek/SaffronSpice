@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
+import { Link } from 'react-router-dom';
 import './HomePage.css';
 // Import images
 import biryaniImg from '../assets/Images/ChickenBiryani.png';
 import curryImg from '../assets/Images/ChickenCurry.png';
 import tandooriImg from '../assets/Images/ButterChicken.png';
+import videoThumbnail from '../assets/Images/VideoThumbnail.png';
+import alooGobiImg from '../assets/Images/AlooGobi.png';
+import bainganBhartaImg from '../assets/Images/BainganBharta.png';
+import paneerButterMasalaImg from '../assets/Images/PaneerButterMasala.png';
 
 function HomePage() {
   const [activeReview, setActiveReview] = useState(0);
@@ -70,7 +75,7 @@ function HomePage() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [reviews.length]);
-
+  
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -98,19 +103,18 @@ function HomePage() {
       <section className="hero parallax-bg">
         <div className="hero-overlay"></div>
         <motion.div className="hero-content" variants={fadeInUp}>
-          <h1>
+          <h1 style={{ fontWeight: 'bold', textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' }}>
             <TypeAnimation
               sequence={[
                 'Welcome to Saffron Spice',
-                1000,
+                3000, // Increased duration
                 'Experience Indian Cuisine',
-                1000
+                3000  // Increased duration
               ]}
               wrapper="span"
               repeat={Infinity}
             />
           </h1>
-          <p>Experience the authentic flavors of India</p>
           <a href="#about" className="cta-button pulse" onClick={(e) => {
             e.preventDefault();
             document.querySelector('#about').scrollIntoView({ behavior: 'smooth' });
@@ -123,23 +127,20 @@ function HomePage() {
       <section id="quick-info" className="quick-info animated-section">
         <div className="info-grid">
           <div className="info-item">
-            <i className="clock-icon"></i>
             <span>Open Daily: 11 AM - 10 PM</span>
           </div>
           <div className="info-item">
-            <i className="location-icon"></i>
             <span>Free Parking Available</span>
           </div>
           <div className="info-item">
-            <i className="delivery-icon"></i>
             <span>Reservations Available</span>
           </div>
         </div>
       </section>
 
-      <section id="about" className="about-section animated-section">
+      <section id="about" className="about animated-section">
         <motion.h2 variants={fadeInUp}>About Us</motion.h2>
-        <div className="about-content">
+        <motion.div className="about-content" variants={staggerChildren}>
           <div className="about-text">
             <h3>Our Story</h3>
             <p>
@@ -170,7 +171,7 @@ function HomePage() {
               <span className="stat-label">Customer Rating</span>
             </motion.div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       <motion.section
@@ -183,7 +184,10 @@ function HomePage() {
           {[
             { img: biryaniImg, title: 'Royal Biryani', desc: 'Fragrant basmati rice cooked with aromatic spices' },
             { img: curryImg, title: 'Butter Chicken', desc: 'Creamy tomato gravy with tender chicken pieces' },
-            { img: tandooriImg, title: 'Tandoori Platter', desc: 'Assortment of grilled delicacies' }
+            { img: tandooriImg, title: 'Tandoori Platter', desc: 'Assortment of grilled delicacies' },
+            { img: alooGobiImg, title: 'Aloo Gobi', desc: 'Potatoes and cauliflower cooked with spices' },
+            { img: bainganBhartaImg, title: 'Baingan Bharta', desc: 'Smoky mashed eggplant cooked with spices' },
+            { img: paneerButterMasalaImg, title: 'Paneer Butter Masala', desc: 'Paneer cubes in a rich tomato gravy' }
           ].map((dish, index) => (
             <motion.div
               key={index}
@@ -200,41 +204,50 @@ function HomePage() {
             </motion.div>
           ))}
         </motion.div>
+        <div className="view-more-container">
+          <Link to="/menu" className="view-more-button">View More</Link>
+        </div>
       </motion.section>
 
-      <motion.section id="reviews" className="reviews" variants={fadeInUp}>
+      <motion.section id="reviews" className="reviews animated-section" variants={fadeInUp}>
         <motion.h2 variants={fadeInUp}>Customer Reviews</motion.h2>
         <div className="reviews-container">
           {reviews.map((review, index) => (
-            <div 
+            <motion.div
               key={index}
               className={`review-card ${index === activeReview ? 'active' : ''}`}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: index === activeReview ? 1 : 0.5, scale: index === activeReview ? 1 : 0.9 }}
+              transition={{ duration: 0.5 }}
             >
-              <div className="review-content">
-                <div className="quote-icon">❝</div>
-                <p className="review-text">{review.text}</p>
-                <p className="author-name">- {review.author}</p>
-              </div>
-            </div>
+              <p>{review.text}</p>
+              <span className="author">- {review.author}</span>
+            </motion.div>
           ))}
         </div>
-        <div className="review-controls">
-          <div className="review-dots">
-            {reviews.map((_, index) => (
-              <button 
-                key={index}
-                className={`dot ${index === activeReview ? 'active' : ''}`}
-                onClick={() => setActiveReview(index)}
-                aria-label={`Review ${index + 1}`}
-              />
-            ))}
-          </div>
+        <div className="review-dots">
+          {reviews.map((_, index) => (
+            <span
+              key={index}
+              className={`dot ${index === activeReview ? 'active' : ''}`}
+              onClick={() => setActiveReview(index)}
+            ></span>
+          ))}
         </div>
       </motion.section>
 
+      <section id="video-intro" className="video-intro animated-section">
+        <motion.h2 variants={fadeInUp}>Watch Our Story</motion.h2>
+        <motion.div className="video-container" variants={fadeInUp}>
+          <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer">
+            <img src={videoThumbnail} alt="Watch Our Story" className="video-thumbnail" />
+          </a>
+        </motion.div>
+      </section>
+
       <section id="contact" className="contact animated-section">
-        <h2>Contact Us</h2>
-        <div className="contact-grid">
+        <motion.h2 variants={fadeInUp}>Contact Us</motion.h2>
+        <motion.div className="contact-content" variants={staggerChildren}>
           <div className="contact-info">
             <p>123 Spice Street, Flavor Town, India</p>
             <p>Phone: +91 123 456 7890</p>
@@ -250,7 +263,7 @@ function HomePage() {
               title="Google Maps Location"
             ></iframe>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {showBackToTop && (
