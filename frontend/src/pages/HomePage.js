@@ -3,6 +3,9 @@ import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { Link } from 'react-router-dom';
 import './HomePage.css';
+import CountUp from "../components/CountUp";
+import GradientText from "../components/GradientText"; 
+
 // Import images
 import biryaniImg from '../assets/Images/ChickenBiryani.png';
 import curryImg from '../assets/Images/ChickenCurry.png';
@@ -16,6 +19,12 @@ function HomePage() {
   const [activeReview, setActiveReview] = useState(0);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
+  const featuredDishes = [
+    { img: biryaniImg, title: 'Royal Biryani', desc: 'Fragrant basmati rice cooked with aromatic spices' },
+    { img: curryImg, title: 'Butter Chicken', desc: 'Creamy tomato gravy with tender chicken pieces' },
+    { img: tandooriImg, title: 'Tandoori Platter', desc: 'Assortment of grilled delicacies' }
+  ];
 
   // Reviews data
   const reviews = [
@@ -205,43 +214,89 @@ function HomePage() {
       </motion.section>
 
       <motion.section id="about" className="about animated-section" variants={fadeInUp}>
-        <motion.h2 variants={fadeInUp}>About Us</motion.h2>
-        <motion.div className="about-content" variants={staggerChildren}>
-          <motion.div className="about-text full-width" variants={fadeInUp}>
-            <h3>Our Story</h3>
-            <p>
-              Since 2008, Saffron Spice has been serving authentic Indian cuisine with passion and dedication. Our master chefs bring decades of culinary expertise from various regions of India, ensuring each dish tells a story of tradition and flavor.
-            </p>
-            <p>
-              We take pride in using premium ingredients, hand-ground spices, and time-honored cooking techniques to create an unforgettable dining experience for our guests.
-            </p>
-            <p>
-              Our restaurant has become a landmark destination for food enthusiasts seeking authentic Indian flavors. We continue to innovate while staying true to traditional recipes passed down through generations.
-            </p>
-          </motion.div>
-          <motion.div className="about-stats full-width" variants={fadeInUp}>
-            <div className="stat-group">
-              <motion.div className="stat" whileHover={{ scale: 1.05 }}>
-                <span className="stat-number">15+</span>
-                <span className="stat-label">Years of Excellence</span>
-              </motion.div>
-              <motion.div className="stat" whileHover={{ scale: 1.05 }}>
-                <span className="stat-number">50+</span>
-                <span className="stat-label">Signature Dishes</span>
-              </motion.div>
-            </div>
-            <div className="stat-group">
-              <motion.div className="stat" whileHover={{ scale: 1.05 }}>
-                <span className="stat-number">1000+</span>
-                <span className="stat-label">Happy Customers</span>
-              </motion.div>
-              <motion.div className="stat" whileHover={{ scale: 1.05 }}>
-                <span className="stat-number">4.8</span>
-                <span className="stat-label">Customer Rating</span>
-              </motion.div>
-            </div>
-          </motion.div>
+  <motion.h2 variants={fadeInUp}>About Us</motion.h2>
+  <motion.div className="about-content" variants={staggerChildren}>
+    <motion.div className="about-text full-width" variants={fadeInUp}>
+      <h3>Our Story</h3>
+      <p>
+        Since 2008, Saffron Spice has been serving authentic Indian cuisine with passion and dedication. Our master chefs bring decades of culinary expertise from various regions of India, ensuring each dish tells a story of tradition and flavor.
+      </p>
+      <p>
+        We take pride in using premium ingredients, hand-ground spices, and time-honored cooking techniques to create an unforgettable dining experience for our guests.
+      </p>
+      <p>
+        Our restaurant has become a landmark destination for food enthusiasts seeking authentic Indian flavors. We continue to innovate while staying true to traditional recipes passed down through generations.
+      </p>
+    </motion.div>
+
+    <motion.div className="about-stats full-width" variants={fadeInUp}>
+      <div className="stat-group">
+        <motion.div className="stat" whileHover={{ scale: 1.05 }}>
+          <GradientText>
+            <CountUp to={15} from={0} duration={1} separator="," />
+            <span>+</span>
+          </GradientText>
+          <span className="stat-label">Years of Excellence</span>
         </motion.div>
+        <motion.div className="stat" whileHover={{ scale: 1.05 }}>
+          <GradientText>
+            <CountUp to={50} from={0} duration={1} separator="," />
+            <span>+</span>
+          </GradientText>
+          <span className="stat-label">Signature Dishes</span>
+        </motion.div>
+      </div>
+
+      <div className="stat-group">
+        <motion.div className="stat" whileHover={{ scale: 1.05 }}>
+          <GradientText>
+            <CountUp to={1000} from={100} duration={1} separator="" />
+            <span>+</span>
+          </GradientText>
+          <span className="stat-label">Happy Customers</span>
+        </motion.div>
+        <motion.div className="stat" whileHover={{ scale: 1.05 }}>
+          <GradientText>
+            <CountUp to={4.8} from={0} duration={1} separator="," />
+          </GradientText>
+          <span className="stat-label">Customer Rating</span>
+        </motion.div>
+      </div>
+    </motion.div>
+
+  </motion.div>
+</motion.section>
+
+      <motion.section id="featured-dishes" className="featured-dishes animated-section" variants={fadeInUp}>
+        <motion.h2 variants={fadeInUp}>Featured Dishes</motion.h2>
+        <div className="featured-dishes-grid">
+          {featuredDishes.map((dish, index) => (
+            <motion.div
+              key={index}
+              className="featured-dish-card"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+                transition: {
+                  duration: 0.5,
+                  delay: index * 0.1
+                }
+              }}
+              viewport={{ once: true }}
+              whileHover={{
+                scale: 1.05,
+                transition: { duration: 0.2 }
+              }}
+            >
+              <img src={dish.img} alt={dish.title} loading="lazy" />
+              <div className="featured-dish-info">
+                <h3>{dish.title}</h3>
+                <p>{dish.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </motion.section>
 
       <motion.section

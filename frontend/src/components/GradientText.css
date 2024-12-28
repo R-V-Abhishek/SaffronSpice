@@ -1,0 +1,10 @@
+/* src/components/GradientText.css */
+
+/* Apply gradient to the text */
+.gradient-text {
+  background: linear-gradient(to right, #ff9966, #ff5e62); /* Saffron to Warm Red */
+  -webkit-background-clip: text;  /* Required for Chrome/Safari */
+  background-clip: text;  /* Standard property */
+  color: transparent;  /* Make the text color transparent */
+  font-weight: bold;  /* Optional: Makes text bold */
+}
