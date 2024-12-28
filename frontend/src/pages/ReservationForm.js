@@ -25,6 +25,7 @@ const ReservationForm = () => {
   const [showErrorPopup, setShowErrorPopup] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [bookingDetails, setBookingDetails] = useState(null);
+  const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
     const today = new Date();
@@ -38,6 +39,23 @@ const ReservationForm = () => {
     const tableTypeFromQuery = searchParams.get("tableType");
     setSelectedTableType(tableTypeFromQuery || "");
   }, [searchParams]);
+
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      try {
+        const userId = localStorage.getItem("userId");
+        const response = await fetch("http://localhost:5000/api/cart", {
+          headers: { userId },
+        });
+        const data = await response.json();
+        setCartItems(data.items || []);
+      } catch (error) {
+        console.error("Failed to fetch cart items:", error);
+      }
+    };
+
+    fetchCartItems();
+  }, []);
 
   const fetchAvailableTimeSlots = async (date) => {
     try {
@@ -134,6 +152,7 @@ const ReservationForm = () => {
       tableType: selectedTableType,
       tableNumbers: selectedTables,
       price: calculatePrice(selectedTableType) * tablesNeeded,
+      cartItems, // Include cart items in the booking details
     };
     setBookingDetails(newBookingDetails);
     setShowConfirmPopup(true);
@@ -292,6 +311,14 @@ const ReservationForm = () => {
               <p>Time: {bookingDetails.timeSlot}</p>
               <p>Table Type: {bookingDetails.tableType}</p>
               <p>Table Numbers: {bookingDetails.tableNumbers.join(', ')}</p>
+              <p>Cart Items:</p>
+              <ul>
+                {bookingDetails.cartItems.map((item) => (
+                  <li key={item.menuItemId}>
+                    {item.name} - {item.quantity} x {item.price}
+                  </li>
+                ))}
+              </ul>
             </div>
             <div className="popupButtons">
               <button className="confirmButton" onClick={handleConfirmBooking}>
