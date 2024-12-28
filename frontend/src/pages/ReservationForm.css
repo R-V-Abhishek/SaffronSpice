@@ -143,34 +143,56 @@ h2 {
   }
 }
 
-.table-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+/* Container for the table selection */
+.table-selection-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 15px;
   margin-top: 15px;
+  justify-content: center;
 }
 
+/* Style for each table button */
 .table-button {
-  padding: 10px 15px;
-  border: 1px solid orangered;
-  border-radius: 5px;
+  padding: 15px;
+  border: 2px solid #ff6f00;
+  border-radius: 10px;
   background: white;
+  color: #ff6f00;
+  font-weight: bold;
+  text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  color: rgb(255, 119, 0);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Hover effect for table buttons */
 .table-button:hover {
-  background: rgb(255, 119, 0);
+  background: #ff6f00;
   color: white;
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
+/* Selected state for table buttons */
 .table-button.selected {
-  background: rgb(255, 119, 0);
+  background: #ff6f00;
   color: white;
-  border-color: #ff6f00;
+  border-color: #e65b00;
 }
 
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .table-selection-container {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .table-selection-container {
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+  }
+}
 .proceed-button {
   display: block;
   width: 100%;

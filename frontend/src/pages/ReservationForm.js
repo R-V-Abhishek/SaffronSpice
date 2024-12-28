@@ -259,7 +259,7 @@ const ReservationForm = () => {
 
         <div className="form-group">
           <label>Select Tables (You need {tablesNeeded} tables for {guests} guests)</label>
-          <div className="table-buttons">
+          <div className="table-selection-container">
             {availableTables.map((table) => (
               <button
                 key={table.tableNumber}
