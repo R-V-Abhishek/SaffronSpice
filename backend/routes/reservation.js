@@ -52,7 +52,7 @@ router.get("/available-tables", async (req, res) => {
 // Create a new reservation
 router.post("/book", async (req, res) => {
   try {
-    const { guests, visitDate, timeSlot, tableType, tableNumbers, userId, cartItems } = req.body;
+    const { guests, visitDate, timeSlot, tableType, tableNumbers, userId, cartItems, cartTotal } = req.body;
 
     // Validate input
     if (!guests || !visitDate || !timeSlot || !tableType || !tableNumbers || !userId) {
@@ -81,6 +81,7 @@ router.post("/book", async (req, res) => {
       tableType,
       tableNumber,
       cartItems, // Include cart items in the reservation
+      cartTotal // Include cart total in the reservation
     }));
 
     await Reservation.insertMany(reservations);

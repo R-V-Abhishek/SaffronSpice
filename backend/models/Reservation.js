@@ -8,7 +8,16 @@ const reservationSchema = new Schema({
   visitDate: { type: String, required: true },
   timeSlot: { type: String, required: true },
   tableType: { type: String, required: true },
-  tableNumber: { type: Number, required: true }
+  tableNumber: { type: Number, required: true },
+  cartItems: [
+    {
+      menuItemId: { type: Schema.Types.ObjectId, ref: "MenuItem", required: true },
+      name: String,
+      price: String,
+      quantity: { type: Number, default: 1 },
+    },
+  ],
+  cartTotal: { type: Number, required: true }
 });
 
 const Reservation = model("Reservation", reservationSchema);

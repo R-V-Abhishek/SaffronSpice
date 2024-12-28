@@ -166,7 +166,8 @@ const ReservationForm = () => {
         body: JSON.stringify({
           ...bookingDetails,
           userId: localStorage.getItem("userId"),
-          tableNumbers: selectedTables
+          tableNumbers: selectedTables,
+          cartTotal: cartItems.reduce((acc, item) => acc + item.quantity * parseFloat(item.price.replace("₹", "")), 0) // Calculate cart total
         }),
       });
 
@@ -175,6 +176,9 @@ const ReservationForm = () => {
       if (response.ok) {
         // Save booking details in localStorage
         localStorage.setItem("bookingDetails", JSON.stringify(bookingDetails));
+
+        // Clear the cart
+        setCartItems([]);
 
         // Navigate to PaymentPage with booking details in the state
         navigate("/payment", { state: bookingDetails });
