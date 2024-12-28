@@ -69,7 +69,7 @@ function HomePage() {
 
   useEffect(() => {
     // Simulate loading
-    setTimeout(() => setIsLoading(false), 1500);
+    setTimeout(() => setIsLoading(false), 1000);
 
     // Enhanced Intersection Observer setup
     const observerOptions = {
@@ -173,9 +173,9 @@ function HomePage() {
             <TypeAnimation
               sequence={[
                 'Welcome to Saffron Spice',
-                3000, // Increased duration
+                2000, // Increased duration
                 'Experience Indian Cuisine',
-                3000  // Increased duration
+                2000  // Increased duration
               ]}
               wrapper="span"
               repeat={Infinity}
@@ -375,28 +375,12 @@ function HomePage() {
       </motion.section>
 
       {showBackToTop && (
-        <motion.button
+        <button
           className="back-to-top"
           onClick={scrollToTop}
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ 
-            opacity: 1, 
-            scale: 1,
-            transition: {
-              type: "spring",
-              stiffness: 260,
-              damping: 20
-            }
-          }}
-          whileHover={{ 
-            scale: 1.1,
-            rotate: 360,
-            transition: { duration: 0.5 }
-          }}
-          whileTap={{ scale: 0.9 }}
         >
           ↑
-        </motion.button>
+        </button>
       )}
 
       
