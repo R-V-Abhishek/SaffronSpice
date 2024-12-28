@@ -15,6 +15,7 @@ const PaymentPage = () => {
   const [bookingDetails, setBookingDetails] = useState({
     tableType: "",
     tableNumbers: [],
+    cartItems: [],
   });
 
   useEffect(() => {
@@ -53,6 +54,7 @@ const PaymentPage = () => {
       setBookingDetails({
         tableType: details.tableType || "",
         tableNumbers: details.tableNumbers || [],
+        cartItems: details.cartItems || [],
       });
     } else {
       alert("Booking details not found. Redirecting to the booking page.");
@@ -101,6 +103,13 @@ const PaymentPage = () => {
     setIsModalOpen(false);
   };
 
+  const calculateCartTotal = () => {
+    return bookingDetails.cartItems.reduce(
+      (acc, item) => acc + item.quantity * parseFloat(item.price.replace("₹", "")),
+      0
+    );
+  };
+
   return (
     <div className="payment-wrapper">
       <div className="payment-container">
@@ -136,6 +145,17 @@ const PaymentPage = () => {
             <p>Number of Tables: {bookingDetails.tableNumbers.length || 0}</p>
             <p>Table Numbers: {bookingDetails.tableNumbers.join(", ") || "N/A"}</p>
           </div>
+          <div className="form-group">
+            <label>Cart Items</label>
+            <ul>
+              {bookingDetails.cartItems.map((item) => (
+                <li key={item.menuItemId}>
+                  {item.name} - {item.quantity} x {item.price}
+                </li>
+              ))}
+            </ul>
+            <p>Cart Total: ₹{calculateCartTotal()}</p>
+          </div>
           <button
             type="button"
             onClick={handlePayment}
@@ -150,7 +170,7 @@ const PaymentPage = () => {
           <div className="modal-overlay">
             <div className="modal-content">
               <h3>Confirm Payment</h3>
-              <p>Are you sure you want to proceed with the payment of ₹{amount}?</p>
+              <p>Are you sure you want to proceed with the payment of ₹{amount + calculateCartTotal()}?</p>
               <div className="modal-buttons">
                 <button className="confirm-btn" onClick={confirmPayment}>
                   Confirm

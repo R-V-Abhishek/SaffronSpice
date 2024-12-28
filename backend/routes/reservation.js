@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Reservation = require("../models/Reservation");
 const Table = require("../models/Table");
+const Cart = require("../models/Cart");
 const { checkAvailableSlots } = require("../utils/slotUtils");
 
 // Fetch available time slots for a date
@@ -51,7 +52,7 @@ router.get("/available-tables", async (req, res) => {
 // Create a new reservation
 router.post("/book", async (req, res) => {
   try {
-    const { guests, visitDate, timeSlot, tableType, tableNumbers, userId } = req.body;
+    const { guests, visitDate, timeSlot, tableType, tableNumbers, userId, cartItems } = req.body;
 
     // Validate input
     if (!guests || !visitDate || !timeSlot || !tableType || !tableNumbers || !userId) {
@@ -78,10 +79,15 @@ router.post("/book", async (req, res) => {
       visitDate,
       timeSlot,
       tableType,
-      tableNumber
+      tableNumber,
+      cartItems, // Include cart items in the reservation
     }));
 
     await Reservation.insertMany(reservations);
+
+    // Clear the cart after successful reservation
+    await Cart.findOneAndUpdate({ userId }, { items: [], total: 0 });
+
     res.status(201).json({ message: "Reservation successful" });
   } catch (error) {
     console.error(error);
