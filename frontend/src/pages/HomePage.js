@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import './HomePage.css';
 import CountUp from "../components/CountUp";
 import GradientText from "../components/GradientText"; 
+import { FaClock, FaParking, FaConciergeBell, FaWifi } from 'react-icons/fa';
 
 // Import images
 import biryaniImg from '../assets/Images/ChickenBiryani.png';
@@ -14,6 +15,11 @@ import videoThumbnail from '../assets/Images/VideoThumbnail.png';
 import alooGobiImg from '../assets/Images/AlooGobi.png';
 import bainganBhartaImg from '../assets/Images/BainganBharta.png';
 import paneerButterMasalaImg from '../assets/Images/PaneerButterMasala.png';
+import palakPaneerImg from '../assets/Images/PalakPaneer.png';
+import chanaMasalaImg from '../assets/Images/ChanaMasala.png';
+import samosaImg from '../assets/Images/Samosa.png';
+import dalMakhaniImg from '../assets/Images/DalMakhani.png';
+import gulabJamunImg from '../assets/Images/GulabJamun.png';
 
 function HomePage() {
   const [activeReview, setActiveReview] = useState(0);
@@ -24,6 +30,12 @@ function HomePage() {
     { img: biryaniImg, title: 'Royal Biryani', desc: 'Fragrant basmati rice cooked with aromatic spices' },
     { img: curryImg, title: 'Butter Chicken', desc: 'Creamy tomato gravy with tender chicken pieces' },
     { img: tandooriImg, title: 'Tandoori Platter', desc: 'Assortment of grilled delicacies' }
+  ];
+
+  const chefsSpecial = [
+    { img: samosaImg, title: 'Crispy Samosa', desc: 'Golden fried pastry filled with spiced potatoes and peas' },
+    { img: dalMakhaniImg, title: 'Dal Makhani', desc: 'Creamy black lentils cooked with butter and spices' },
+    { img: gulabJamunImg, title: 'Gulab Jamun', desc: 'Soft milk-solid-based sweets soaked in rose-flavored syrup' }
   ];
 
   // Reviews data
@@ -202,13 +214,20 @@ function HomePage() {
       <motion.section id="quick-info" className="quick-info animated-section" variants={fadeInUp}>
         <div className="info-grid">
           <div className="info-item">
+            <FaClock className="info-icon" />
             <span>Open Daily: 11 AM - 10 PM</span>
           </div>
           <div className="info-item">
+            <FaParking className="info-icon" />
             <span>Free Parking Available</span>
           </div>
           <div className="info-item">
+            <FaConciergeBell className="info-icon" />
             <span>Reservations Available</span>
+          </div>
+          <div className="info-item">
+            <FaWifi className="info-icon" />
+            <span>Free WiFi Available</span>
           </div>
         </div>
       </motion.section>
@@ -233,7 +252,7 @@ function HomePage() {
       <div className="stat-group">
         <motion.div className="stat" whileHover={{ scale: 1.05 }}>
           <GradientText>
-            <CountUp to={15} from={0} duration={1} separator="," />
+            <CountUp to={15} from={0} duration={3} separator="," />
             <span>+</span>
           </GradientText>
           <span className="stat-label">Years of Excellence</span>
@@ -250,14 +269,14 @@ function HomePage() {
       <div className="stat-group">
         <motion.div className="stat" whileHover={{ scale: 1.05 }}>
           <GradientText>
-            <CountUp to={1000} from={100} duration={1} separator="" />
+            <CountUp to={1000} from={850} duration={1} separator="" />
             <span>+</span>
           </GradientText>
           <span className="stat-label">Happy Customers</span>
         </motion.div>
         <motion.div className="stat" whileHover={{ scale: 1.05 }}>
           <GradientText>
-            <CountUp to={4.8} from={0} duration={1} separator="," />
+            <CountUp to={4.8} from={0} duration={3} separator="," />
           </GradientText>
           <span className="stat-label">Customer Rating</span>
         </motion.div>
@@ -299,6 +318,38 @@ function HomePage() {
         </div>
       </motion.section>
 
+      <motion.section id="chefs-special" className="chefs-special animated-section" variants={fadeInUp}>
+        <motion.h2 variants={fadeInUp}>Chef's Special</motion.h2>
+        <div className="chefs-special-grid">
+          {chefsSpecial.map((dish, index) => (
+            <motion.div
+              key={index}
+              className="chefs-special-card"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+                transition: {
+                  duration: 0.5,
+                  delay: index * 0.1
+                }
+              }}
+              viewport={{ once: true }}
+              whileHover={{
+                scale: 1.05,
+                transition: { duration: 0.2 }
+              }}
+            >
+              <img src={dish.img} alt={dish.title} loading="lazy" />
+              <div className="chefs-special-info">
+                <h3>{dish.title}</h3>
+                <p>{dish.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.section>
+
       <motion.section
         id="speciality"
         className="speciality"
@@ -314,7 +365,10 @@ function HomePage() {
             { img: tandooriImg, title: 'Tandoori Platter', desc: 'Assortment of grilled delicacies' },
             { img: alooGobiImg, title: 'Aloo Gobi', desc: 'Potatoes and cauliflower cooked with spices' },
             { img: bainganBhartaImg, title: 'Baingan Bharta', desc: 'Smoky mashed eggplant cooked with spices' },
-            { img: paneerButterMasalaImg, title: 'Paneer Butter Masala', desc: 'Paneer cubes in a rich tomato gravy' }
+            { img: paneerButterMasalaImg, title: 'Paneer Butter Masala', desc: 'Paneer cubes in a rich tomato gravy' },
+            // Add new vegetarian dishes
+            { img: palakPaneerImg, title: 'Palak Paneer', desc: 'Paneer cubes in a creamy spinach gravy' },
+            { img: chanaMasalaImg, title: 'Chana Masala', desc: 'Chickpeas cooked in a spicy tomato gravy' }
           ].map((dish, index) => (
             <motion.div
               key={index}
