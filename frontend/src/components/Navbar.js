@@ -22,6 +22,7 @@ function Navbar() {
         <li><Link to="/#about">About Us</Link></li>
         <li><Link to="/#contact">Contact Us</Link></li>
         <li><Link to="/cart">Cart</Link></li>
+        <li><Link to="/view-order">View Your Order</Link></li>
       </ul>
     </nav>
   );

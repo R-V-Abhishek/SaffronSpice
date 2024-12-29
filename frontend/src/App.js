@@ -13,6 +13,7 @@ import ReservationForm from "./pages/ReservationForm";
 import PaymentPage from "./pages/PaymentPage";  
 import PaymentConfirmationPage from "./pages/PaymentConfirmationPage";  // Import the PaymentConfirmationPage component
 import Cart from "./pages/Cart";
+import ViewOrderPage from "./pages/ViewOrderPage";
 // Component to handle scrolling to sections based on URL hash
 const ScrollToSection = () => {
   const location = useLocation();
@@ -142,6 +143,14 @@ const App = () => {
             element={
               <MainLayout>
               <Cart />
+            </MainLayout>
+            }
+          />
+          <Route
+            path="/view-order"
+            element={
+              <MainLayout>
+              <ViewOrderPage />
             </MainLayout>
             }
           />

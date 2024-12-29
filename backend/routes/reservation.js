@@ -95,5 +95,16 @@ router.post("/book", async (req, res) => {
     res.status(500).json({ message: "Failed to save reservation" });
   }
 });
+// Get reservations by user ID
+router.get("/user/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const reservations = await Reservation.find({ userId }).populate("cartItems.menuItemId");
+    res.status(200).json(reservations);
+  } catch (error) {
+    console.error("Error fetching reservations:", error);
+    res.status(500).json({ message: "Failed to fetch reservations" });
+  }
+});
 
 module.exports = router;
