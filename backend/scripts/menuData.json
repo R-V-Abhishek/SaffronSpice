@@ -67,6 +67,24 @@
                 "description": "A spicy chickpea curry cooked in tomato gravy with a variety of spices.",
                 "price": "₹170",
                 "image": "../frontend/src/assets/Images/ChanaMasala.png"
+            },
+            {
+                "name": "Crispy Samosa",
+                "description": "Golden fried pastry filled with spiced potatoes and peas",
+                "price": "₹50",
+                "image": "../frontend/src/assets/Images/Samosa.png"
+            },
+            {
+                "name": "Dal Makhani",
+                "description": "Creamy black lentils cooked with butter and spices",
+                "price": "₹80",
+                "image": "../frontend/src/assets/Images/DalMakhani.png"
+            },
+            {
+                "name": "Gulab Jamun",
+                "description": "Soft milk-solid-based sweets soaked in rose-flavored syrup",
+                "price": "₹80",
+                "image": "../frontend/src/assets/Images/GulabJamun.png"
             }
         ]
     },
