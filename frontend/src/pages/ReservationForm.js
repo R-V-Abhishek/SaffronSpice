@@ -26,6 +26,8 @@ const ReservationForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [bookingDetails, setBookingDetails] = useState(null);
   const [cartItems, setCartItems] = useState([]);
+  const [foodPreparation, setFoodPreparation] = useState(null);
+  const [showCartPreview, setShowCartPreview] = useState(false);
 
   useEffect(() => {
     const today = new Date();
@@ -44,13 +46,22 @@ const ReservationForm = () => {
     const fetchCartItems = async () => {
       try {
         const userId = localStorage.getItem("userId");
+        if (!userId) return;
+
         const response = await fetch("http://localhost:5000/api/cart", {
           headers: { userId },
         });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch cart");
+        }
+
         const data = await response.json();
         setCartItems(data.items || []);
       } catch (error) {
         console.error("Failed to fetch cart items:", error);
+        setErrorMessage("Failed to fetch cart items");
+        setShowErrorPopup(true);
       }
     };
 
@@ -139,6 +150,18 @@ const ReservationForm = () => {
       return;
     }
 
+    if (foodPreparation === null) {
+      setErrorMessage("Please select if you want food prepared in advance");
+      setShowErrorPopup(true);
+      return;
+    }
+
+    if (foodPreparation === 'yes' && (!cartItems || cartItems.length === 0)) {
+      setErrorMessage("Please add items to your cart before proceeding");
+      setShowErrorPopup(true);
+      return;
+    }
+
     if (selectedTables.length !== tablesNeeded) {
       setErrorMessage(`Please select ${tablesNeeded} tables for ${guests} guests`);
       setShowErrorPopup(true);
@@ -152,7 +175,8 @@ const ReservationForm = () => {
       tableType: selectedTableType,
       tableNumbers: selectedTables,
       price: calculatePrice(selectedTableType) * tablesNeeded,
-      cartItems, // Include cart items in the booking details
+      cartItems: foodPreparation === 'yes' ? cartItems : [], // Only include cart items if food prep is yes
+      foodPreparation
     };
     setBookingDetails(newBookingDetails);
     setShowConfirmPopup(true);
@@ -299,6 +323,69 @@ const ReservationForm = () => {
             <p className="error-message">Please select {tablesNeeded} tables</p>
           )}
         </div>
+
+        {/* Food Preparation Selection */}
+        <div className="form-group">
+          <label>Would you like your food prepared in advance?</label>
+          <div className="food-prep-buttons">
+            <button
+              type="button"
+              className={`food-prep-button ${foodPreparation === 'yes' ? 'selected' : ''}`}
+              onClick={async () => {
+                setFoodPreparation('yes');
+                setShowCartPreview(true);
+                // Fetch latest cart items when user selects "Yes"
+                const userId = localStorage.getItem("userId");
+                if (userId) {
+                  const response = await fetch("http://localhost:5000/api/cart", {
+                    headers: { userId },
+                  });
+                  const data = await response.json();
+                  setCartItems(data.items || []);
+                }
+              }}
+            >
+              Yes
+            </button>
+            <button
+              type="button"
+              className={`food-prep-button ${foodPreparation === 'no' ? 'selected' : ''}`}
+              onClick={() => {
+                setFoodPreparation('no');
+                setShowCartPreview(false);
+                setCartItems([]);
+              }}
+            >
+              No
+            </button>
+          </div>
+        </div>
+
+        {/* Cart Preview */}
+        {foodPreparation === 'yes' && showCartPreview && (
+          <div className="cart-preview">
+            <h3>Your Order</h3>
+            {cartItems.length > 0 ? (
+              <>
+                <ul className="cart-preview-list">
+                  {cartItems.map((item) => (
+                    <li key={item.menuItemId} className="cart-preview-item">
+                      <span>{item.name}</span>
+                      <span>{item.quantity} x ₹{item.price}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="cart-preview-total">
+                  Total: ₹{cartItems.reduce((acc, item) => 
+                    acc + item.quantity * parseFloat(item.price.replace("₹", "")), 0
+                  )}
+                </div>
+              </>
+            ) : (
+              <p>Your cart is empty. <a href="/menu">Add items from menu</a></p>
+            )}
+          </div>
+        )}
 
         <button type="submit" className="proceed-button">
           Proceed

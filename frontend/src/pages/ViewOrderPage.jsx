@@ -39,7 +39,7 @@ const ViewOrderPage = () => {
 
   return (
     <div className="view-order-page">
-      <h2>Your Orders</h2>
+      <h2>Your Reservations</h2>
       {reservations.length === 0 ? (
         <p>No reservations found</p>
       ) : (
