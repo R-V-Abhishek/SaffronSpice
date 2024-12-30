@@ -152,24 +152,6 @@ function HomePage() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  if (isLoading) {
-    return (
-      <div className="loading-screen">
-        <motion.div
-          className="loading-spinner"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-        />
-        <motion.h2
-          animate={{ opacity: [0.5, 1] }}
-          transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
-        >
-          Loading Saffron Spice...
-        </motion.h2>
-      </div>
-    );
-  }
-
   return (
     <motion.div
       initial="initial"
@@ -401,44 +383,41 @@ function HomePage() {
         </div>
       </motion.section>
 
-      <motion.section id="reviews" className="reviews animated-section" variants={fadeInUp}>
-        <motion.h2 variants={fadeInUp}>Customer Reviews</motion.h2>
-        <div className="reviews-container">
-          {reviews.map((review, index) => (
-            <motion.div
-              key={index}
-              className={`review-card ${index === activeReview ? 'active' : ''}`}
-              initial={{ opacity: 0, x: 200 }}
-              animate={{ 
-                opacity: index === activeReview ? 1 : 0,
-                x: index === activeReview ? 0 : 200,
-                position: index === activeReview ? 'relative' : 'absolute',
-                transition: {
-                  duration: 0.5,
-                  ease: "easeOut"
-                }
-              }}
-              style={{
-                display: Math.abs(activeReview - index) <= 1 ? 'block' : 'none'
-              }}
+      <motion.section id="reviews" className="reviews" variants={fadeInUp}>
+    <motion.h2 variants={fadeInUp}>Customer Reviews</motion.h2>
+    <div className="reviews-container">
+        {reviews.map((review, index) => (
+            <div
+                key={index}
+                className={`review-card ${
+                    index === activeReview ? 'active' : 
+                    index === (activeReview - 1 + reviews.length) % reviews.length ? 'prev' : 
+                    index === (activeReview + 1) % reviews.length ? 'next' : ''
+                }`}
             >
-              <p>{review.text}</p>
-              <span className="author">- {review.author}</span>
-            </motion.div>
-          ))}
+                <p>{review.text}</p>
+                <span className="author">- {review.author}</span>
+            </div>
+        ))}
+        <div className="review-nav">
+            <button onClick={() => setActiveReview((prev) => (prev - 1 + reviews.length) % reviews.length)}>
+                ←
+            </button>
+            <button onClick={() => setActiveReview((prev) => (prev + 1) % reviews.length)}>
+                →
+            </button>
         </div>
         <div className="review-dots">
-          {reviews.map((_, index) => (
-            <motion.span
-              key={index}
-              className={`dot ${index === activeReview ? 'active' : ''}`}
-              onClick={() => setActiveReview(index)}
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
-            />
-          ))}
+            {reviews.map((_, index) => (
+                <span
+                    key={index}
+                    className={`dot ${index === activeReview ? 'active' : ''}`}
+                    onClick={() => setActiveReview(index)}
+                />
+            ))}
         </div>
-      </motion.section>
+    </div>
+</motion.section>
 
       <motion.section id="video-intro" className="video-intro animated-section" variants={fadeInUp}>
         <motion.h2 variants={fadeInUp}>Watch Our Story</motion.h2>
@@ -472,7 +451,7 @@ function HomePage() {
           </motion.div>
           <motion.div className="map-container" variants={fadeInUp}>
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.835434509273!2d144.96305771582256!3d-37.81410787975159!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf577801d5a9a33f2!2sFlinders%20Street%20Station!5e0!3m2!1sen!2sin!4v1617319162321!5m2!1sen!2sin"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.472091884626!2d77.5619389779346!3d12.941615054807913!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae158b11e34d2f%3A0x5f4adbdbab8bd80f!2sBMS%20College%20of%20Engineering!5e0!3m2!1sen!2sin!4v1735564976740!5m2!1sen!2sin"
               width="100%"
               height="500"
               allowFullScreen=""

@@ -1,8 +1,3 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f8f8f8;
-}
-
 .container {
   width: 90%;
   max-width: 600px;
@@ -330,3 +325,79 @@ h2 {
 .closeButton:hover {
   background: red;
 }
+
+/* ...existing code... */
+
+.food-prep-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.food-prep-button {
+  flex: 1;
+  padding: 12px 25px;
+  border: 2px solid #ff6f00;
+  border-radius: 8px;
+  background-color: white;
+  color: #ff6f00;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.food-prep-button:hover {
+  background-color: #fff3e0;
+}
+
+.food-prep-button.selected {
+  background-color: #ff6f00;
+  color: white;
+}
+
+.cart-preview {
+  margin: 20px 0;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cart-preview h3 {
+  color: #ff6f00;
+  margin-bottom: 15px;
+  font-size: 1.2em;
+}
+
+.cart-preview-list {
+  list-style: none;
+  padding: 0;
+}
+
+.cart-preview-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.cart-preview-total {
+  margin-top: 15px;
+  text-align: right;
+  font-weight: bold;
+  color: #333;
+  padding: 10px 0;
+  border-top: 2px solid #ff6f00;
+}
+
+.cart-preview a {
+  color: #ff6f00;
+  text-decoration: none;
+}
+
+.cart-preview a:hover {
+  text-decoration: underline;
+}
+
+/* ...existing code... */

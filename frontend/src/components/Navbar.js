@@ -18,8 +18,6 @@ function Navbar() {
         <li><Link to="/" onClick={handleHomeClick}>Home</Link></li>
         <li><Link to="/Login">Booking</Link></li>
         <li><Link to="/menu">Menu</Link></li>
-        <li><Link to="/#speciality">Speciality</Link></li>
-        <li><Link to="/#about">About Us</Link></li>
         <li><Link to="/#contact">Contact Us</Link></li>
         <li><Link to="/cart">Cart</Link></li>
         <li><Link to="/view-order">View Your Order</Link></li>

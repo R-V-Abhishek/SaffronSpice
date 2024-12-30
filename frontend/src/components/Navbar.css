@@ -1,11 +1,18 @@
 .navbar {
     background-color: #a65b00;
-    position: sticky; /* Sticky positioning */
-    top: 0; /* Stick to the top of the viewport */
-    z-index: 1000; /* Ensure it stays above other elements */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
     padding: 10px 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add subtle shadow for depth */
-    transition: padding 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.navbar.scrolled {
+    padding: 5px 0;
+    background-color: rgba(166, 91, 0, 0.95);
+    backdrop-filter: blur(10px);
 }
 
 .navbar ul {
@@ -13,11 +20,15 @@
     padding: 0;
     margin: 0;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
 
 .navbar ul li {
     display: inline;
     margin: 0 15px;
+    position: relative;
 }
 
 .navbar ul li a {
@@ -26,7 +37,23 @@
     padding: 10px 15px;
     font-size: calc(0.6em + 1vw);
     display: inline-block;
-    transition: background-color 0.2s ease, transform 0.2s ease, letter-spacing 0.2s ease;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.navbar ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    left: 0;
+    bottom: 5px;
+    transition: width 0.3s ease;
+}
+
+.navbar ul li a:hover::after {
+    width: 100%;
 }
 
 .navbar ul li a:hover {
@@ -34,4 +61,38 @@
     border-radius: 5px;
     transform: scale(1.05);
     letter-spacing: 1px;
+}
+
+/* Mobile menu styles */
+@media screen and (max-width: 768px) {
+    .navbar ul {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px 0;
+    }
+
+    .navbar ul li {
+        margin: 5px 0;
+    }
+
+    .navbar ul li a {
+        font-size: 1rem;
+        padding: 8px 12px;
+    }
+}
+
+/* Animation for navbar appearance */
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.navbar.animate {
+    animation: slideDown 0.5s ease forwards;
 }

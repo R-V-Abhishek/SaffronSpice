@@ -35,11 +35,12 @@ const ConfirmationPage = () => {
             <p>
               Payment of ₹{paymentDetails.amount + calculateCartTotal()} using UPI ID{" "}
               <strong>{paymentDetails.upi}</strong> has been recorded.
-            </p>
-            <p>Table Type: {paymentDetails.bookingDetails.tableType}</p>
-            <p>Number of Tables: {paymentDetails.bookingDetails.tableNumbers.length}</p>
-            <p>Table Numbers: {paymentDetails.bookingDetails.tableNumbers.join(', ')}</p>
-            <p>Cart Items:</p>
+            </p><br></br>
+            <p><b>Table Type:</b> {paymentDetails.bookingDetails.tableType}</p><br></br>
+            <p><b>Number of Tables:</b> {paymentDetails.bookingDetails.tableNumbers.length}</p><br></br>
+            <p><b>Table Number(s)</b>: {paymentDetails.bookingDetails.tableNumbers.join(', ')}</p>
+            <br></br>
+            <p><b>Cart Items:</b></p>
             <ul>
               {paymentDetails.bookingDetails.cartItems.map((item) => (
                 <li key={item.menuItemId}>
@@ -47,7 +48,7 @@ const ConfirmationPage = () => {
                 </li>
               ))}
             </ul>
-            <p>Cart Total: ₹{calculateCartTotal()}</p>
+            <p><b>Cart Total:</b> ₹{calculateCartTotal()}</p>
           </>
         ) : (
           <p>No payment details found!</p>

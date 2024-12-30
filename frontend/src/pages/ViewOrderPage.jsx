@@ -39,7 +39,7 @@ const ViewOrderPage = () => {
 
   return (
     <div className="view-order-page">
-      <h2>Your Orders</h2>
+      <h2>Your Reservations</h2>
       {reservations.length === 0 ? (
         <p>No reservations found</p>
       ) : (
@@ -50,14 +50,21 @@ const ViewOrderPage = () => {
               <p>Guests: {reservation.guests}</p>
               <p>Table Type: {reservation.tableType}</p>
               <p>Table Numbers: {reservation.tableNumber}</p>
-              <p>Cart Total: ₹{reservation.cartTotal}</p>
-              <ul>
-                {reservation.cartItems.map((item) => (
-                  <li key={item.menuItemId}>
-                    {item.name} - {item.quantity} x {item.price}
-                  </li>
-                ))}
-              </ul>
+              {reservation.cartItems && reservation.cartItems.length > 0 ? (
+                <>
+                  <p>Cart Total: ₹{reservation.cartTotal}</p>
+                  <h4>Ordered Items:</h4>
+                  <ul className="cart-items-list">
+                    {reservation.cartItems.map((item) => (
+                      <li key={item.menuItemId}>
+                        {item.name} - {item.quantity} x {item.price}
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              ) : (
+                <p className="empty-cart-message">No items were ordered with this reservation</p>
+              )}
             </li>
           ))}
         </ul>
