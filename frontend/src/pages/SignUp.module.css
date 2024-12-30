@@ -50,8 +50,9 @@
 .signupBody {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100%;
+  align-items: flex-start; /* Change from center to flex-start */
+  height: auto; /* Change from 100% to auto */
+  min-height: 100vh; /* Ensure the body takes at least the full viewport height */
   margin: 0;
   font-family: Arial, sans-serif;
   font-size: calc(1rem + 0.5vw);
@@ -66,11 +67,11 @@
   border-radius: 8px;
   width: 100%;
   max-width: calc(30% + 10vw);
-  height: 100vh;
   box-sizing: border-box;
   transition: background-color 0.3s, color 0.3s;
   margin: 15px;
-  overflow-y: auto;
+  overflow-y: visible; /* Change from auto to visible */
+  height: auto; /* Change from 100vh to auto */
 }
 
 /* Logo Styling */
@@ -245,4 +246,53 @@
 
 .popupButton:hover {
   background-color: #e67e22;
+}
+
+@media (max-width: 768px) {
+  .signupContainer {
+    max-width: 90%;
+    padding: 1rem;
+  }
+
+  .logo img {
+    max-width: 50%;
+  }
+
+  .formGroup {
+    margin: 1rem 0;
+  }
+
+  .formCheck {
+    top: 10px;
+    right: 10px;
+  }
+
+  .formCheckLabel {
+    font-size: 1rem;
+  }
+
+  .formCheckInput {
+    width: 40px;
+    height: 20px;
+  }
+
+  .formCheckInput::before {
+    width: 18px;
+    height: 18px;
+  }
+
+  .submitButton {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+
+  .popup {
+    padding: 1rem;
+    max-width: 90%;
+  }
+
+  .popupButton {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
 }

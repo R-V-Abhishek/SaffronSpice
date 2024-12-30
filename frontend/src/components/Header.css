@@ -9,7 +9,7 @@
     padding: 20px 0;
     transition: background-color 0.3s ease;
     position: relative;
-    z-index: 0; /* Ensure navbar and profile-card stack correctly */
+    z-index: 1001; /* Higher than navbar */
 }
 
 .header:hover {
@@ -101,16 +101,16 @@
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
-    width: 200px;
+    width: 250px; /* Increased base width */
     height: auto;
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
-    padding: 10px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+    padding: 15px;
     display: none;
     transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
     opacity: 0;
-    z-index: auto; /* Ensures it's above the navbar */
+    z-index: 1002; /* Higher than header and navbar */
 }
 
 .profile-card.active {
@@ -197,6 +197,88 @@
     100% {
         width: 100%; /* Full width */
         opacity: 1; /* Fully visible */
+    }
+}
+
+/* Mobile header styles */
+@media screen and (max-width: 768px) {
+    .header {
+        grid-template-columns: auto auto auto; /* Change to three columns */
+        padding: 8px;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .logo-container {
+        justify-content: flex-start;
+        padding: 2px;
+    }
+
+    .logo {
+        max-width: 50px; /* Smaller logo for mobile */
+        min-width: 40px;
+    }
+
+    .name {
+        grid-template-columns: 1fr 1fr;
+        margin: 0 5px;
+        padding: 2px;
+        background: none; /* Remove gradient background */
+    }
+
+    .restaurant-fname, .restaurant-lname {
+        font-size: calc(1rem + 1.5vw); /* Smaller font size */
+        padding: 4px;
+        text-align: center;
+    }
+
+    .profile-container {
+        justify-content: flex-end;
+        padding-right: 5px;
+    }
+
+    .profile-pic {
+        width: 45px;
+        height: 45px;
+        min-width: 45px;
+    }
+
+    /* Adjust profile card position for mobile */
+    .profile-card {
+        right: -10px; /* Adjust position */
+        left: auto;
+        transform: none;
+        width: 280px; /* Larger width for mobile */
+        padding: 20px;
+        border-radius: 12px; /* Slightly larger border radius */
+    }
+
+    .profile-card.active {
+        transform: translateY(10px);
+    }
+
+    .profile-card h3 {
+        font-size: 1.4em;
+        margin-bottom: 10px;
+    }
+
+    .profile-card p {
+        font-size: 1.2em;
+        margin: 10px 0;
+    }
+
+    .logout-button, .login-button {
+        padding: 12px 20px;
+        font-size: 1.2em;
+        margin-top: 15px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .profile-card {
+        width: calc(100vw - 40px); /* Full width minus margins */
+        right: -20px;
+        max-width: 320px; /* Maximum width limit */
     }
 }
 

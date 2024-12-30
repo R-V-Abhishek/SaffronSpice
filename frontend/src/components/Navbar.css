@@ -2,7 +2,7 @@
     background-color: #a65b00;
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 1000; /* Lower than header */
     padding: 10px 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
@@ -66,18 +66,23 @@
 /* Mobile menu styles */
 @media screen and (max-width: 768px) {
     .navbar ul {
-        flex-direction: column;
-        gap: 10px;
-        padding: 10px 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        grid-template-rows: repeat(2, auto);
+        gap: 5px;
+        padding: 5px;
     }
 
     .navbar ul li {
-        margin: 5px 0;
+        margin: 2px;
     }
 
     .navbar ul li a {
-        font-size: 1rem;
-        padding: 8px 12px;
+        font-size: 0.9rem;
+        padding: 6px 8px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }
 
