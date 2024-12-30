@@ -152,24 +152,6 @@ function HomePage() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  if (isLoading) {
-    return (
-      <div className="loading-screen">
-        <motion.div
-          className="loading-spinner"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-        />
-        <motion.h2
-          animate={{ opacity: [0.5, 1] }}
-          transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
-        >
-          Loading Saffron Spice...
-        </motion.h2>
-      </div>
-    );
-  }
-
   return (
     <motion.div
       initial="initial"

@@ -15,7 +15,8 @@
 .confirmation-container h2 {
   margin-bottom: calc(1rem + 0.5vw);
   font-size: calc(1.5rem + 0.5vw);
-  color: #af5303;
+  color: #ff6600; /* More orange */
+  font-weight: bold;
 }
 
 /* Payment Details Styling */
@@ -43,6 +44,27 @@
   transform: scale(1.05);
 }
 
+/* List Styling */
+.confirmation-container ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.confirmation-container ul li {
+  background-color: #f9f9f9;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: calc(1rem + 0.3vw);
+  color: #333;
+}
+
+/* Name Fields Styling */
+.confirmation-container .name-field {
+  font-weight: bold;
+}
+
 /* Light Theme */
 .lightTheme .confirmation-container {
   background-color: #fff;
@@ -50,6 +72,11 @@
 }
 
 .lightTheme #payment-details {
+  color: #333;
+}
+
+.lightTheme .confirmation-container ul li {
+  background-color: #fff;
   color: #333;
 }
 
@@ -61,4 +88,9 @@
 
 .darkTheme #payment-details {
   color: white;
+}
+
+.darkTheme .confirmation-container ul li {
+  background-color: #333;
+  color: #fff;
 }
