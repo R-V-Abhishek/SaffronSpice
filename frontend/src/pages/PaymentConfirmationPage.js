@@ -33,22 +33,37 @@ const ConfirmationPage = () => {
               Thank you, <strong>{paymentDetails.name}</strong>!
             </p>
             <p>
-              Payment of ₹{paymentDetails.amount + calculateCartTotal()} using UPI ID{" "}
-              <strong>{paymentDetails.upi}</strong> has been recorded.
-            </p><br></br>
-            <p><b>Table Type:</b> {paymentDetails.bookingDetails.tableType}</p><br></br>
-            <p><b>Number of Tables:</b> {paymentDetails.bookingDetails.tableNumbers.length}</p><br></br>
-            <p><b>Table Number(s)</b>: {paymentDetails.bookingDetails.tableNumbers.join(', ')}</p>
+              Payment completed using UPI ID: <strong>{paymentDetails.upi}</strong>
+            </p>
             <br></br>
-            <p><b>Cart Items:</b></p>
-            <ul>
-              {paymentDetails.bookingDetails.cartItems.map((item) => (
-                <li key={item.menuItemId}>
-                  {item.name} - {item.quantity} x {item.price}
-                </li>
-              ))}
-            </ul>
-            <p><b>Cart Total:</b> ₹{calculateCartTotal()}</p>
+            
+            <div className="booking-details">
+              <h3>Table Booking Details:</h3>
+              <p><b>Table Type:</b> {paymentDetails.bookingDetails.tableType}</p>
+              <p><b>Number of Tables:</b> {paymentDetails.bookingDetails.tableNumbers.length}</p>
+              <p><b>Table Number(s):</b> {paymentDetails.bookingDetails.tableNumbers.join(', ')}</p>
+            </div>
+            <br></br>
+
+            <div className="order-details">
+              <h3>Food Order Details:</h3>
+              <ul>
+                {paymentDetails.bookingDetails.cartItems.map((item) => (
+                  <li key={item.menuItemId}>
+                    {item.name} - {item.quantity} x ₹{item.price} = ₹{item.quantity * item.price}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <br></br>
+
+            <div className="cost-breakdown">
+              <h3>Cost Breakdown:</h3>
+              <p><b>Table Charges:</b> ₹{paymentDetails.amount}</p>
+              <p><b>Food Order Total:</b> ₹{calculateCartTotal()}</p>
+              <hr/>
+              <p className="total-amount"><b>Final Amount Paid:</b> ₹{paymentDetails.amount + calculateCartTotal()}</p>
+            </div>
           </>
         ) : (
           <p>No payment details found!</p>

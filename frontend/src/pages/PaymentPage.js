@@ -136,7 +136,7 @@ const PaymentPage = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="amount">Amount</label>
+            <label htmlFor="amount">Table Amount</label>
             <p>₹{amount}</p>
           </div>
           <div className="form-group">
@@ -154,7 +154,7 @@ const PaymentPage = () => {
                 </li>
               ))}
             </ul>
-            <p>Cart Total: ₹{calculateCartTotal()}</p>
+            <p><b>Cart Total:</b> ₹{calculateCartTotal()}</p>
           </div>
           <button
             type="button"

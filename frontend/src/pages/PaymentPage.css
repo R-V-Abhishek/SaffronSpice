@@ -233,6 +233,49 @@ button:active {
     margin: 5px 0;
 }
 
+
+/* Amount Breakdown Styling */
+.amount-breakdown {
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .amount-breakdown h3 {
+    color: #ff6600;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+  }
+  
+  .breakdown-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 0;
+    padding: 8px 0;
+    color: #333;
+  }
+  
+  .breakdown-item.total {
+    border-top: 2px solid #ff6600;
+    margin-top: 15px;
+    padding-top: 15px;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #ff6600;
+  }
+  
+  .no-details {
+    color: #dc3545;
+    padding: 20px;
+    text-align: center;
+    background-color: #f8d7da;
+    border-radius: 4px;
+    margin: 20px 0;
+  } 
+
 .footer {
     background: #f8f8f8;
     text-align: center;

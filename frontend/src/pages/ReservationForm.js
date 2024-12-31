@@ -28,6 +28,7 @@ const ReservationForm = () => {
   const [cartItems, setCartItems] = useState([]);
   const [foodPreparation, setFoodPreparation] = useState(null);
   const [showCartPreview, setShowCartPreview] = useState(false);
+  const [labelMessage, setLabelMessage] = useState("Please select the time slot");
 
   useEffect(() => {
     const today = new Date();
@@ -103,6 +104,18 @@ const ReservationForm = () => {
     }
   };
 
+  const handleGuestSelection = (guestCount) => {
+    setGuests(guestCount);
+    // Immediate calculation
+    const tablesNeeded = Math.ceil(guestCount / 4);
+    setTablesNeeded(tablesNeeded);
+    
+    // Then fetch available tables if we have all required info
+    if (selectedTimeSlot && selectedTableType) {
+      fetchAvailableTables();
+    }
+  };
+
   useEffect(() => {
     if (visitDate) {
       fetchAvailableTimeSlots(visitDate);
@@ -115,6 +128,14 @@ const ReservationForm = () => {
       fetchAvailableTables();
     }
   }, [selectedTimeSlot, selectedTableType, guests, visitDate]);
+
+  useEffect(() => {
+    if (!selectedTimeSlot) {
+      setLabelMessage("Please select the time slot");
+    } else if (guests) {
+      setLabelMessage(`Select Tables (You need ${tablesNeeded} tables for ${guests} guests)`);
+    }
+  }, [selectedTimeSlot, guests, tablesNeeded]);
 
   const handleDateChange = (e) => {
     const selectedDate = e.target.value;
@@ -236,7 +257,7 @@ const ReservationForm = () => {
                 key={i + 1}
                 type="button"
                 className={`guest-button ${guests === i + 1 ? "selected" : ""}`}
-                onClick={() => setGuests(i + 1)}
+                onClick={() => handleGuestSelection(i + 1)}
               >
                 {i + 1}
               </button>
@@ -305,9 +326,9 @@ const ReservationForm = () => {
         </div>
 
         <div className="form-group">
-          <label>Select Tables (You need {tablesNeeded} tables for {guests} guests)</label>
+        <label>{labelMessage}</label>
           <div className="table-selection-container">
-            {availableTables.map((table) => (
+            {selectedTimeSlot && availableTables.map((table) => (
               <button
                 key={table.tableNumber}
                 type="button"

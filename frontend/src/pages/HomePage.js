@@ -38,11 +38,16 @@ function HomePage() {
     { img: gulabJamunImg, title: 'Gulab Jamun', desc: 'Soft milk-solid-based sweets soaked in rose-flavored syrup' }
   ];
 
-  // Reviews data
+  // Updated reviews data
   const reviews = [
     { text: "The best biryani I've ever had! The flavors are simply out of this world.", author: "Ananya" },
     { text: "Saffron Spice is my go-to place for authentic Indian food. Highly recommend!", author: "Rajesh" },
-    { text: "A true taste of India. The curries and naan were absolutely divine.", author: "Priya" }
+    { text: "A true taste of India. The curries and naan were absolutely divine.", author: "Priya" },
+    { text: "The butter chicken here reminds me of my grandmother's recipe. Such authentic flavors!", author: "Deepak Sharma" },
+    { text: "As a vegetarian, I'm impressed with their paneer dishes. The palak paneer is exceptional!", author: "Meera Patel" },
+    { text: "Coming here for special occasions has become our family tradition. The service is as amazing as the food.", author: "Ravi Kumar" },
+    { text: "Their dal makhani is to die for! Perfectly creamy and rich in taste.", author: "Kavita Singh" },
+    { text: "Been coming here for 3 years now. The consistency in quality is remarkable.", author: "Arjun Reddy" }
   ];
 
   // Enhanced animation variants
@@ -237,14 +242,14 @@ function HomePage() {
             <CountUp to={15} from={0} duration={3} separator="," />
             <span>+</span>
           </GradientText>
-          <span className="stat-label">Years of Excellence</span>
+          <span className="stat-label"> Years of Excellence</span>
         </motion.div>
         <motion.div className="stat" whileHover={{ scale: 1.05 }}>
           <GradientText>
             <CountUp to={50} from={0} duration={1} separator="," />
             <span>+</span>
           </GradientText>
-          <span className="stat-label">Signature Dishes</span>
+          <span className="stat-label"> Signature Dishes</span>
         </motion.div>
       </div>
 
@@ -254,13 +259,13 @@ function HomePage() {
             <CountUp to={1000} from={850} duration={1} separator="" />
             <span>+</span>
           </GradientText>
-          <span className="stat-label">Happy Customers</span>
+          <span className="stat-label"> Happy Customers</span>
         </motion.div>
         <motion.div className="stat" whileHover={{ scale: 1.05 }}>
           <GradientText>
             <CountUp to={4.8} from={0} duration={3} separator="," />
           </GradientText>
-          <span className="stat-label">Customer Rating</span>
+          <span className="stat-label"> Customer Rating</span>
         </motion.div>
       </div>
     </motion.div>

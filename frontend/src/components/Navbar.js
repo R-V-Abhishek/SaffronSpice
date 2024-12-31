@@ -15,12 +15,12 @@ function Navbar() {
   return (
     <nav className="navbar">
       <ul>
-        <li><Link to="/" onClick={handleHomeClick}>Home</Link></li>
-        <li><Link to="/Login">Booking</Link></li>
-        <li><Link to="/menu">Menu</Link></li>
-        <li><Link to="/#contact">Contact Us</Link></li>
-        <li><Link to="/cart">Cart</Link></li>
-        <li><Link to="/view-order">View Your Order</Link></li>
+        <li><Link to="/" onClick={handleHomeClick} className={location.pathname === '/' ? 'active' : ''}>Home</Link></li>
+        <li><Link to="/Login" className={location.pathname === '/Login' ? 'active' : ''}>Booking</Link></li>
+        <li><Link to="/menu" className={location.pathname === '/menu' ? 'active' : ''}>Menu</Link></li>
+        <li><Link to="/#contact" className={location.pathname === '/#contact' ? 'active' : ''}>Contact Us</Link></li>
+        <li><Link to="/cart" className={location.pathname === '/cart' ? 'active' : ''}>Cart</Link></li>
+        <li><Link to="/view-order" className={location.pathname === '/view-order' ? 'active' : ''}>View Your Order</Link></li>
       </ul>
     </nav>
   );

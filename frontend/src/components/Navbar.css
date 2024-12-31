@@ -63,6 +63,12 @@
     letter-spacing: 1px;
 }
 
+.navbar ul li a.active {
+    background-color: #d4a017;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
 /* Mobile menu styles */
 @media screen and (max-width: 768px) {
     .navbar ul {
