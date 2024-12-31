@@ -371,7 +371,7 @@ const ReservationForm = () => {
                   {cartItems.map((item) => (
                     <li key={item.menuItemId} className="cart-preview-item">
                       <span>{item.name}</span>
-                      <span>{item.quantity} x ₹{item.price}</span>
+                      <span>{item.quantity} x {item.price}</span>
                     </li>
                   ))}
                 </ul>

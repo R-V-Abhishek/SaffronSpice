@@ -1,4 +1,3 @@
-
 .hero {
   background-image: url("../assets/Images/Entrance.png");
   background-size: cover;
@@ -164,16 +163,19 @@
 
 }
 
-/* Close Button */
-.btn-close {
-  position: absolute; /* Places it within the header */
-  top: 10px; /* Top padding */
-  right: 10px; /* Right padding */
-  z-index: 10; /* Ensures it is above other elements */
+/* Close Button - Updated positioning */
+.offcanvasHeader :global(.btn-close) {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+  padding: 0.5rem;
+  margin: 0;
 }
 
 /* Offcanvas Title */
 .offcanvasTitle {
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
@@ -183,6 +185,7 @@
   background: linear-gradient(120deg, brown, orange);
   border-radius: 50%;
   box-shadow: 5px 8px 30px black;
+  margin-top: 1.5rem;
 }
 
 /* Restaurant Name */

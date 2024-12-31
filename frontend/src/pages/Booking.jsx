@@ -1,5 +1,5 @@
 // Booking.jsx
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Booking.module.css';
 
@@ -27,17 +27,43 @@ const images = {
 const Booking = () => {
   const navigate = useNavigate();
 
+  const handleBookingClick = useCallback((tableType) => {
+    navigate(`/reservation?tableType=${tableType}`);
+  }, [navigate]);
+
   useEffect(() => {
-    // Dynamically load Bootstrap JavaScript functionality
-    const bootstrap = require('bootstrap');
+    // Initialize all carousels
+    const carousels = document.querySelectorAll('.carousel');
+    carousels.forEach(carousel => {
+      new window.bootstrap.Carousel(carousel, {
+        interval: 3000,
+        wrap: true
+      });
+    });
+
+    // Initialize offcanvas
+    const offcanvasElements = document.querySelectorAll('.offcanvas');
+    offcanvasElements.forEach(element => {
+      new window.bootstrap.Offcanvas(element);
+    });
+
     return () => {
-      // Cleanup if needed
+      // Cleanup Bootstrap components
+      carousels.forEach(carousel => {
+        const instance = window.bootstrap.Carousel.getInstance(carousel);
+        if (instance) {
+          instance.dispose();
+        }
+      });
+
+      offcanvasElements.forEach(element => {
+        const instance = window.bootstrap.Offcanvas.getInstance(element);
+        if (instance) {
+          instance.dispose();
+        }
+      });
     };
   }, []);
-
-  const handleBookingClick = (tableType) => {
-    navigate(`/reservation?tableType=${tableType}`);
-  };
 
   return (
     <div>
