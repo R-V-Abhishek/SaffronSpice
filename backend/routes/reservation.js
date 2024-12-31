@@ -34,8 +34,8 @@ router.get("/available-tables", async (req, res) => {
       timeSlot: timeSlot
     });
     
-    // Get only the reserved table numbers for this time slot
-    const reservedTableNumbers = reservations.map(r => r.tableNumber);
+    // Get all reserved table numbers for this time slot
+    const reservedTableNumbers = reservations.flatMap(r => r.tableNumbers);
     
     // Filter out only the reserved tables, keeping available ones
     const availableTables = tables.filter(t => !reservedTableNumbers.includes(t.tableNumber));
@@ -64,7 +64,7 @@ router.post("/book", async (req, res) => {
     const existingReservations = await Reservation.find({
       visitDate,
       timeSlot,
-      tableNumber: { $in: tableNumbers }
+      tableNumbers: { $in: tableNumbers }
     });
 
     if (existingReservations.length > 0) {
@@ -73,19 +73,19 @@ router.post("/book", async (req, res) => {
       });
     }
 
-    // Create reservations for each selected table
-    const reservations = tableNumbers.map(tableNumber => ({
+    // Create single reservation with all tables
+    const reservation = new Reservation({
       userId,
       guests,
       visitDate,
       timeSlot,
       tableType,
-      tableNumber,
-      cartItems, // Include cart items in the reservation
-      cartTotal // Include cart total in the reservation
-    }));
+      tableNumbers, // Store all table numbers in array
+      cartItems,
+      cartTotal
+    });
 
-    await Reservation.insertMany(reservations);
+    await reservation.save();
 
     // Clear the cart after successful reservation
     await Cart.findOneAndUpdate({ userId }, { items: [], total: 0 });
@@ -96,6 +96,7 @@ router.post("/book", async (req, res) => {
     res.status(500).json({ message: "Failed to save reservation" });
   }
 });
+
 // Get reservations by user ID
 router.get("/user/:userId", async (req, res) => {
   try {

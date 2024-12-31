@@ -49,7 +49,7 @@ const ViewOrderPage = () => {
               <h3>Reservation on {reservation.visitDate} at {reservation.timeSlot}</h3>
               <p>Guests: {reservation.guests}</p>
               <p>Table Type: {reservation.tableType}</p>
-              <p>Table Numbers: {reservation.tableNumber}</p>
+              <p>Table Numbers: {reservation.tableNumbers.join(', ')}</p>
               {reservation.cartItems && reservation.cartItems.length > 0 ? (
                 <>
                   <p>Cart Total: ₹{reservation.cartTotal}</p>
