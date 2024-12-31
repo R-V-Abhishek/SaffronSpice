@@ -1,8 +1,8 @@
 const Reservation = require("../models/Reservation");
 
 const timeSlots = [
-  "11:00", "12:00", "13:00", "14:00", // Lunch slots
-  "18:00", "19:00", "20:00", "21:00", "22:00" // Dinner slots
+  "11:00", "13:00",// Lunch slots
+  "18:00", "20:00", "22:00" // Dinner slots
 ];
 
 const checkAvailableSlots = async (date) => {
@@ -18,13 +18,8 @@ const checkAvailableSlots = async (date) => {
     return slotTime >= minBookingTime;
   });
 
-  // Fetch already reserved slots for the given date
-  const reservedSlots = await Reservation.find({ visitDate: date }).distinct("timeSlot");
-
-  // Filter out reserved slots
-  const availableSlots = filteredSlots.filter(slot => !reservedSlots.includes(slot));
-
-  return availableSlots;
+  // Just return the filtered slots
+  return filteredSlots;
 };
 
 module.exports = { checkAvailableSlots };

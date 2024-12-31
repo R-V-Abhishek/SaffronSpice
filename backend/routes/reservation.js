@@ -25,20 +25,21 @@ router.get("/available-tables", async (req, res) => {
     // Calculate number of tables needed based on guest count
     const numOfTablesNeeded = Math.ceil(parseInt(guests) / 4);
     
-    // Sort tables by tableNumber
+    // Find all tables of the requested type
     const tables = await Table.find({ type }).sort({ tableNumber: 1 });
     
-    // Find existing reservations for the date and time
+    // Find existing reservations for the specific date and time slot
     const reservations = await Reservation.find({ 
       visitDate: date,
       timeSlot: timeSlot
     });
     
-    // Filter out reserved tables
+    // Get only the reserved table numbers for this time slot
     const reservedTableNumbers = reservations.map(r => r.tableNumber);
+    
+    // Filter out only the reserved tables, keeping available ones
     const availableTables = tables.filter(t => !reservedTableNumbers.includes(t.tableNumber));
 
-    // Return tables along with the calculated tablesNeeded
     res.json({ 
       tables: availableTables,
       tablesNeeded: numOfTablesNeeded
