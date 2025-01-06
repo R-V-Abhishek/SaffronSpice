@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import './App.css';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -27,6 +27,35 @@ const ScrollToSection = () => {
       }
     }
   }, [location]);
+
+  return null;
+};
+
+// Navigation Handler Component
+const NavigationHandler = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    // Save each navigation to the browser history
+    window.history.pushState({ path: location.pathname }, '', location.pathname);
+
+    // Handle browser back button
+    const handlePopState = (event) => {
+      if (event.state?.path) {
+        // Navigate to the stored path
+        navigate(event.state.path);
+      } else {
+        // Fallback to default back behavior
+        navigate(-1);
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [location, navigate]);
 
   return null;
 };
@@ -67,6 +96,7 @@ const App = () => {
   return (
     <Router>
       <div className="app-container">
+        <NavigationHandler /> {/* Add the navigation handler */}
         <ScrollToSection /> {/* Add scroll handling */}
         <Routes>
           {/* Auth Pages */}

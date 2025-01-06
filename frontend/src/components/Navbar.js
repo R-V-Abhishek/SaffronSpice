@@ -20,7 +20,7 @@ function Navbar() {
         <li><Link to="/menu" className={location.pathname === '/menu' ? 'active' : ''}>Menu</Link></li>
         <li><Link to="/#contact" className={location.pathname === '/#contact' ? 'active' : ''}>Contact Us</Link></li>
         <li><Link to="/cart" className={location.pathname === '/cart' ? 'active' : ''}>Cart</Link></li>
-        <li><Link to="/view-order" className={location.pathname === '/view-order' ? 'active' : ''}>View Your Order</Link></li>
+        <li><Link to="/view-order" className={location.pathname === '/view-order' ? 'active' : ''}>View Your Orders</Link></li>
       </ul>
     </nav>
   );

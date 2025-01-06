@@ -28,7 +28,7 @@ const Booking = () => {
   const navigate = useNavigate();
 
   const handleBookingClick = useCallback((tableType) => {
-    navigate(`/reservation?tableType=${tableType}`);
+    navigate(`/reservation?tableType=${tableType}`, { replace: false });
   }, [navigate]);
 
   useEffect(() => {

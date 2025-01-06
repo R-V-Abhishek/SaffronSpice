@@ -66,7 +66,10 @@ const Login = () => {
         localStorage.setItem("userId", userId);
         localStorage.setItem("token", token);
 
-        navigate("/Booking"); // Redirect to booking page
+        navigate("/Booking", { 
+          replace: false, 
+          state: { fromLogin: true } 
+        }); // Redirect to booking page
       } else {
         setError(result.message || "Invalid username or password.");
       }
