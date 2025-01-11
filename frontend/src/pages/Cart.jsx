@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import "./Cart.css";
 
 const Cart = () => {
+  const navigate = useNavigate();
+  
   const [cart, setCart] = useState({ items: [], total: 0 });
 
   useEffect(() => {
