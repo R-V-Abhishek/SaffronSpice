@@ -202,10 +202,10 @@ const Card = ({ title, description, images, onClick }) => (
         <span className="visually-hidden">Next</span>
       </button>
     </div>
-    <div className="card-body">
+    <div className={styles.cardBody}>
       <h5 className="card-title">{title}</h5>
       <p className="card-text">{description}</p>
-      <button className="btn btn-success" onClick={onClick}>
+      <button className={styles.bookButton} onClick={onClick}>
         Book Now
       </button>
     </div>

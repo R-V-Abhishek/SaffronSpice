@@ -141,6 +141,13 @@ const Cart = () => {
             </ul>
             <div className="cart-total">
               <h3>Total: ₹{cart.total}</h3>
+              <button 
+                className="reserve-button"
+                onClick={() => navigate('/booking')}
+                disabled={cart.items.length === 0}
+              >
+                Make a Table Reservation
+              </button>
             </div>
           </>
         )}
