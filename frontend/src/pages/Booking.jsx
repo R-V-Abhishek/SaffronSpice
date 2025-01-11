@@ -6,22 +6,22 @@ import styles from './Booking.module.css';
 // Dynamically importing images
 const images = {
   VIP: [
-    require('../assets/Images/Vip.png'),
-    require('../assets/Images/Vip1.png'),
-    require('../assets/Images/Vip2.png'),
+    require('../assets/Vip.png'),
+    require('../assets/Vip1.png'),
+    require('../assets/Vip2.png'),
   ],
   Special: [
-    require('../assets/Images/Special.png'),
-    require('../assets/Images/Special1.png'),
-    require('../assets/Images/Special2.png'),
+    require('../assets/Special.png'),
+    require('../assets/Special1.png'),
+    require('../assets/Special2.png'),
   ],
   Regular: [
-    require('../assets/Images/Regular.png'),
-    require('../assets/Images/Regular1.png'),
-    require('../assets/Images/Regular2.png'),
+    require('../assets/Regular.png'),
+    require('../assets/Regular1.png'),
+    require('../assets/Regular2.png'),
   ],
-  Entrance: require('../assets/Images/Entrance.png'),
-  Logo: require('../assets/Images/SaffronSpice.jpeg'),
+  Entrance: require('../assets/Entrance.png'),
+  Logo: require('../assets/SaffronSpice.jpeg'),
 };
 
 const Booking = () => {

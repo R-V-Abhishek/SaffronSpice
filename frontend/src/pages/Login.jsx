@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
-import Logo from "../assets/Images/SaffronSpice.jpeg";
+import Logo from "../assets/SaffronSpice.jpeg";
 import { isAuthenticated } from "../utils/authUtils"; // Import the utility function
 import { setAuthData } from "../utils/authUtils";
 const Login = () => {

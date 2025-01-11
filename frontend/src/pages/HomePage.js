@@ -8,18 +8,18 @@ import GradientText from "../components/GradientText";
 import { FaClock, FaParking, FaConciergeBell, FaWifi } from 'react-icons/fa';
 
 // Import images
-import biryaniImg from '../assets/Images/ChickenBiryani.png';
-import curryImg from '../assets/Images/ChickenCurry.png';
-import tandooriImg from '../assets/Images/ButterChicken.png';
-import videoThumbnail from '../assets/Images/VideoThumbnail.png';
-import alooGobiImg from '../assets/Images/AlooGobi.png';
-import bainganBhartaImg from '../assets/Images/BainganBharta.png';
-import paneerButterMasalaImg from '../assets/Images/PaneerButterMasala.png';
-import palakPaneerImg from '../assets/Images/PalakPaneer.png';
-import chanaMasalaImg from '../assets/Images/ChanaMasala.png';
-import samosaImg from '../assets/Images/Samosa.png';
-import dalMakhaniImg from '../assets/Images/DalMakhani.png';
-import gulabJamunImg from '../assets/Images/GulabJamun.png';
+import biryaniImg from '../assets/ChickenBiryani.png';
+import curryImg from '../assets/ChickenCurry.png';
+import tandooriImg from '../assets/ButterChicken.png';
+import videoThumbnail from '../assets/VideoThumbnail.png';
+import alooGobiImg from '../assets/AlooGobi.png';
+import bainganBhartaImg from '../assets/BainganBharta.png';
+import paneerButterMasalaImg from '../assets/PaneerButterMasala.png';
+import palakPaneerImg from '../assets/PalakPaneer.png';
+import chanaMasalaImg from '../assets/ChanaMasala.png';
+import samosaImg from '../assets/Samosa.png';
+import dalMakhaniImg from '../assets/DalMakhani.png';
+import gulabJamunImg from '../assets/GulabJamun.png';
 
 function HomePage() {
   const [activeReview, setActiveReview] = useState(0);

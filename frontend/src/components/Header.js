@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Header.css";
-import logo from "../assets/Images/SaffronSpice.jpeg";
+import logo from "../assets/SaffronSpice.jpeg";
 import { isAuthenticated, clearAuthData } from "../utils/authUtils"; // Import the utility functions
 
 function Header() {

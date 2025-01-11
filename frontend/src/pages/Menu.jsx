@@ -27,7 +27,7 @@ const Menu = () => {
           ...category,
           items: category.items.map((item) => ({
             ...item,
-            image: require(`../assets/Images/${item.image.split('/').pop()}`),
+            image: require(`../assets/${item.image.split('/').pop()}`),
           })),
         }));
         setMenuItems(updatedData);

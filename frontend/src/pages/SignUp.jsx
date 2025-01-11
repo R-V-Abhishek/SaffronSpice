@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import styles from "./SignUp.module.css";
-import Logo from "../assets/Images/SaffronSpice.jpeg";
+import Logo from "../assets/SaffronSpice.jpeg";
 
 const SignUp = () => {
   const [theme, setTheme] = useState("light");
