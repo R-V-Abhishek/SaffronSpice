@@ -304,7 +304,7 @@
   padding: 8px 30px;
   border-radius: 25px;
   border: none;
-  background-color: orangered;
+  background-color: #af5303;
   color: white;
   font-weight: 500;
   transition: all 0.3s ease;
@@ -312,7 +312,6 @@
 }
 
 .bookButton:hover {
-  background-color: orangered;
   transform : scale(1.1);
 }
 

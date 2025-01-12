@@ -50,7 +50,8 @@ const ConfirmationPage = () => {
               <ul>
                 {paymentDetails.bookingDetails.cartItems.map((item) => (
                   <li key={item.menuItemId}>
-                    {item.name} - {item.quantity} x ₹{item.price} = ₹{item.quantity * item.price}
+                    {item.name} - {item.quantity} x ₹{item.price.replace("₹", "")} = ₹
+                    {item.quantity * parseFloat(item.price.replace("₹", ""))}
                   </li>
                 ))}
               </ul>
