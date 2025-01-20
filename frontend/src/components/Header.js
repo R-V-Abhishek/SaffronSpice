@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Header.css";
 import logo from "../assets/SaffronSpice.jpeg";
+import defaultProfile from "../assets/default-profile.png"; // Add this import
 import { isAuthenticated, clearAuthData } from "../utils/authUtils"; // Import the utility functions
 
 function Header() {
@@ -76,7 +77,9 @@ function Header() {
       </div>
 
       <div className="profile-container">
-        <div className="profile-pic" onClick={toggleProfileCard}></div>
+        <div className="profile-pic" onClick={toggleProfileCard}>
+          <img src={defaultProfile} alt="Profile" className="profile-icon" />
+        </div>
         <div className="profile-card" id="profile-card">
           {userData ? (
             <>
