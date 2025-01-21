@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom"; // Add useLocation
 import styles from "./Login.module.css";
 import Logo from "../assets/SaffronSpice.jpeg";
 import { isAuthenticated } from "../utils/authUtils"; // Import the utility function
@@ -8,6 +8,7 @@ const Login = () => {
   const [theme, setTheme] = useState("light");
   const [error, setError] = useState(""); // State to track errors
   const navigate = useNavigate();
+  const location = useLocation(); // Get location object
 
   // Redirect if user is already logged in
   useEffect(() => {
@@ -15,6 +16,24 @@ const Login = () => {
       navigate("/Booking"); // Redirect to the Booking page or any other protected route
     }
   }, [navigate]);
+
+  // Set up custom back navigation
+  useEffect(() => {
+    const handlePopState = (event) => {
+      // If we're on the login page and user clicks back
+      if (location.pathname === '/login') {
+        event.preventDefault();
+        navigate('/', { replace: true }); // Navigate to home page
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [navigate, location]);
 
   // Dynamically load Bootstrap styles
   useEffect(() => {

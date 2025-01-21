@@ -23,7 +23,22 @@ const ViewOrderPage = () => {
         }
 
         const data = await response.json();
-        setReservations(data);
+        // Sort reservations by date and time (earliest first)
+        const sortedReservations = data.sort((a, b) => {
+          // Create date objects for comparison
+          const [yearA, monthA, dayA] = a.visitDate.split('-');
+          const [hoursA, minutesA] = a.timeSlot.split(':');
+          const dateA = new Date(yearA, monthA - 1, dayA, hoursA, minutesA);
+
+          const [yearB, monthB, dayB] = b.visitDate.split('-');
+          const [hoursB, minutesB] = b.timeSlot.split(':');
+          const dateB = new Date(yearB, monthB - 1, dayB, hoursB, minutesB);
+
+          // Compare dates (ascending order)
+          return dateA - dateB;
+        });
+        
+        setReservations(sortedReservations);
       } catch (err) {
         setError(err.message);
       } finally {
