@@ -4,18 +4,17 @@
   "description": "A project for managing restaurant reservations and showcasing the menu.",
   "main": "index.js",
   "scripts": {
-      "start": "concurrently \"npm run frontend\" \"npm run backend-init\"",
-      "frontend": "cd frontend && npm start",
-      "backend": "cd backend && nodemon loginserver.js",
-      "backend-init": "cd backend && npm run populate-data && nodemon loginserver.js",
-      "dev": "concurrently \"npm run frontend\" \"npm run backend\""
+    "start": "concurrently \"npm run frontend\" \"npm run backend-init\"",
+    "frontend": "cd frontend && npm start",
+    "backend": "cd backend && nodemon loginserver.js",
+    "backend-init": "cd backend && npm run populate-data && nodemon loginserver.js",
+    "dev": "concurrently \"npm run frontend\" \"npm run backend\"",
+    "build": "cd frontend && npm run build"
   },
-  "author": "Your Name",
+  "author": "Studios Backbanchers",
   "license": "MIT",
   "dependencies": {
-      "concurrently": "^6.2.1",
-      "nodemon": "^3.1.9",
-      "bootstrap": "^5.3.0",
-      "@popperjs/core": "^2.11.8"
+    "concurrently": "^6.2.1",
+    "nodemon": "^3.1.9"
   }
 }
