@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./Header.css";
 import logo from "../assets/SaffronSpice.jpeg";
 import defaultProfile from "../assets/default-profile.png"; // Add this import
-import { isAuthenticated, clearAuthData } from "../utils/authUtils"; // Import the utility functions
+import { clearAuthData } from "../utils/authUtils"; // Import the utility functions
 
 function Header() {
   const [userData, setUserData] = useState(null);

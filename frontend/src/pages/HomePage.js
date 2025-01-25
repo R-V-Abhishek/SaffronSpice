@@ -24,7 +24,7 @@ import gulabJamunImg from '../assets/GulabJamun.png';
 function HomePage() {
   const [activeReview, setActiveReview] = useState(0);
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [setIsLoading] = useState(true);
 
   const featuredDishes = [
     { img: biryaniImg, title: 'Royal Biryani', desc: 'Fragrant basmati rice cooked with aromatic spices' },
@@ -79,23 +79,14 @@ function HomePage() {
     }
   };
 
-  const cardHover = {
-    hover: {
-      scale: 1.05,
-      rotateY: 5,
-      boxShadow: "0px 10px 20px rgba(0,0,0,0.2)",
-      transition: {
-        duration: 0.3
-      }
-    },
-    tap: {
-      scale: 0.95
-    }
-  };
 
   useEffect(() => {
-    // Simulate loading
-    setTimeout(() => setIsLoading(false), 1000);
+    const loadContent = async () => {
+      setIsLoading(true);
+      // Simulate loading
+      setTimeout(() => setIsLoading(false), 1000);
+    };
+    loadContent();
 
     // Enhanced Intersection Observer setup
     const observerOptions = {
@@ -151,7 +142,7 @@ function HomePage() {
       clearInterval(reviewInterval);
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [reviews.length]);
+  }, [setIsLoading, reviews.length]);
   
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });

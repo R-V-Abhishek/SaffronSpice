@@ -8,13 +8,13 @@ const Menu = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [cartError, setCartError] = useState(null);
+  const [setCartError] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const navigate = useNavigate();
 
-  // Fetch menu items on component mount
+  // Fetch menu items on component mount 
   useEffect(() => {
     const fetchMenuItems = async () => {
       try {

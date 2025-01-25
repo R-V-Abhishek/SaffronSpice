@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import "./ReservationForm.css";
 
@@ -86,23 +86,19 @@ const ReservationForm = () => {
     }
   };
 
-  const fetchAvailableTables = async () => {
+  const fetchAvailableTables = useCallback(async () => {
     try {
-      if (!selectedTableType || !visitDate || !selectedTimeSlot || !guests) {
-        return;
-      }
-      const response = await fetch(
-        `http://localhost:5000/api/reservation/available-tables?type=${selectedTableType}&date=${visitDate}&timeSlot=${selectedTimeSlot}&guests=${guests}`
-      );
+      const response = await fetch('YOUR_API_ENDPOINT/tables/available');
       const data = await response.json();
-      setAvailableTables(data.tables);
-      setTablesNeeded(data.tablesNeeded);
+      setAvailableTables(data);
     } catch (error) {
-      console.error("Error fetching available tables:", error);
-      setErrorMessage("Failed to fetch available tables");
-      setShowErrorPopup(true);
+      console.error('Error fetching available tables:', error);
     }
-  };
+  }, []); // Empty dependency array if no state dependencies are used
+
+  useEffect(() => {
+    fetchAvailableTables();
+  }, [fetchAvailableTables]); // Include fetchAvailableTables in the dependency array
 
   const handleGuestSelection = (guestCount) => {
     setGuests(guestCount);
@@ -127,7 +123,7 @@ const ReservationForm = () => {
     if (selectedTimeSlot && selectedTableType && guests) {
       fetchAvailableTables();
     }
-  }, [selectedTimeSlot, selectedTableType, guests, visitDate]);
+  }, [selectedTimeSlot, selectedTableType, guests, visitDate, fetchAvailableTables]); // Include fetchAvailableTables in the dependency array
 
   useEffect(() => {
     if (!selectedTimeSlot) {

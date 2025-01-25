@@ -3,7 +3,6 @@ import { useNavigate, useLocation } from "react-router-dom"; // Add useLocation
 import styles from "./Login.module.css";
 import Logo from "../assets/SaffronSpice.jpeg";
 import { isAuthenticated } from "../utils/authUtils"; // Import the utility function
-import { setAuthData } from "../utils/authUtils";
 const Login = () => {
   const [theme, setTheme] = useState("light");
   const [error, setError] = useState(""); // State to track errors
