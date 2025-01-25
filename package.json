@@ -9,7 +9,7 @@
     "backend": "cd backend && nodemon loginserver.js",
     "backend-init": "cd backend && npm run populate-data && nodemon loginserver.js",
     "dev": "concurrently \"npm run frontend\" \"npm run backend\"",
-    "build": "cd frontend && npm run build"
+    "build": "cd frontend && npm install && npm run build"
   },
   "author": "Studios Backbanchers",
   "license": "MIT",
