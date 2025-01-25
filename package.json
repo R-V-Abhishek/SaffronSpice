@@ -4,7 +4,7 @@
   "description": "A project for managing restaurant reservations and showcasing the menu.",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"npm run frontend\" \"npm run backend-init\"",
+    "start": "cd frontend && npm start",
     "frontend": "cd frontend && npm start",
     "backend": "cd backend && nodemon loginserver.js",
     "backend-init": "cd backend && npm run populate-data && nodemon loginserver.js",
