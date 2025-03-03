@@ -1,4 +1,4 @@
-import { apiUrl } from '../services/apiConfig';
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import "./Cart.css";

@@ -2,7 +2,7 @@ import { apiUrl } from '../services/apiConfig';
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./PaymentPage.css";
-import { apiUrl } from "../services/apiConfig";
+
 
 const PaymentPage = () => {
   const navigate = useNavigate();

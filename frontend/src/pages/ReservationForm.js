@@ -2,7 +2,7 @@ import { apiUrl } from '../services/apiConfig';
 import React, { useState, useEffect, useCallback } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import "./ReservationForm.css";
-import { apiUrl } from "../services/apiConfig";
+
 
 const formatTimeSlot = (time) => {
   const [hours] = time.split(':');
