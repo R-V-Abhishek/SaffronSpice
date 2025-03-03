@@ -13,7 +13,11 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://saffron-spice-restaurant-n6czdwbcv-r-v-abhisheks-projects.vercel.app'],
+  origin: [
+    'http://localhost:3000',
+    'https://saffron-spice-website.vercel.app/', // Add your Vercel domain here
+    'https://saffron-spice-api.onrender.com' // Add Render domain here
+  ],
   credentials: true
 }));
 app.use(express.json()); // Parse JSON payloads
