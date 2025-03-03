@@ -74,7 +74,7 @@ const Menu = () => {
         throw new Error("Authentication data missing. Please log in again.");
       }
 
-      const response = await fetch(apiUrl("/api/cart/add", {
+      const response = await fetch(apiUrl("/api/cart/add"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -82,7 +82,7 @@ const Menu = () => {
           Authorization: `Bearer ${token}`
         },
         body: JSON.stringify({ menuItemId: selectedItem._id, quantity })
-      }));
+      });
 
       const data = await response.json();
       if (response.ok) {

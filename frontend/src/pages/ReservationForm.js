@@ -203,7 +203,7 @@ const ReservationForm = () => {
 
   const handleConfirmBooking = async () => {
     try {
-      const response = await fetch(apiUrl("/api/reservation/book", {
+      const response = await fetch(apiUrl("/api/reservation/book"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -212,7 +212,7 @@ const ReservationForm = () => {
           tableNumbers: selectedTables,
           cartTotal: cartItems.reduce((acc, item) => acc + item.quantity * parseFloat(item.price.replace("₹", "")), 0) // Calculate cart total
         }),
-      }));
+      });
 
       const result = await response.json();
 
@@ -356,9 +356,9 @@ const ReservationForm = () => {
                 // Fetch latest cart items when user selects "Yes"
                 const userId = localStorage.getItem("userId");
                 if (userId) {
-                  const response = await fetch(apiUrl("/api/cart", {
+                  const response = await fetch(apiUrl("/api/cart"), {
                     headers: { userId },
-                  }));
+                  });
                   const data = await response.json();
                   setCartItems(data.items || []);
                 }

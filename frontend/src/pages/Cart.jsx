@@ -75,14 +75,14 @@ const Cart = () => {
   const handleRemove = async (menuItemId) => {
     try {
       const userId = localStorage.getItem("userId");
-      const response = await fetch(apiUrl("/api/cart/remove", {
+      const response = await fetch(apiUrl("/api/cart/remove"), {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
           userId,
         },
         body: JSON.stringify({ menuItemId }),
-      }));
+      });
       if (!response.ok) throw new Error("Failed to remove item from cart");
 
       const updatedCart = await response.json();

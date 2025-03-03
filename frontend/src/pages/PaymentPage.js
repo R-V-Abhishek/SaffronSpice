@@ -31,10 +31,10 @@ const PaymentPage = () => {
       }
 
       try {
-        const response = await fetch(apiUrl(`/api/auth/user/${userId}`, {
+        const response = await fetch(apiUrl(`/api/auth/user/${userId}`), {
           method: "GET",
           headers: { "Content-Type": "application/json" },
-        }));
+        });
 
         if (response.ok) {
           const userData = await response.json();
