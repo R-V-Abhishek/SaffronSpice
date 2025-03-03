@@ -8,6 +8,8 @@ const menuRoutes = require("./routes/menu"); // Import menu routes
 const cartRoutes = require("./routes/cart");
 dotenv.config(); // Load environment variables
 
+console.log("MONGODB_URI:", process.env.MONGODB_URI); // Add this line to check if the variable is loaded
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -15,7 +17,7 @@ const PORT = process.env.PORT || 5000;
 app.use(cors({
   origin: [
     'http://localhost:3000',
-    'https://saffron-spice-website.vercel.app/', // Add your Vercel domain here
+    'https://saffron-spice-website.vercel.app', // Add your Vercel domain here
     'https://saffron-spice-api.onrender.com' // Add Render domain here
   ],
   credentials: true
