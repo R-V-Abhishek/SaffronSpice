@@ -1,3 +1,4 @@
+import { apiUrl } from '../services/apiConfig';
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ViewOrderPage.css";
@@ -17,7 +18,7 @@ const ViewOrderPage = () => {
           return;
         }
 
-        const response = await fetch(`http://localhost:5000/api/reservation/user/${userId}`);
+        const response = await fetch(apiUrl(`/api/reservation/user/${userId}`));
         if (!response.ok) {
           throw new Error("Failed to fetch reservations");
         }

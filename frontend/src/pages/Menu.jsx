@@ -1,3 +1,4 @@
+import { apiUrl } from '../services/apiConfig';
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getUserId, getToken, isAuthenticated } from "../utils/authUtils";
@@ -18,7 +19,7 @@ const Menu = () => {
   useEffect(() => {
     const fetchMenuItems = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/menu");
+        const response = await fetch(apiUrl("/api/menu"));
         if (!response.ok) {
           throw new Error("Failed to fetch menu items");
         }
@@ -73,7 +74,7 @@ const Menu = () => {
         throw new Error("Authentication data missing. Please log in again.");
       }
 
-      const response = await fetch("http://localhost:5000/api/cart/add", {
+      const response = await fetch(apiUrl("/api/cart/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -81,7 +82,7 @@ const Menu = () => {
           Authorization: `Bearer ${token}`
         },
         body: JSON.stringify({ menuItemId: selectedItem._id, quantity })
-      });
+      }));
 
       const data = await response.json();
       if (response.ok) {

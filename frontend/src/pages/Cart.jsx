@@ -1,6 +1,8 @@
+import { apiUrl } from '../services/apiConfig';
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import "./Cart.css";
+import { apiUrl } from "../services/apiConfig";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -16,9 +18,9 @@ const Cart = () => {
       const userId = localStorage.getItem("userId");
       if (!userId) throw new Error("User not logged in");
 
-      const response = await fetch("http://localhost:5000/api/cart", {
+      const response = await fetch(apiUrl("/api/cart", {
         headers: { userId },
-      });
+      }));
       if (!response.ok) throw new Error("Failed to fetch cart");
 
       const data = await response.json();
@@ -49,14 +51,14 @@ const Cart = () => {
 
       // Call API to update quantity
       const userId = localStorage.getItem("userId");
-      const response = await fetch("http://localhost:5000/api/cart/update", {
+      const response = await fetch(apiUrl("/api/cart/update", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
           userId,
         },
         body: JSON.stringify({ menuItemId, quantity: newQuantity }),
-      });
+      }));
 
       if (!response.ok) {
         throw new Error("Failed to update quantity");
@@ -73,14 +75,14 @@ const Cart = () => {
   const handleRemove = async (menuItemId) => {
     try {
       const userId = localStorage.getItem("userId");
-      const response = await fetch("http://localhost:5000/api/cart/remove", {
+      const response = await fetch(apiUrl("/api/cart/remove", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
           userId,
         },
         body: JSON.stringify({ menuItemId }),
-      });
+      }));
       if (!response.ok) throw new Error("Failed to remove item from cart");
 
       const updatedCart = await response.json();

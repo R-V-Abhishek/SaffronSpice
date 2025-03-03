@@ -1,6 +1,8 @@
+import { apiUrl } from '../services/apiConfig';
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./PaymentPage.css";
+import { apiUrl } from "../services/apiConfig";
 
 const PaymentPage = () => {
   const navigate = useNavigate();
@@ -29,10 +31,10 @@ const PaymentPage = () => {
       }
 
       try {
-        const response = await fetch(`http://localhost:5000/api/auth/user/${userId}`, {
+        const response = await fetch(apiUrl(`/api/auth/user/${userId}`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
-        });
+        }));
 
         if (response.ok) {
           const userData = await response.json();

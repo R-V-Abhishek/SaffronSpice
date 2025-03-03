@@ -1,3 +1,4 @@
+import { apiUrl } from '../services/apiConfig';
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom"; // Add useLocation
 import styles from "./Login.module.css";
@@ -68,13 +69,13 @@ const Login = () => {
     const data = Object.fromEntries(formData.entries());
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
+      const response = await fetch(apiUrl("/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-      });
+      }));
 
       const result = await response.json();
 

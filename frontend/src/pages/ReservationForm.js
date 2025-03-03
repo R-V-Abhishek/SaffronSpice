@@ -1,6 +1,8 @@
+import { apiUrl } from '../services/apiConfig';
 import React, { useState, useEffect, useCallback } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import "./ReservationForm.css";
+import { apiUrl } from "../services/apiConfig";
 
 const formatTimeSlot = (time) => {
   const [hours] = time.split(':');
@@ -49,7 +51,7 @@ const ReservationForm = () => {
         const userId = localStorage.getItem("userId");
         if (!userId) return;
 
-        const response = await fetch("http://localhost:5000/api/cart", {
+        const response = await fetch(apiUrl("/api/cart"), {
           headers: { userId },
         });
 
@@ -71,7 +73,7 @@ const ReservationForm = () => {
 
   const fetchAvailableTimeSlots = async (date) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/reservation/timeslots?date=${date}`);
+      const response = await fetch(apiUrl(`/api/reservation/timeslots?date=${date}`));
       const data = await response.json();
       if (response.ok) {
         setAvailableTimeSlots(data.timeSlots || []);
@@ -201,7 +203,7 @@ const ReservationForm = () => {
 
   const handleConfirmBooking = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/reservation/book", {
+      const response = await fetch(apiUrl("/api/reservation/book", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -210,7 +212,7 @@ const ReservationForm = () => {
           tableNumbers: selectedTables,
           cartTotal: cartItems.reduce((acc, item) => acc + item.quantity * parseFloat(item.price.replace("₹", "")), 0) // Calculate cart total
         }),
-      });
+      }));
 
       const result = await response.json();
 
@@ -354,9 +356,9 @@ const ReservationForm = () => {
                 // Fetch latest cart items when user selects "Yes"
                 const userId = localStorage.getItem("userId");
                 if (userId) {
-                  const response = await fetch("http://localhost:5000/api/cart", {
+                  const response = await fetch(apiUrl("/api/cart", {
                     headers: { userId },
-                  });
+                  }));
                   const data = await response.json();
                   setCartItems(data.items || []);
                 }
