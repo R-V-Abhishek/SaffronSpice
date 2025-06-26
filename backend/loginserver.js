@@ -16,8 +16,8 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(cors({
   origin: [
-    "https://saffron-spice-restaurant-4ukys8kba-r-v-abhisheks-projects.vercel.app",
-    "https://saffron-spice-website.vercel.app/menu"
+    "https://saffron-spice-website.vercel.app",
+    "https://saffron-spice-api.onrender.com",
   ], // Vercel live frontend URLs
   credentials: true, // Allow cookies if needed
 }));
